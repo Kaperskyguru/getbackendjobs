@@ -22,8 +22,6 @@
 
 <script>
 export default {
-  name: "AvataR",
-
   props: {
     src: {
       type: String,
@@ -69,7 +67,7 @@ export default {
         : this.size === "normal"
         ? "w-16 h-16 text-base tracking-wider"
         : this.size === "medium"
-        ? "md:w-80 md:h-80 w-full h-full text-base tracking-wider"
+        ? " h-40 w-40 text-base tracking-wider"
         : "w-full h-full text-base tracking-wider";
     },
     colorAsClasses() {
