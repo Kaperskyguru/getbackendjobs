@@ -1,5 +1,5 @@
 <template>
-  <span class="w-full">
+  <span class="w-full relative">
     <button
       @click="showMenu = !showMenu"
       id="dropdownSearchButton"
@@ -30,7 +30,7 @@
     <div
       v-if="showMenu"
       id="dropdownSearch"
-      class="z-10 bg-white absolute rounded-lg shadow w-60 dark:bg-gray-700"
+      class="z-50 bg-white absolute rounded-lg shadow w-60 dark:bg-gray-700"
     >
       <div class="p-3">
         <label for="input-group-search" class="sr-only">Search</label>

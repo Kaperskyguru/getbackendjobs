@@ -1,6 +1,9 @@
 <template>
   <div
-    class="container mx-auto md:w-3/4 w-full border-t md:border-x md:border-b border-solid border-gray-300 md:mt-3 md:rounded-lg"
+    class="container mx-auto md:w-3/4 w-full md:border-x border-solid border-gray-300 md:mt-3 md:rounded-lg"
+    :class="{
+      'border-t md:border-b': isFull || bgColor === 'white',
+    }"
   >
     <nuxt-link to="/jobs/asas">
       <div
@@ -12,8 +15,9 @@
 
           'md:rounded-t-lg': isFull,
           'md:rounded-lg': !isFull,
+          'border-t border-solid border-gray-300': bgColor !== 'white',
         }"
-        class="flex group my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
+        class="flex group md:my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
       >
         <div class="flex w-full items-center gap-5">
           <div><Avatar name="Mastering Backend" /></div>

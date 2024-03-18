@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relaive">
     <section>
       <Banner />
     </section>
@@ -10,11 +10,11 @@
       </section>
       <section class="container mx-auto md:w-3/4 w-full px-2 my-6">
         <div
-          class="flex flex-col md:flex-row gap-2 text-black bg-white"
+          class="flex gap-2 overflow-x-auto text-black bg-white"
           style="opacity: 0.5; filter: saturate(0)"
         >
           <p class="text-gray-500 text-sm">trusted by</p>
-          <div class="flex flex-col md:flex-row items-center gap-5">
+          <div class="flex items-center gap-5">
             <div class="w-40">
               <img
                 src="~/assets/masteringlogo.png"
@@ -33,8 +33,8 @@
       </section>
 
       <section class="container mx-auto md:w-3/4 w-full px-2 my-10">
-        <div class="flex flex-col md:flex-row gap-2 my-5">
-          <div class="flex flex-col md:flex-row w-full gap-5">
+        <div class="flex flex-row justify-around gap-2 my-5 overflow-x-auto">
+          <div class="flex w-full gap-5">
             <div>
               <Dropdown title="Filter" />
             </div>
@@ -50,20 +50,28 @@
             <div>
               <Dropdown title="Benefits" />
             </div>
+
+            <div class="md:hidden block">
+              <Dropdown title="Sort By" />
+            </div>
           </div>
-          <div class="md:w-60 w-full md:text-right">
+          <div class="md:w-40 w-full hidden md:block">
             <Dropdown title="Sort By" />
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-2">
-          <div class="flex flex-col md:flex-row w-full gap-5">
+        <div class="flex overflow-x-auto gap-2">
+          <div class="flex w-full gap-5">
             <div>
               <Suggested title="Location" />
             </div>
 
             <div>
               <Suggested title="Salary" />
+            </div>
+
+            <div>
+              <Suggested title="Benefits" />
             </div>
 
             <div>

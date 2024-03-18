@@ -17,6 +17,12 @@
       <div
         class="relative flex flex-col justify-center items-center h-full text-center"
       >
+        <div class="absolute left-0 top-0 mt-5 lg:flex gap-3 w-20 h-auto">
+          <nuxt-link href="/">
+            <img src="~/assets/logo.png" class="w-full" alt="" />
+          </nuxt-link>
+        </div>
+
         <div class="absolute right-0 top-0 mt-5 lg:flex gap-3 hidden">
           <a href="#" class="px-3 py-2 text-white border rounded-lg"> Login </a>
           <a
