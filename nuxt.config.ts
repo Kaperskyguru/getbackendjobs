@@ -16,6 +16,12 @@ export default defineNuxtConfig({
     ],
   },
 
+  runtimeConfig: {
+    public: {
+      gtagId: process.env.GTAG_ID,
+    },
+  },
+
   extends: ["~/layouts/base"],
 
   vite: {
