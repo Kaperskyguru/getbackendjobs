@@ -9,9 +9,13 @@ function toggleMobileMenu() {
 
 <template>
   <div
-    class="container py-5 flex justify-between items-center w-full overflow-hidden"
+    class="shadow py-4 flex justify-between items-center w-full overflow-hidden"
   >
-    <img src="@/assets/masteringlogo.png" alt="logo" class="md:w-64 w-52" />
+    <div class="lg:flex gap-3 w-20 h-auto">
+      <nuxt-link href="/">
+        <img src="~/assets/logo.png" class="w-full" alt="" />
+      </nuxt-link>
+    </div>
 
     <!-- Hamburger Icon for Mobile -->
     <div class="lg:hidden cursor-pointer" @click="toggleMobileMenu">
@@ -42,7 +46,7 @@ function toggleMobileMenu() {
         >
         <nuxt-link to="/login" class="hover:border-b-4 p- border-primaryColor"
           >Login</nuxt-link
-        > 
+        >
       </div>
       <Button />
     </div>
@@ -50,7 +54,7 @@ function toggleMobileMenu() {
     <!-- Mobile Menu (Dynamic) -->
     <div
       v-if="isMobileMenuOpen"
-      class="lg:hidden text-2xl top-0 left-0 body w-full h-[9900px] bg-white fixed"
+      class="lg:hidden text-2xl top-0 left-0 body w-full h-[9900px] bg-white absolute"
     >
       <!-- Mobile Navigation Links -->
       <div class="flex flex-col items-center py-10 gap-10">

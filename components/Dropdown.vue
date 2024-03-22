@@ -5,7 +5,8 @@
       id="dropdownSearchButton"
       data-dropdown-toggle="dropdownSearch"
       data-dropdown-placement="bottom"
-      class="text-gray-600 border-gray-200 rounded-full border border-solid hover:bg-greay-800 focus:ring-0 focus:outline-none w-full focus:ring-gray-300 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      :class="{ 'rounded-full': isRoundedFull, 'rounded-lg': !isRoundedFull }"
+      class="text-gray-600 border-gray-200 border border-solid hover:bg-greay-800 focus:ring-0 focus:outline-none w-full focus:ring-gray-300 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       type="button"
     >
       {{ title }}
@@ -214,6 +215,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  isRoundedFull: { type: Boolean, default: true },
   items: {
     type: Array,
     default: () => [],

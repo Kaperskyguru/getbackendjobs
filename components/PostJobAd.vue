@@ -17,7 +17,7 @@
         <button
           class="bg-red-600 w-ful px-2 py-3 rounded-xl text-sm text-white"
         >
-          <p class="w-full">Post a Backend Job</p>
+          <a href="/hire-backend"><p class="w-full">Post a Backend Job</p></a>
         </button>
         <button
           @click.prevent="show = !show"

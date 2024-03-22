@@ -32,7 +32,7 @@
             Sign Up
           </a>
           <a
-            href="#"
+            href="/hire-backend"
             class="px-3 py-2 text-white bg-red-500 rounded-lg text-lg font-bold"
           >
             Post a Backend Job

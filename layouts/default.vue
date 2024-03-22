@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <header>
-      <Pageheader />
-    </header> -->
-
     <slot />
   </div>
 </template>

@@ -1,0 +1,1427 @@
+<template>
+  <main>
+    <div class="shadow">
+      <div
+        class="py-4 mb-5 flex justify-between items-center w-full overflow-hidden"
+      >
+        <div class="lg:flex gap-3 w-20 h-auto">
+          <nuxt-link href="/">
+            <img src="~/assets/logo.png" class="w-full" alt="" />
+          </nuxt-link>
+        </div>
+
+        <div class="px-4">
+          <button
+            class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded"
+          >
+            Buy Job Bundle
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex relative justify-center py-2">
+      <p class="font-bold text-lg text-center">
+        🏷 A discount of 10% with code 573ACB3B8848293F9E81010ADFF53383 is
+        applied on checkout
+      </p>
+    </div>
+
+    <div
+      class="bg-gradient-to-r from-purple-600 to-blue-600 py-4 px-4 flex justify-center text-white"
+    >
+      <p>⛳️ Save up to 50% when buying multiple job posts — Buy a bundle →</p>
+    </div>
+
+    <section class="flex md:flex-row flex-col relative justify-between">
+      <div
+        class="p-5 w-full md:w-2/3 bg-[#FBFAF8] md:pb-60 pb-5 border-r border-solid border-gray-200"
+      >
+        <!-- Job Details -->
+        <div class="rounded border border-solid border-gray-300 p-3">
+          <!-- <form class="w-full p-3"> -->
+          <div class="pb-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name">Company Name*</label>
+              </div>
+              <input
+                type="text"
+                id="company_name"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Company name"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Your company's brand/trade name: without Inc., Ltd., B.V., Pte.,
+              etc.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name">Position*</label>
+              </div>
+              <input
+                type="text"
+                id="company_name"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Position"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Please specify as single job position like "Senior Backend
+              Engineer" or "Node JS Developer", not a sentence like "Looking for
+              SBE / SWE / Manager". We know your job is important but please DO
+              NOT WRITE IN FULL CAPS. If posting multiple roles, please create
+              multiple job posts. A job post is limited to a single job. We only
+              allow real jobs, absolutely no MLM-type courses "learn how to work
+              online" please.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name">Type*</label>
+              </div>
+              <select
+                type="text"
+                id="company_name"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Position"
+              >
+                <option>Full-time</option>
+                <option>Part-time</option>
+                <option>Contractor</option>
+                <option>Temporary</option>
+                <option>Internship</option>
+                <option>Volunteer</option>
+                <!-- <option>Full-time</option> -->
+              </select>
+            </div>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name uppercase">PRIMARY TAG *</label>
+              </div>
+              <select
+                type="text"
+                id="company_name"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Position"
+              >
+                <option>Full-time</option>
+                <option>Part-time</option>
+                <option>Contractor</option>
+                <option>Temporary</option>
+                <option>Internship</option>
+                <option>Volunteer</option>
+                <!-- <option>Full-time</option> -->
+              </select>
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Select a primary tag This primary tag shows first and increases
+              visibility in the main sections. Your job is shown on every page
+              that is tagged with though. E.g. if you tag it as PHP, it shows
+              for PHP Backend Jobs etc.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name uppercase"
+                  >TAGS, KEYWORDS OR STACK*
+                </label>
+              </div>
+              <div class="pb- bg-white rounded-lg">
+                <Dropdown
+                  :items="[]"
+                  title="Tags, keywords or stacks"
+                  :isRoundedFull="false"
+                />
+              </div>
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Short tags are preferred. Use tags like industry and tech stack.
+              The first 3 or 4 tags are shown on the site, the other tags aren't
+              but the job will be shown on each tag specific page (like
+              /remote-backend-jobs). We also sometimes generate tags
+              automatically after you post/edit to supplement.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name uppercase"
+                  >JOB IS RESTRICTED TO LOCATIONS?
+                </label>
+              </div>
+              <div class="pb- bg-white rounded-lg">
+                <Dropdown
+                  :items="[]"
+                  title="Locations"
+                  :isRoundedFull="false"
+                />
+              </div>
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              If you'd only like to hire people from a specific location or
+              timezone this backend job is restricted to (e.g. Europe, United
+              States or Japan). If not restricted, please leave it as
+              "Worldwide". The less restricted this is, the more applicants you
+              will get. Keeping it "Worldwide" is highly recommended as you'll
+              have access to a worldwide pool of talent. To promote fairness in
+              remote work positions, worldwide jobs are ranked higher.
+            </p>
+          </div>
+          <!-- </form> -->
+        </div>
+
+        <!-- Job Design -->
+        <div class="rounded border border-solid border-gray-300 p-3 my-5">
+          <div class="items-center py-2">
+            <input
+              checked
+              id="premium_support"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="premium_support"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+              >Get 💁‍♀️ premium support and help with your job post (+$89)</label
+            >
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              checked
+              id="showCompanyLogo"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="showCompanyLogo"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+              >Show my ⭐️ company logo besides my post (+$44)</label
+            >
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              2x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              checked
+              id="blast_to_newsletter"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="blast_to_newsletter"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Email blast my job post to 📮1,010,906 remote candidates (+$89)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              3x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              checked
+              id="directory_of_backend_engineers"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="directory_of_backend_engineers"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Get auto matched with suitable applicants from our
+              <a href="#">community of backend engineers</a>
+            </label>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              checked
+              id="enable_qr_code"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="enable_qr_code"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Create a
+              <!-- <img
+                src="/assets/qr_icon.png?1708185060"
+                style="
+                  width: 22px;
+                  height: 22px;
+                  vertical-align: middle;
+                  display: inline-block;
+                "
+              /> -->
+              QR-code short link for your post like
+              <a href="#"> rok.co/bz</a> to share easily (+$44)
+            </label>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              checked
+              id="highlight_post_yellow"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="highlight_post_yellow"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Highlight your post in ⚠️ yellow (+$49)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              2x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              id="stick_for_24_hours"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="stick_for_24_hours"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Sticky your post so it stays on 📌 top of the frontpage for ⏰ 24
+              hours (+$89)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              2x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              id="stick_for_1_week"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="stick_for_1_week"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
+              week (+$179)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              3x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              id="stick_for_1_month"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="stick_for_1_month"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
+              month (+$537)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              6x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              id="selected_location"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="selected_location"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Geolock your post for people only in the location it's restricted
+              to above and block applicants from elsewhere (+$89)
+            </label>
+          </div>
+
+          <div class="flex lg:flex-row flex-col w-full items-center py-2">
+            <div
+              class="flex flex-col lg:flex-row p-1 flex-start items-center rounded-lg w-ful gap-5 mr-5"
+            >
+              <div class="font-light text-md">
+                <label for="company_name">Expected views</label>
+              </div>
+              <input
+                disabled
+                type="text"
+                id="company_name"
+                class="block p-3 rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+              />
+            </div>
+
+            <div
+              class="relative flex-col lg:flex-row items-center flex-start flex p-1 rounded-lg w-ful gap-5"
+            >
+              <div class="font-light text-md">
+                <label for="company_name">Expected clicks</label>
+              </div>
+              <input
+                disabled
+                type="text"
+                id="company_name"
+                class="block p-3 w-ful rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+              />
+            </div>
+          </div>
+
+          <p class="text-gray-500 pt-2 text-xs font-thin">
+            Pricing of job posts and extra features is dynamic and may change
+            based on how many jobs are posted every week, for example to avoid
+            too many sticky jobs at one time. Sticky posts are limited to max 2
+            per company at one time. Job posts are a) published for 30 days, b)
+            cannot be refunded, and c) renew automatically after 30 days unless
+            you 1) disable auto renew after posting on the edit page, or 2)
+            close your job post on the edit page. We send a reminder 7 days by
+            email before renewing. Renewing is the same price as the original
+            job post for 30 days. If you buy a bundle, the discounted single job
+            post price is used to renew. Automatic renewals can be self-refunded
+            within 7 days after renewing with the link in the email.
+          </p>
+        </div>
+
+        <!-- Company Details -->
+        <div class="rounded border border-solid border-gray-300 p-3 my-5">
+          <div class="pb-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name"
+                  >Company Logo
+                  <span class="text-xs"
+                    >(.JPG OR .PNG, SQUARE OR ROUND)</span
+                  ></label
+                >
+              </div>
+              <input
+                type="file"
+                id="company_logo"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+              />
+            </div>
+          </div>
+
+          <div class="flex items-center pb-5">
+            <input
+              id="chooseCompanyColor"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="chooseCompanyColor"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+              >Highlight with your company's 🌈 brand color (+$499) 👉</label
+            >
+            <input
+              autocomplete="off"
+              type="color"
+              name="highlight_color"
+              class="input_highlight_color_value"
+              value="#ff4742"
+            />
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              2x more views
+            </span>
+          </div>
+
+          <div class="pb-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name"
+                  >ANNUAL SALARY OR COMPENSATION IN USD
+
+                  <span class="text-xs"
+                    >(GROSS, ANNUALIZED, FULL-TIME-EQUIVALENT (FTE) IN USD
+                    EQUIVALENT)</span
+                  >*</label
+                >
+              </div>
+              <div class="flex lg:flex-row flex-col items-center text-white">
+                <div
+                  class="flex p-1 flex-start items-center rounded-lg w-ful gap-5 mr-5"
+                >
+                  <div class="font-light text-md">
+                    <label for="minimum_per_year">Minimum per year </label>
+                  </div>
+                  <input
+                    type="number"
+                    id="minimum_per_year"
+                    class="block p-3 rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                  />
+                </div>
+
+                <div
+                  class="relative items-center flex-start flex p-1 rounded-lg w-ful gap-5"
+                >
+                  <div class="font-light text-md">
+                    <label for="maximum_per_year">Maximum per year </label>
+                  </div>
+                  <input
+                    type="number"
+                    id="maximum_per_year"
+                    class="block p-3 w-ful rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-gray-500 pt-2 pb-5 text-xs font-thin">
+            <span>
+              <strong class="highlight" style="text-decoration: underline"
+                >It's illegal to not share salary range on job posts since
+                2021.</strong
+              >
+              Posts without salary will automatically show an estimate of salary
+              based on similar jobs. Remote job postings are
+              <a
+                target="_blank"
+                class="underline"
+                href="https://www.natlawreview.com/article/colorado-pay-transparency-more-guidance-job-promotional-posting-requirements-issued"
+                >legally required to show a salary compensation range</a
+              >
+              in
+              <a
+                target="_blank"
+                class="underline"
+                href="https://www.lexology.com/library/detail.aspx?g=f81b6cd9-f614-411c-908b-88866db7ea84"
+                >many U.S. states and countries</a
+              >. Google does NOT index jobs without salary data. If it's a
+              short-term gig, use the annual full-time equivalent. For example,
+              if it's a 2-week project for $2,000, the annual equivalent would
+              be $2,000 / 2 weeks * 52 weeks = $52,000. Please use USD
+              equivalent. We don't have currency built-in yet and we'd like to
+              use this salary data to show salary trends in remote work.
+              <a
+                target="_blank"
+                class="underline"
+                href="https://twitter.com/levelsio/status/1364288537030459400"
+                >Get Backend Jobs is a supporter of #OpenSalaries</a
+              >.
+            </span>
+          </p>
+
+          <div class="pb-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name">Job description*</label>
+              </div>
+              <div class="flex items-center">
+                <textarea class="w-full" rows="20"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name uppercase">Benefits* </label>
+              </div>
+              <div class="pb- bg-white rounded-lg">
+                <Dropdown
+                  :items="[
+                    '401(k)',
+                    'Distributed Team',
+                    'Async',
+                    'Vision Insurance',
+                    'Dental Insurance',
+                    'Medical Insurance',
+                    'Unlimited vacation',
+                    'Paid time off',
+                    '4 day workweek',
+                    '401k matching',
+                    'Company retreats',
+                    'Coworking budget',
+                    'Learning budget',
+                    'Free gym membership',
+                    'Mental wellness budget',
+                    'Home office budget',
+                    'Pay in crypto',
+                    'Pseudonymous',
+                    'Profit sharing',
+                    'Equity compensation',
+                    'No whiteboard interview',
+                    'No monitoring system',
+                    'No politics at work',
+                    'We hire old (young)',
+                  ]"
+                  title="Benefits"
+                  :isRoundedFull="false"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="how_to_apply">How to Apply</label>
+              </div>
+              <div class="flex items-center">
+                <textarea id="how_to_apply" class="w-full" rows="20"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="apply_url">APPLY URL*</label>
+              </div>
+              <input
+                type="text"
+                id="apply_url"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Apply URL"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Apply URLs with a form an applicant can fill out generally receive
+              a lot more applicants than having people apply by email (below). A
+              good platform to have applicants apply on is Lever (not
+              affiliated).
+            </p>
+          </div>
+          <p class="text-center text-2xl">Or</p>
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="apply_email">APPLY Email Address*</label>
+              </div>
+              <input
+                type="email"
+                id="apply_email"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Apply URL"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              This email is public (!), the [ Apply ] button links to it if you
+              do not specify an Apply URL above. We recommend using an Apply
+              URL, instead of an Apply Email Address, because you might get a
+              lot of spam/automated applicants by email.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="invoice_email">Invoice Email (Stays private)</label>
+              </div>
+              <input
+                type="email"
+                id="invoice_email"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Apply URL"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              We send a copy of the invoice and edit link to here too. You can
+              write your finance department or accountant expenses email here so
+              they get a copy of the invoice for your bookkeeping.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="invoice_email">INVOICE ADDRESS* </label>
+              </div>
+              <textarea
+                id="invoice_email"
+                placeholder="e.g. your company's full name and full invoice address, including building, street, city and country; also things like your VAT number, this is shown on the invoice."
+                class="w-full"
+                rows="5"
+              ></textarea>
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Specify your company address here and we'll put it on your invoice
+              for your bookkeeping. Be sure to [ Save changes ] in bottom right
+              after editing your invoice address. Then it'll be instantly
+              updated on the invoice.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="invoice_notes">INVOICE NOTES / PO NUMBER</label>
+              </div>
+              <input
+                type="email"
+                id="invoice_notes"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="e.g PO number 1234"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Not required. Add notes here that you'd like to see on the
+              invoice/receipt such as a Purchase Order number or any other
+              internal notes you need for reference. You can add or edit this
+              later.
+            </p>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              id="pay_later"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="pay_later"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              I'd like to pay later
+            </label>
+          </div>
+          <p class="text-gray-500 pt-2 text-xs">
+            Need to get approval for this payment? Or send the invoice to your
+            finance department first? No problem, we'll save your job post and
+            send you (and your finance department below) a payment link. Once
+            it's paid we immediately publish it!
+          </p>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="pay_later_email">PAY LATER EMAIL* </label>
+              </div>
+              <input
+                type="email"
+                id="pay_later_email"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Pay later email address"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              We will send a link to pay for this job to this email address.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feedback box -->
+        <div class="rounded border border-solid border-gray-300 p-3 my-5">
+          <div class="pb-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_name">Feedback box</label>
+              </div>
+              <div class="flex items-center">
+                <textarea class="w-full" rows="10"></textarea>
+              </div>
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              This isn't part of the job post. If you have any feature requests
+              or general feedback about posting a job Remote OK, leave it here.
+              Please be radically honest, I'm always improving the site and act
+              on your feedback fast. It's most important that you're happy with
+              the site and I want you to keep coming back to post here! This
+              feedback box gets sent straight to my phone wherever I am. -Pieter
+              Levels, Founder of Remote OK
+            </p>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="rounded border border-solid border-gray-300 p-3 my-5">
+          <div class="text-center">
+            <p class="text-md font-bold">
+              Here's a preview of how your job post will look like
+            </p>
+            <p class="font-light text-md py-4">
+              Don't worry if it's not perfect first time: your job is fully
+              editable for free after posting it
+            </p>
+          </div>
+
+          <div class="rounded-lg bg-gray-100 w-full p-5">
+            <div
+              class="gap-5 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 flex lg:flex-row flex-col justify-between items-center p-4 rounded-t-lg"
+            >
+              <div class="flex justify-between items-center gap-20">
+                <div>
+                  <Avatar></Avatar>
+                </div>
+                <div class="flex flex-col">
+                  <p>Company</p>
+                  <p class="font-bold text-lg">Positon</p>
+                  <span class="bg-white px-2 py-1 rounded-lg text-xs"
+                    >🌏 Worldwide</span
+                  >
+                </div>
+              </div>
+
+              <div class="flex gap-2">
+                <span class="bg-white px-2 py-1 rounded-lg text-xs">Dev</span>
+                <span class="bg-white px-2 py-1 rounded-lg text-xs"
+                  >Backend</span
+                >
+              </div>
+
+              <div>
+                <button
+                  disabled
+                  class="border-dashed border border-gray-800 px-5 rounded-lg py-1"
+                >
+                  Apply
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-col lg:flex-row justify-between relative gap-5"
+            >
+              <div class="pb-3 md:px-10 pt-10">
+                <div>
+                  <h2 class="text-3xl font-thin py-4">
+                    Mastering Backend is hiring a
+                  </h2>
+
+                  <h1 class="text-4xl font-bold">Backend Software Engineer</h1>
+                </div>
+                <div class="pt-2 font-light">
+                  <article>
+                    <p>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Obcaecati quod amet dolorum libero consectetur nam ipsa
+                      laudantium, voluptas consequatur et, suscipit labore
+                      quidem corporis hic praesentium optio possimus facilis
+                      placeat.
+                    </p>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      In consequuntur excepturi alias deserunt modi dolorem
+                      nobis reiciendis perspiciatis est, perferendis, commodi id
+                      aliquid provident impedit! Sunt natus neque illum aut.
+                    </p>
+
+                    <p>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Obcaecati quod amet dolorum libero consectetur nam ipsa
+                      laudantium, voluptas consequatur et, suscipit labore
+                      quidem corporis hic praesentium optio possimus facilis
+                      placeat.
+                    </p>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      In consequuntur excepturi alias deserunt modi dolorem
+                      nobis reiciendis perspiciatis est, perferendis, commodi id
+                      aliquid provident impedit! Sunt natus neque illum aut.
+                    </p>
+
+                    <p>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Obcaecati quod amet dolorum libero consectetur nam ipsa
+                      laudantium, voluptas consequatur et, suscipit labore
+                      quidem corporis hic praesentium optio possimus facilis
+                      placeat.
+                    </p>
+                  </article>
+                </div>
+              </div>
+
+              <div
+                class="rounded-b-lg border border-solid border-gray-200 p-5 lg:my-0 my-4 lg:w-[250px] w-full justify-center bg-[#fbfaf8]"
+                style="float: right"
+              >
+                <div class="flex justify-center">
+                  <Avatar name="Mastering Backend" size="medium" />
+                </div>
+                <div class="py-4 text-center">
+                  <h4 class="text-2xl font-black">Mastering Backend</h4>
+
+                  <a
+                    href="https://masteringbackend.com"
+                    class="underline text-xl w-full font-bold"
+                    ><p class="w-full">masteringbackend.com</p></a
+                  >
+                </div>
+
+                <div class="py-2">
+                  <button
+                    class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
+                  >
+                    Apply Now
+                  </button>
+                </div>
+
+                <div class="py-2 text-center">
+                  <div class="text-lg py-2 font-light">
+                    <span> 👀 </span> <span>18,541 views</span>
+                  </div>
+
+                  <div class="text-lg py-2 font-light">
+                    <span> ✅ </span>
+                    <span>2,780 applied (15%)</span>
+                  </div>
+                </div>
+
+                <div class="flex justify-center text-center py-2 flex-col">
+                  <h5 class="text-lg font-bold pb-2">Share this job:</h5>
+                  <input
+                    type="text"
+                    placeholder="https://getbackendjobs.com/jobs/remote-software-development-team-leader-venture-personnel-624164?ref=sh"
+                    class="rounded-lg"
+                    value="https://getbackendjobs.com/jobs/remote-software-development-team-leader-venture-personnel-624164?ref=sh"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="border rounded-lg border-solid border-gray-400 p-5 container mx-auto my-5 md:w-3/4 w-full"
+            >
+              <h3 class="font-bold text-xl text-center py-5">
+                How do you apply?
+              </h3>
+              <article class="text-center">
+                <p class="py-5">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Obcaecati quod amet dolorum libero consectetur nam ipsa
+                  laudantium, voluptas consequatur et, suscipit labore quidem
+                  corporis hic praesentium optio possimus facilis placeat.
+                </p>
+                <p class="py-5">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. In
+                  consequuntur excepturi alias deserunt modi dolorem nobis
+                  reiciendis perspiciatis est, perferendis, commodi id aliquid
+                  provident impedit! Sunt natus neque illum aut.
+                </p>
+              </article>
+
+              <div class="flex justify-center py-5">
+                <button
+                  disabled
+                  class="border-dashed border border-gray-800 px-5 rounded-lg py-1"
+                >
+                  Apply for this job
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advert -->
+        <div class="rounded border border-solid border-gray-300 p-3 my-5">
+          <div class="pb-5">
+            <div
+              class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 gap-5 flex flex-col lg:flex-row justify-between items-center p-4 rounded-t-lg"
+            >
+              <div
+                class="flex flex-col lg:flex-row justify-between text-center items-center lg:gap-20 gap-5"
+              >
+                <div>
+                  <Avatar></Avatar>
+                </div>
+                <div class="text-white">
+                  <p class="text-md font-bold">
+                    Exclusive Backend Engineering training for your team
+                  </p>
+                  <p class="font-light text-sm">
+                    Enroll your team to advance their software engineering
+                    career with the latest backend strategies, tips, and tactics
+                    working today.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex justify-center md:w-60 w-full">
+                <button
+                  disabled
+                  class="border-solid flex border text-black bg-white border-white px-6 rounded-lg py-1"
+                >
+                  Sign up now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Left Sidebar -->
+      <div class="md:w-2/6 w-full pb-40 text-center">
+        <div class="p-10">
+          <p class="p-1">
+            Get Backend Jobs is the most popular backend engineering job board
+            in the world trusted by thousands of backend engineers and leading
+            tech companies like
+          </p>
+
+          <div
+            class="flex gap-2 py-5 w-ful items-center justify-center grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
+          >
+            <div class="w-">
+              <img
+                src="~/assets/masteringlogo.png"
+                class="w-full cover"
+                alt=""
+              />
+            </div>
+            <div class="w-">
+              <Pressone />
+            </div>
+            <div class="w-">
+              <Contentre />
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <p class="flex flex-col justify-center">
+              <span class="">Starting from</span>
+              <span class="font-bold text-xl">$199</span>
+              <span>for 30 days</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <p class="flex flex-col justify-center">
+              <span class="">Reach</span>
+              <span class="font-bold text-xl">50,000+</span>
+              <span>backend engineers/mo</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <p class="flex flex-col justify-center">
+              <span class="">Distributed on the</span>
+              <span class="font-bold text-xl">Google for Jobs</span>
+              <span>recruitment network</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <span class="flex flex-col justify-center items-center">
+              <span class="">Rated</span>
+              <div class="flex items-center my-1 space-x-1">
+                <svg
+                  class="w-4 h-4 text-yellow-300"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 22 20"
+                >
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <svg
+                  class="w-4 h-4 text-yellow-300"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 22 20"
+                >
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <svg
+                  class="w-4 h-4 text-yellow-300"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 22 20"
+                >
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <svg
+                  class="w-4 h-4 text-yellow-300"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 22 20"
+                >
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+                <svg
+                  class="w-4 h-4 text-gray-300 dark:text-gray-500"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 22 20"
+                >
+                  <path
+                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                  />
+                </svg>
+              </div>
+              <span>Customer rating 4.9 | 5+ reviews</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <p class="flex flex-col justify-center">
+              <span class="">Emailed to</span>
+              <span class="font-bold text-xl">10,000</span>
+              <span>backend engineering job seekers</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <p class="flex flex-col justify-center">
+              <span class="">Crossposted to</span>
+              <span class="font-bold text-xl">10 job boards + communities</span>
+              <span>That currently use our API</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <p class="flex flex-col justify-center">
+              <span class="">Guaranteed</span>
+              <span class="font-bold text-xl">100+ [Apply] clicks</span>
+              <span>or we auto bump it for free</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10">
+            <div class="flex flex-col justify-center">
+              <span class="">Pay with</span>
+              <div>
+                <img
+                  src="https://remoteok.com/assets/payment-methods.png?1708185060"
+                  alt=""
+                />
+              </div>
+              <span>Secure payment with Stripe or Paddle</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10 flex flex-col gap-5 items-center">
+            <div class="w-60">
+              <Avatar
+                size="large"
+                src="https://media.licdn.com/dms/image/D4D03AQH_aOkYilHvQg/profile-displayphoto-shrink_800_800/0/1669993235313?e=1716422400&v=beta&t=TaThiLh54TN9ijbAJ97eJkpcXWAahax3zETgQgxvqZI"
+              />
+            </div>
+            <p>
+              "Very effective and
+              <span class="bg-yellow-200 py-1 px-1 font-bold"
+                >reliable way to reach competent candidates</span
+              >. Thank you for your great work!"
+            </p>
+            <span>
+              <a
+                href="https://www.linkedin.com/in/chibueze-nwosu-730a7743/"
+                class="pr-3"
+                >Chibueze Nwosu</a
+              >-CTO at OpenRetail</span
+            >
+          </div>
+        </div>
+        <div class="border-t border-solid border-gray-300">
+          <div class="p-10 flex flex-col gap-5 items-center">
+            <div class="w-60">
+              <Avatar
+                size="large"
+                src="https://media.licdn.com/dms/image/D4D03AQEiHuoQ9-79qQ/profile-displayphoto-shrink_800_800/0/1672227614408?e=1716422400&v=beta&t=J6KR2X-MTIHs7iy-_lB7oJbVoto9yI7qq6RJiAQcTUM"
+              />
+            </div>
+            <p class="text-md leading-relaxed">
+              Hi I'm the maker of Get Backend Jobs and other sites related to
+              backend engineering such as
+              <a href="https://masteringbackend.com?ref=getbackendjobs"
+                >Mastering Backend</a
+              >,
+              <a href="playground.masteringbackend.com?ref=getbackendjobs"
+                >Backend Code Playground</a
+              >, <a href="#">Backend Interview Prep</a>,
+              <a href="#">Backend Joy</a>.
+            </p>
+
+            <p>
+              Get Backend Jobs isn't a big team, it's actually just a one-person
+              operation which is me on my laptop in my home office somewhere in
+              the world. I built Get Backend Jobs to help backend engineers find
+              jobs and companies access backend talents easily (and pay my rent
+              and snooker board).
+            </p>
+            <p class="text-md leading-relaxed">
+              Need help posting your job? Here's
+              <a href="https://twitter.com/kaperskyguru">my Twitter</a>. Tweet
+              to me and I'll help you personally and can also help you if you'd
+              like to buy muiple job posts packages or get a discount.
+            </p>
+            <p>Unlock your Backend Career!</p>
+            <p class="text-md leading-relaxed">
+              -- <a href="#">Solomon Eseme</a>, Founder of
+              <span class="font-bold">Get Backend Jobs</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Bottom Sidebar -->
+      <section
+        class="fixed bottom-0 bg-white h- w-full border border-solid border-gray-200"
+      >
+        <div class="flex">
+          <div
+            class="w-full hidden md:flex border-r border-solid border-gray-200 gap-3 justify-between items-center px-10 py-4"
+          >
+            <div class="flex justify-between items-center gap-20">
+              <div>
+                <Avatar></Avatar>
+              </div>
+              <div class="flex flex-col gap-2">
+                <p>Company</p>
+                <p class="font-bold text-lg">Positon</p>
+                <span
+                  class="bg-white px-2 py-1 w-full border border-solid border-black rounded-lg text-xs"
+                  >🌏 Worldwide</span
+                >
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <span
+                class="bg-white px-2 border border-solid border-black py-1 rounded-lg text-xs"
+                >Dev</span
+              >
+              <span
+                class="bg-white px-2 border border-solid border-black py-1 rounded-lg text-xs"
+                >Backend</span
+              >
+            </div>
+
+            <div>
+              <button
+                disabled
+                class="border-dashed border border-gray-800 px-5 rounded-lg py-1"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="lg:w-2/4 w-full px-5 py-4 lg:py-1 flex justify-center items-center"
+          >
+            <button
+              class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 w-full py-6 text-white font-bold text-xl rounded-lg"
+            >
+              Start hiring -- $500
+            </button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</template>
+
+<script setup>
+import Pressone from "~/assets/pressone-fulltext-logo.svg";
+import Contentre from "~/assets/contentre.svg";
+
+definePageMeta({});
+</script>
+
+<style scoped>
+label {
+  text-transform: uppercase;
+}
+
+a {
+  color: brown;
+}
+</style>
