@@ -49,6 +49,7 @@
               </div>
               <input
                 type="text"
+                v-model="job.company_name"
                 id="company_name"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                 placeholder="Company name"
@@ -65,11 +66,12 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="company_name">Position*</label>
+                <label for="position">Position*</label>
               </div>
               <input
                 type="text"
-                id="company_name"
+                v-model="job.position"
+                id="position"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                 placeholder="Position"
               />
@@ -90,20 +92,21 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="company_name">Type*</label>
+                <label for="type">Type*</label>
               </div>
               <select
                 type="text"
-                id="company_name"
+                id="type"
+                v-model="job.type"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
-                placeholder="Position"
+                placeholder="Type"
               >
-                <option>Full-time</option>
-                <option>Part-time</option>
-                <option>Contractor</option>
-                <option>Temporary</option>
-                <option>Internship</option>
-                <option>Volunteer</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contractor">Contractor</option>
+                <option value="Temporary">Temporary</option>
+                <option value="Internship">Internship</option>
+                <option value="Volunteer">Volunteer</option>
                 <!-- <option>Full-time</option> -->
               </select>
             </div>
@@ -114,21 +117,22 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="company_name uppercase">PRIMARY TAG *</label>
+                <label for="primary_level">PRIMARY Level *</label>
               </div>
               <select
                 type="text"
-                id="company_name"
+                v-model="job.primary_level"
+                id="primary_level"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
-                placeholder="Position"
+                placeholder="Level"
               >
-                <option>Full-time</option>
-                <option>Part-time</option>
-                <option>Contractor</option>
-                <option>Temporary</option>
-                <option>Internship</option>
-                <option>Volunteer</option>
-                <!-- <option>Full-time</option> -->
+                <option selected value="Senior">Senior</option>
+                <option value="Principal">Principal</option>
+                <option value="Junior">Junior</option>
+                <option value="Staff">Staff</option>
+                <option value="Entry-Level">Entry-Level</option>
+                <option value="Intern">Intern</option>
+                <option value="Cofounder">Cofounder</option>
               </select>
             </div>
             <p class="text-gray-500 pt-2 text-xs">
@@ -150,8 +154,10 @@
               </div>
               <div class="pb- bg-white rounded-lg">
                 <Dropdown
-                  :items="[]"
+                  editable
+                  :items="['Backend']"
                   title="Tags, keywords or stacks"
+                  @selected="selectedKeywords"
                   :isRoundedFull="false"
                 />
               </div>
@@ -170,14 +176,15 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="company_name uppercase"
+                <label for="location uppercase"
                   >JOB IS RESTRICTED TO LOCATIONS?
                 </label>
               </div>
               <div class="pb- bg-white rounded-lg">
                 <Dropdown
-                  :items="[]"
+                  :items="locations"
                   title="Locations"
+                  @selected="selectedLocation"
                   :isRoundedFull="false"
                 />
               </div>
@@ -202,13 +209,14 @@
               checked
               id="premium_support"
               type="checkbox"
+              v-model="job.primium_support"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label
               for="premium_support"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Get 💁‍♀️ premium support and help with your job post (+$89)</label
+              >Get 💁‍♀️ premium support and help with your job post (+$50)</label
             >
           </div>
 
@@ -217,13 +225,14 @@
               checked
               id="showCompanyLogo"
               type="checkbox"
+              v-model="job.show_company_logo"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label
               for="showCompanyLogo"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Show my ⭐️ company logo besides my post (+$44)</label
+              >Show my ⭐️ company logo besides my post (+$20)</label
             >
             <span
               class="tooltip"
@@ -250,6 +259,7 @@
               checked
               id="blast_to_newsletter"
               type="checkbox"
+              v-model="job.blast_to_newsletter"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -257,7 +267,7 @@
               for="blast_to_newsletter"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
-              Email blast my job post to 📮1,010,906 remote candidates (+$89)
+              Email blast my job post to 📮15,000 backend engineers (+$40)
             </label>
             <span
               class="tooltip"
@@ -275,7 +285,7 @@
                 padding: 3px;
               "
             >
-              3x more views
+              2x more views
             </span>
           </div>
 
@@ -284,6 +294,7 @@
               checked
               id="directory_of_backend_engineers"
               type="checkbox"
+              v-model="job.send_to_directory"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -300,6 +311,7 @@
             <input
               checked
               id="enable_qr_code"
+              v-model="job.enable_qr_code"
               type="checkbox"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -319,7 +331,7 @@
                 "
               /> -->
               QR-code short link for your post like
-              <a href="#"> rok.co/bz</a> to share easily (+$44)
+              <a href="#"> gbj.co/bz</a> to share easily (+$24)
             </label>
           </div>
 
@@ -327,6 +339,7 @@
             <input
               checked
               id="highlight_post_yellow"
+              v-model="job.highlight_post_yellow"
               type="checkbox"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -335,7 +348,7 @@
               for="highlight_post_yellow"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
-              Highlight your post in ⚠️ yellow (+$49)
+              Highlight your post in ⚠️ gradient (+$39)
             </label>
             <span
               class="tooltip"
@@ -361,6 +374,7 @@
             <input
               id="stick_for_24_hours"
               type="checkbox"
+              v-model="job.stick_for_24_hours"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -369,7 +383,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 24
-              hours (+$89)
+              hours (+$49)
             </label>
             <span
               class="tooltip"
@@ -395,6 +409,7 @@
             <input
               id="stick_for_1_week"
               type="checkbox"
+              v-model="job.stick_for_1_week"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -403,41 +418,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              week (+$179)
-            </label>
-            <span
-              class="tooltip"
-              title="Based on previous job post data compared to a regular job post"
-              style="
-                border: 1px solid #ff4742;
-                background: none;
-                display: inline-block;
-                text-transform: uppercase;
-                color: #ff4742;
-                font-size: 12px;
-                margin-left: 14px;
-                font-weight: bold;
-                border-radius: 6px;
-                padding: 3px;
-              "
-            >
-              3x more views
-            </span>
-          </div>
-
-          <div class="flex items-center py-2">
-            <input
-              id="stick_for_1_month"
-              type="checkbox"
-              value=""
-              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              for="stick_for_1_month"
-              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-            >
-              Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              month (+$537)
+              week (+$147)
             </label>
             <span
               class="tooltip"
@@ -461,8 +442,44 @@
 
           <div class="flex items-center py-2">
             <input
+              id="stick_for_1_month"
+              type="checkbox"
+              v-model="job.stick_for_1_month"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="stick_for_1_month"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
+              month (+$441)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              9x more views
+            </span>
+          </div>
+
+          <!-- <div class="flex items-center py-2">
+            <input
               id="selected_location"
               type="checkbox"
+              v-model="job.stick_1_color"
               value=""
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -473,19 +490,20 @@
               Geolock your post for people only in the location it's restricted
               to above and block applicants from elsewhere (+$89)
             </label>
-          </div>
+          </div> -->
 
           <div class="flex lg:flex-row flex-col w-full items-center py-2">
             <div
               class="flex flex-col lg:flex-row p-1 flex-start items-center rounded-lg w-ful gap-5 mr-5"
             >
               <div class="font-light text-md">
-                <label for="company_name">Expected views</label>
+                <label for="views">Expected views</label>
               </div>
               <input
                 disabled
                 type="text"
-                id="company_name"
+                id="views"
+                :value="Intl.NumberFormat()?.format(calculatedViews)"
                 class="block p-3 rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
               />
             </div>
@@ -494,12 +512,13 @@
               class="relative flex-col lg:flex-row items-center flex-start flex p-1 rounded-lg w-ful gap-5"
             >
               <div class="font-light text-md">
-                <label for="company_name">Expected clicks</label>
+                <label for="clicks">Expected clicks</label>
               </div>
               <input
                 disabled
+                :value="Intl.NumberFormat()?.format(calculatedClicks)"
                 type="text"
-                id="company_name"
+                id="clicks"
                 class="block p-3 w-ful rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
               />
             </div>
@@ -536,6 +555,7 @@
               </div>
               <input
                 type="file"
+                @change="selectedFile"
                 id="company_logo"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
               />
@@ -543,21 +563,29 @@
           </div>
 
           <div class="flex items-center pb-5">
-            <input
-              id="chooseCompanyColor"
-              type="checkbox"
-              value=""
-              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              for="chooseCompanyColor"
-              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Highlight with your company's 🌈 brand color (+$499) 👉</label
-            >
+            <div>
+              <input
+                id="show_color"
+                type="checkbox"
+                v-model="job.show_color"
+                value=""
+                class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                for="show_color"
+                class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+                >Highlight with your company's 🌈 brand color (+$199) 👉</label
+              >
+            </div>
             <input
               autocomplete="off"
               type="color"
-              name="highlight_color"
+              :disabled="!job.show_color"
+              @change="
+                (item) => {
+                  color = item?.target?.value ?? '#ff4742';
+                }
+              "
               class="input_highlight_color_value"
               value="#ff4742"
             />
@@ -604,6 +632,8 @@
                   </div>
                   <input
                     type="number"
+                    v-model="job.min_salary"
+                    placeholder="0.0"
                     id="minimum_per_year"
                     class="block p-3 rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                   />
@@ -617,6 +647,8 @@
                   </div>
                   <input
                     type="number"
+                    v-model="job.max_salary"
+                    placeholder="0.0"
                     id="maximum_per_year"
                     class="block p-3 w-ful rounded-lg focus:outline-none text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                   />
@@ -665,10 +697,16 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="company_name">Job description*</label>
+                <label for="job_description">Job description*</label>
               </div>
               <div class="flex items-center">
-                <textarea class="w-full" rows="20"></textarea>
+                <textarea
+                  id="job_description"
+                  v-model="job.description"
+                  class="w-full"
+                  rows="20"
+                  placeholder="The description of the job position will appear here. Write this in the 'Job Description' box above."
+                ></textarea>
               </div>
             </div>
           </div>
@@ -678,7 +716,7 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="company_name uppercase">Benefits* </label>
+                <label for="benefits">Benefits* </label>
               </div>
               <div class="pb- bg-white rounded-lg">
                 <Dropdown
@@ -708,6 +746,7 @@
                     'No politics at work',
                     'We hire old (young)',
                   ]"
+                  @selected="selectedbenefits"
                   title="Benefits"
                   :isRoundedFull="false"
                 />
@@ -723,7 +762,13 @@
                 <label for="how_to_apply">How to Apply</label>
               </div>
               <div class="flex items-center">
-                <textarea id="how_to_apply" class="w-full" rows="20"></textarea>
+                <textarea
+                  v-model="job.how_to_apply"
+                  id="how_to_apply"
+                  class="w-full"
+                  rows="20"
+                  placeholder="Here the instructions go on how to apply for this job. Write them in the 'How to Apply?' box"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -737,6 +782,7 @@
               </div>
               <input
                 type="text"
+                v-model="job.apply_url"
                 id="apply_url"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                 placeholder="Apply URL"
@@ -759,9 +805,10 @@
               </div>
               <input
                 type="email"
+                v-model="job.apply_email"
                 id="apply_email"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
-                placeholder="Apply URL"
+                placeholder="Apply Emaill Address"
               />
             </div>
             <p class="text-gray-500 pt-2 text-xs">
@@ -770,6 +817,70 @@
               URL, instead of an Apply Email Address, because you might get a
               lot of spam/automated applicants by email.
             </p>
+          </div>
+        </div>
+        <div class="rounded border border-solid border-gray-300 p-3 my-5">
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_twitter">Company Twitter</label>
+              </div>
+              <input
+                type="text"
+                v-model="job.company_twitter"
+                id="company_twitter"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Twitter username"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Twitter username without @. Not required, but used to tag your
+              company when we tweet out your job post.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_email"
+                  >COMPANY EMAIL* (STAYS PRIVATE, FOR INVOICE + EDIT LINK)
+                </label>
+              </div>
+              <input
+                type="email"
+                v-model="job.company_email"
+                id="company_email"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Company email"
+              />
+            </div>
+            <p class="text-gray-500 pt-2 text-xs">
+              Make sure this email is accessible by you! We use this to send the
+              invoice and edit link. We can not and do not manually resend it!
+              If you use your company domain (same as company name), we will
+              show a [ Verified ] tag on your job post.
+            </p>
+          </div>
+
+          <div class="py-5">
+            <div
+              class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
+            >
+              <div class="p-2 text-white font-bold text-lg">
+                <label for="company_website">Company Website</label>
+              </div>
+              <input
+                type="text"
+                v-model="job.company_website"
+                id="company_website"
+                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+                placeholder="Company website"
+              />
+            </div>
           </div>
 
           <div class="py-5">
@@ -781,9 +892,10 @@
               </div>
               <input
                 type="email"
+                v-model="job.invoice_email"
                 id="invoice_email"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
-                placeholder="Apply URL"
+                placeholder="Invoice email"
               />
             </div>
             <p class="text-gray-500 pt-2 text-xs">
@@ -798,10 +910,11 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="invoice_email">INVOICE ADDRESS* </label>
+                <label for="invoice_address">INVOICE ADDRESS* </label>
               </div>
               <textarea
-                id="invoice_email"
+                id="invoice_address"
+                v-model="job.invoice_address"
                 placeholder="e.g. your company's full name and full invoice address, including building, street, city and country; also things like your VAT number, this is shown on the invoice."
                 class="w-full"
                 rows="5"
@@ -823,8 +936,9 @@
                 <label for="invoice_notes">INVOICE NOTES / PO NUMBER</label>
               </div>
               <input
-                type="email"
+                type="text"
                 id="invoice_notes"
+                v-model="job.invoice_notes"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                 placeholder="e.g PO number 1234"
               />
@@ -842,6 +956,7 @@
               id="pay_later"
               type="checkbox"
               value=""
+              v-model="should_pay_later"
               class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label
@@ -858,7 +973,7 @@
             it's paid we immediately publish it!
           </p>
 
-          <div class="py-5">
+          <div class="py-5" v-if="should_pay_later">
             <div
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
@@ -868,6 +983,7 @@
               <input
                 type="email"
                 id="pay_later_email"
+                v-model="job.pay_later_email"
                 class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
                 placeholder="Pay later email address"
               />
@@ -888,17 +1004,21 @@
                 <label for="company_name">Feedback box</label>
               </div>
               <div class="flex items-center">
-                <textarea class="w-full" rows="10"></textarea>
+                <textarea
+                  v-model="job.feedback"
+                  class="w-full"
+                  rows="10"
+                ></textarea>
               </div>
             </div>
             <p class="text-gray-500 pt-2 text-xs">
               This isn't part of the job post. If you have any feature requests
-              or general feedback about posting a job Remote OK, leave it here.
-              Please be radically honest, I'm always improving the site and act
-              on your feedback fast. It's most important that you're happy with
-              the site and I want you to keep coming back to post here! This
-              feedback box gets sent straight to my phone wherever I am. -Pieter
-              Levels, Founder of Remote OK
+              or general feedback about posting a job Get Backend Jobs, leave it
+              here. Please be radically honest, I'm always improving the site
+              and act on your feedback fast. It's most important that you're
+              happy with the site and I want you to keep coming back to post
+              here! This feedback box gets sent straight to my phone wherever I
+              am. -Solomon Eseme, Founder of Get Backend Jobs
             </p>
           </div>
         </div>
@@ -917,32 +1037,116 @@
 
           <div class="rounded-lg bg-gray-100 w-full p-5">
             <div
-              class="gap-5 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 flex lg:flex-row flex-col justify-between items-center p-4 rounded-t-lg"
+              class="gap-5 flex lg:flex-row flex-col justify-between items-center p-4 rounded-t-lg"
+              :class="{
+                'bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 text-white':
+                  job.highlight_post_yellow,
+                'text-black': color.includes('#fff') || !color,
+                'text-white': color && !color.includes('#fff'),
+                'text-white':
+                  job.show_color && color && !color.includes('#fff'),
+              }"
+              :style="{
+                'background-color':
+                  job.show_color && color.includes('#fff') ? '#ff4742' : color,
+              }"
             >
               <div class="flex justify-between items-center gap-20">
-                <div>
-                  <Avatar></Avatar>
+                <div v-if="job.show_company_logo">
+                  <Avatar :src="image" :name="job.company_name"></Avatar>
                 </div>
                 <div class="flex flex-col">
-                  <p>Company</p>
-                  <p class="font-bold text-lg">Positon</p>
-                  <span class="bg-white px-2 py-1 rounded-lg text-xs"
-                    >🌏 Worldwide</span
+                  <p>{{ job?.company_name ? job.company_name : "Company" }}</p>
+                  <p class="font-bold text-lg">
+                    {{ job?.positon ? job.position : "Position" }}
+                  </p>
+                  <div
+                    class="flex gap-1 grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
                   >
+                    <span
+                      v-if="!job?.locations.length"
+                      :class="{
+                        'text-black border border-solid border-gray-200':
+                          color.includes('#fff') || !color,
+                        'text-black': color && !color.includes('#fff'),
+                      }"
+                      class="bg-white px-2 py-1 mt-2 rounded-lg text-xs"
+                      >🌏 Worldwide</span
+                    >
+                    <span
+                      v-for="(location, i) in job?.locations?.length &&
+                      job.locations"
+                      :key="i"
+                      :class="{
+                        'text-black border border-solid border-gray-200':
+                          color.includes('#fff') || !color,
+                        'text-black': color && !color.includes('#fff'),
+                      }"
+                      class="bg-white px-2 py-1 rounded-lg text-xs"
+                    >
+                      {{ location }}</span
+                    >
+
+                    <span
+                      :class="{
+                        'text-black border border-solid border-black':
+                          color.includes('#fff') || !color,
+                        'text-black': color && !color.includes('#fff'),
+                      }"
+                      class="bg-white px-2 py-1 mt-2 rounded-lg text-xs"
+                      >💰 ${{
+                        Intl.NumberFormat("en", { notation: "compact" }).format(
+                          job?.min_salary ?? 0.0
+                        )
+                      }}
+                      - ${{
+                        Intl.NumberFormat("en", { notation: "compact" }).format(
+                          job?.max_salary ?? 0.0
+                        )
+                      }}</span
+                    >
+                  </div>
                 </div>
               </div>
 
-              <div class="flex gap-2">
-                <span class="bg-white px-2 py-1 rounded-lg text-xs">Dev</span>
-                <span class="bg-white px-2 py-1 rounded-lg text-xs"
-                  >Backend</span
+              <div
+                class="flex gap-2 grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
+              >
+                <span
+                  v-for="(keyword, i) in job.keywords"
+                  :key="i"
+                  class="bg-white px-2 py-1 rounded-lg text-xs"
+                  :class="{
+                    'text-black border border-solid border-gray-200':
+                      color.includes('#fff') || !color,
+                    'text-black': color && !color.includes('#fff'),
+                  }"
+                  >{{ keyword }}</span
                 >
+              </div>
+
+              <div
+                :class="{
+                  'text-white border-white': job.highlight_post_yellow,
+                  'text-white border-white': !color,
+                  'text-white': job.show_color && color,
+                }"
+              >
+                <p v-if="job.stick_for_1_month">📌sticky for 30 days</p>
+                <p v-if="job.stick_for_1_week">📌sticky for 7 days</p>
+                <p v-if="job.stick_for_24_hours">📌sticky for 1 day</p>
               </div>
 
               <div>
                 <button
                   disabled
-                  class="border-dashed border border-gray-800 px-5 rounded-lg py-1"
+                  :class="{
+                    'text-white border-white': job.highlight_post_yellow,
+                    'text-white border-white': !color,
+                    'text-white':
+                      job.show_color && color && !color.includes('#fff'),
+                  }"
+                  class="border-dashed border px-5 rounded-lg py-1"
                 >
                   Apply
                 </button>
@@ -955,48 +1159,24 @@
               <div class="pb-3 md:px-10 pt-10">
                 <div>
                   <h2 class="text-3xl font-thin py-4">
-                    Mastering Backend is hiring a
+                    {{ job.company_name ? job.company_name : "Company" }} is
+                    hiring a
                   </h2>
 
-                  <h1 class="text-4xl font-bold">Backend Software Engineer</h1>
+                  <h1 class="text-4xl font-bold">
+                    {{ job.position ? job.position : "Backend Position" }}
+                  </h1>
                 </div>
                 <div class="pt-2 font-light">
-                  <article>
-                    <p>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Obcaecati quod amet dolorum libero consectetur nam ipsa
-                      laudantium, voluptas consequatur et, suscipit labore
-                      quidem corporis hic praesentium optio possimus facilis
-                      placeat.
-                    </p>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      In consequuntur excepturi alias deserunt modi dolorem
-                      nobis reiciendis perspiciatis est, perferendis, commodi id
-                      aliquid provident impedit! Sunt natus neque illum aut.
-                    </p>
+                  <article
+                    class="py-2"
+                    v-if="job.description"
+                    v-html="job.description"
+                  ></article>
 
-                    <p>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Obcaecati quod amet dolorum libero consectetur nam ipsa
-                      laudantium, voluptas consequatur et, suscipit labore
-                      quidem corporis hic praesentium optio possimus facilis
-                      placeat.
-                    </p>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      In consequuntur excepturi alias deserunt modi dolorem
-                      nobis reiciendis perspiciatis est, perferendis, commodi id
-                      aliquid provident impedit! Sunt natus neque illum aut.
-                    </p>
-
-                    <p>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Obcaecati quod amet dolorum libero consectetur nam ipsa
-                      laudantium, voluptas consequatur et, suscipit labore
-                      quidem corporis hic praesentium optio possimus facilis
-                      placeat.
-                    </p>
+                  <article v-else class="py-2">
+                    The description of the job position will appear here. Write
+                    this in the 'Job Description' box above.
                   </article>
                 </div>
               </div>
@@ -1006,21 +1186,31 @@
                 style="float: right"
               >
                 <div class="flex justify-center">
-                  <Avatar name="Mastering Backend" size="medium" />
+                  <Avatar
+                    :name="job.company_name ? job.company_name : 'Company'"
+                    :src="company_logo"
+                    size="medium"
+                  />
                 </div>
                 <div class="py-4 text-center">
-                  <h4 class="text-2xl font-black">Mastering Backend</h4>
+                  <h4 class="text-2xl font-black">
+                    {{ job.company_name ? job.company_name : "Company" }}
+                  </h4>
 
                   <a
-                    href="https://masteringbackend.com"
+                    :href="job.company_website ?? '#'"
                     class="underline text-xl w-full font-bold"
-                    ><p class="w-full">masteringbackend.com</p></a
+                    ><p class="w-full">
+                      {{
+                        job.company_name ? job.company_name : "www.company.com"
+                      }}
+                    </p></a
                   >
                 </div>
 
                 <div class="py-2">
                   <button
-                    class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
+                    class="px-3 py-2 bg-red-400 rounded-lg text-white w-full"
                   >
                     Apply Now
                   </button>
@@ -1028,22 +1218,33 @@
 
                 <div class="py-2 text-center">
                   <div class="text-lg py-2 font-light">
-                    <span> 👀 </span> <span>18,541 views</span>
+                    <span> 👀 </span>
+                    <span
+                      >{{
+                        Intl.NumberFormat()?.format(calculatedViews)
+                      }}
+                      views</span
+                    >
                   </div>
 
                   <div class="text-lg py-2 font-light">
                     <span> ✅ </span>
-                    <span>2,780 applied (15%)</span>
+                    <span
+                      >{{
+                        Intl.NumberFormat()?.format(calculatedClicks)
+                      }}
+                      applied ({{ calculatedPercent }}%)</span
+                    >
                   </div>
                 </div>
 
                 <div class="flex justify-center text-center py-2 flex-col">
                   <h5 class="text-lg font-bold pb-2">Share this job:</h5>
                   <input
+                    disabled
                     type="text"
                     placeholder="https://getbackendjobs.com/jobs/remote-software-development-team-leader-venture-personnel-624164?ref=sh"
                     class="rounded-lg"
-                    value="https://getbackendjobs.com/jobs/remote-software-development-team-leader-venture-personnel-624164?ref=sh"
                   />
                 </div>
               </div>
@@ -1055,25 +1256,22 @@
               <h3 class="font-bold text-xl text-center py-5">
                 How do you apply?
               </h3>
-              <article class="text-center">
+              <article
+                v-if="job.how_to_apply"
+                class="text-center"
+                v-html="job.how_to_apply"
+              ></article>
+              <article class="text-center" v-else>
                 <p class="py-5">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Obcaecati quod amet dolorum libero consectetur nam ipsa
-                  laudantium, voluptas consequatur et, suscipit labore quidem
-                  corporis hic praesentium optio possimus facilis placeat.
-                </p>
-                <p class="py-5">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. In
-                  consequuntur excepturi alias deserunt modi dolorem nobis
-                  reiciendis perspiciatis est, perferendis, commodi id aliquid
-                  provident impedit! Sunt natus neque illum aut.
+                  Here the instructions go on how to apply for this job. Write
+                  them in the "How to Apply?" box
                 </p>
               </article>
 
               <div class="flex justify-center py-5">
                 <button
                   disabled
-                  class="border-dashed border border-gray-800 px-5 rounded-lg py-1"
+                  class="border-dashed text-gray-400 border border-gray-400 px-5 rounded-lg py-1"
                 >
                   Apply for this job
                 </button>
@@ -1150,7 +1348,7 @@
           <div class="p-10">
             <p class="flex flex-col justify-center">
               <span class="">Starting from</span>
-              <span class="font-bold text-xl">$199</span>
+              <span class="font-bold text-xl">$99</span>
               <span>for 30 days</span>
             </p>
           </div>
@@ -1357,37 +1555,117 @@
       >
         <div class="flex">
           <div
+            :class="{
+              'bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 text-white':
+                job.highlight_post_yellow,
+              'text-black': color.includes('#fff') || !color,
+              'text-white': color && !color.includes('#fff'),
+              'text-white': job.show_color && color,
+            }"
+            :style="{
+              'background-color':
+                job.show_color && color.includes('#fff') ? '#ff4742' : color,
+            }"
             class="w-full hidden md:flex border-r border-solid border-gray-200 gap-3 justify-between items-center px-10 py-4"
           >
             <div class="flex justify-between items-center gap-20">
-              <div>
-                <Avatar></Avatar>
+              <div v-if="job.show_company_logo">
+                <Avatar :src="image" :name="job.company_name"></Avatar>
               </div>
               <div class="flex flex-col gap-2">
-                <p>Company</p>
-                <p class="font-bold text-lg">Positon</p>
-                <span
-                  class="bg-white px-2 py-1 w-full border border-solid border-black rounded-lg text-xs"
-                  >🌏 Worldwide</span
+                <p class="text-inherit">
+                  {{ job.company_name ? job.company_name : "Company" }}
+                </p>
+                <p class="font-bold text-lg">
+                  {{ job.position ? job.position : "Remote Backend" }}
+                </p>
+
+                <div
+                  class="flex gap-1 grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
                 >
+                  <span
+                    v-if="!job?.locations.length"
+                    :class="{
+                      'text-black border border-solid border-black':
+                        color.includes('#fff') || !color,
+                      'text-black': color && !color.includes('#fff'),
+                    }"
+                    class="bg-white px-2 py-1 rounded-lg text-xs"
+                    >🌏 Worldwide</span
+                  >
+                  <span
+                    v-for="(location, i) in job?.locations?.length &&
+                    job.locations?.slice(0, 2)"
+                    :key="i"
+                    :class="{
+                      'text-black border border-solid border-black':
+                        color.includes('#fff') || !color,
+                      'text-black': color && !color.includes('#fff'),
+                    }"
+                    class="bg-white px-2 py-1 rounded-lg text-xs"
+                  >
+                    {{ location }}</span
+                  >
+
+                  <span
+                    :class="{
+                      'text-black border border-solid border-black':
+                        color.includes('#fff') || !color,
+                      'text-black': color && !color.includes('#fff'),
+                    }"
+                    class="bg-white px-2 py-1 rounded-lg text-xs"
+                    >💰 ${{
+                      Intl.NumberFormat("en", { notation: "compact" }).format(
+                        job?.min_salary ?? 0.0
+                      )
+                    }}
+                    - ${{
+                      Intl.NumberFormat("en", { notation: "compact" }).format(
+                        job?.max_salary ?? 0.0
+                      )
+                    }}</span
+                  >
+                </div>
               </div>
             </div>
 
-            <div class="flex gap-2">
+            <div
+              class="flex gap-2 grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
+            >
               <span
-                class="bg-white px-2 border border-solid border-black py-1 rounded-lg text-xs"
-                >Dev</span
+                v-for="(keyword, i) in job.keywords?.slice(0, 3)"
+                :key="i"
+                :class="{
+                  'text-black border border-solid border-black':
+                    color.includes('#fff') || !color,
+                  'text-black': color && !color.includes('#fff'),
+                }"
+                class="bg-white px-2 border border-solid py-1 rounded-lg text-xs"
+                >{{ keyword }}</span
               >
-              <span
-                class="bg-white px-2 border border-solid border-black py-1 rounded-lg text-xs"
-                >Backend</span
-              >
+            </div>
+
+            <div
+              :class="{
+                'text-white border-white': job.highlight_post_yellow,
+                'text-white border-white': !color,
+                'text-white': job.show_color && color,
+              }"
+            >
+              <p v-if="job.stick_for_1_month">📌sticky for 30 days</p>
+              <p v-if="job.stick_for_1_week">📌sticky for 7 days</p>
+              <p v-if="job.stick_for_24_hours">📌sticky for 1 day</p>
             </div>
 
             <div>
               <button
                 disabled
-                class="border-dashed border border-gray-800 px-5 rounded-lg py-1"
+                :class="{
+                  'text-white border-white': job.highlight_post_yellow,
+                  'text-white border-white': !color,
+                  'text-white': job.show_color && color,
+                }"
+                class="border-dashed border px-5 rounded-lg py-1"
               >
                 Apply
               </button>
@@ -1398,9 +1676,14 @@
             class="lg:w-2/4 w-full px-5 py-4 lg:py-1 flex justify-center items-center"
           >
             <button
+              @click="startHiring"
               class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 w-full py-6 text-white font-bold text-xl rounded-lg"
             >
-              Start hiring -- $500
+              Start hiring -- $<span
+                class="pr-2 line-through decoration-red-500"
+                >{{ calculatedPrice }}</span
+              >
+              ${{ calculatedPrice - calculatedPrice * 0.1 }}
             </button>
           </div>
         </div>
@@ -1413,7 +1696,207 @@
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
 
-definePageMeta({});
+const should_pay_later = ref(false);
+const company_logo = ref("");
+const locations = [
+  "🌏 Worldwide",
+  "🦁 Africa",
+  "⛩ Asia",
+  "🇪🇺 Europe",
+  "💃 Latin America",
+  "🕌 Middle East",
+  "⛰️ North America",
+  "🌊 Oceania",
+  "🇦🇫 Afghanistan",
+  "🇦🇱 Albania",
+  "🇩🇿 Algeria",
+  "🇦🇸 American Samoa",
+  "🇦🇩 Andorra",
+  "🇦🇴 Angola",
+  "🇦🇮 Anguilla",
+  "🇦🇶 Antarctica",
+  "🇦🇬 Antigua and Barbuda",
+  "🇦🇷 Argentina",
+  "🇦🇲 Armenia",
+  "🇦🇼 Aruba",
+  "🇦🇺 Australia",
+  "🇦🇹 Austria",
+  "🇦🇿 Azerbaijan",
+  "🇧🇭 Bahrain",
+  "🇧🇩 Bangladesh",
+  "🇧🇧 Barbados",
+  "🇧🇾 Belarus",
+  "🇧🇪 Belgium",
+  "🇧🇿 Belize",
+  "🇧🇯 Benin",
+  "🇧🇲 Bermuda",
+  "🇧🇹 Bhutan",
+  "🇧🇴 Bolivia",
+  "🇧🇦 Bosnia",
+  "🇧🇼 Botswana",
+  "🇧🇻 Bouvet Island",
+  "🇧🇷 Brazil",
+  "🇮🇴 British Indian Ocean Territory",
+  "🇻🇬 British Virgin Islands",
+  "🇧🇳 Brunei",
+  "🇧🇬 Bulgaria",
+  "🇧🇫 Burkina Faso",
+  "🇧🇮 Burundi",
+  "🇰🇭 Cambodia",
+  "🇨🇲 Cameroon",
+  "🇨🇦 Canada",
+  "🇨🇻 Cape Verde",
+  "🇧🇶 Caribbean Netherlands",
+  "🇰🇾 Cayman Islands",
+  "🇨🇫 Central African Republic",
+  "🇹🇩 Chad",
+];
+const image = ref("");
+const job = shallowReactive({
+  show_color: false,
+  show_company_logo: true,
+  blast_to_newsletter: true,
+  send_to_directory: true,
+  enable_qr_code: true,
+  primium_support: true,
+  highlight_post_yellow: true,
+  stick_for_24_hours: false,
+  stick_for_1_week: false,
+  stick_for_1_month: false,
+  primary_level: "Senior",
+  type: "Full-time",
+  benefits: [],
+  locations: [],
+  description: ``,
+  how_to_apply: ``,
+});
+const color = ref("#fff");
+
+const calculatedViews = computed(() => {
+  let defaultViews = 122;
+
+  if (job.show_company_logo) defaultViews *= 2;
+  if (job.enable_qr_code) defaultViews *= 2;
+  if (job.highlight_post_yellow) defaultViews *= 2;
+  if (job.blast_to_newsletter) defaultViews *= 2;
+  if (job.show_color) defaultViews *= 2;
+  if (job.stick_for_24_hours) defaultViews *= 2;
+  if (job.stick_for_1_week) defaultViews *= 6;
+  if (job.stick_for_1_month) defaultViews *= 9;
+
+  job.average_views = defaultViews;
+  return defaultViews;
+});
+
+const calculatedClicks = computed(() => {
+  let clicks = 14;
+
+  if (job.show_company_logo) clicks *= 2;
+  if (job.enable_qr_code) clicks *= 2;
+  if (job.highlight_post_yellow) clicks *= 2;
+  if (job.blast_to_newsletter) clicks *= 2;
+  if (job.show_color) clicks *= 2;
+  if (job.stick_for_24_hours) clicks *= 2;
+  if (job.stick_for_1_week) clicks *= 6;
+  if (job.stick_for_1_month) clicks *= 9;
+
+  job.average_clicks = clicks;
+
+  return clicks;
+});
+
+const calculatedPrice = computed(() => {
+  let price = 99;
+
+  if (job.show_company_logo) price += 20;
+  if (job.primium_support) price += 50;
+  if (job.enable_qr_code) price += 24;
+  if (job.highlight_post_yellow) price += 39;
+  if (job.blast_to_newsletter) price += 40;
+  if (job.show_color) price += 199;
+  if (job.stick_for_24_hours) price += 49;
+  if (job.stick_for_1_week) price += 147;
+  if (job.stick_for_1_month) price += 441;
+  job.total_amount = price;
+  return price;
+});
+
+const calculatedPercent = computed(() =>
+  Math.round(calculatedViews.value / calculatedClicks.value)
+);
+
+watch(
+  () => job.stick_for_24_hours,
+  (value) => {
+    if (value) {
+      job.stick_for_1_week = false;
+      job.stick_for_1_month = false;
+    }
+  }
+);
+
+watch(
+  () => job.show_color,
+  (value) => {
+    if (value) {
+      job.highlight_post_yellow = false;
+    }
+
+    if (!value) color.value = "#fff";
+  }
+);
+
+watch(
+  () => job.highlight_post_yellow,
+  (value) => {
+    if (value) {
+      job.show_color = false;
+    }
+  }
+);
+
+watch(
+  () => job.stick_for_1_week,
+  (value) => {
+    if (value) {
+      job.stick_for_24_hours = false;
+      job.stick_for_1_month = false;
+    }
+  }
+);
+
+watch(
+  () => job.stick_for_1_month,
+  (value) => {
+    if (value) {
+      job.stick_for_1_week = false;
+      job.stick_for_24_hours = false;
+    }
+  }
+);
+
+function selectedFile(e) {
+  if (!e?.target?.files?.length) return;
+  job.company_logo = e?.target?.files[0];
+
+  image.value = URL.createObjectURL(e.target.files[0]);
+}
+
+function selectedbenefits(items) {
+  job.benefits = items;
+}
+
+function selectedKeywords(items) {
+  job.keywords = items;
+}
+
+function selectedLocation(items) {
+  job.locations = items;
+}
+
+function startHiring() {
+  console.log(job);
+}
 </script>
 
 <style scoped>
