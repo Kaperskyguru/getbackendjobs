@@ -11,7 +11,7 @@ class DiveJobs {
     // console.log('Loading Page ...')
 
     browser = await puppeteer.launch({
-      // headless: false,
+      headless: false,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",

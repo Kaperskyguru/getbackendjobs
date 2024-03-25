@@ -2,11 +2,12 @@ import { sendError } from "h3";
 export default defineEventHandler((event) => {
   const clientSideRoutes = !event.node?.req?.url?.startsWith("/api");
 
+  console.log(event.node.req.headers.authorization);
+
   if (clientSideRoutes) {
     return;
-  } else if (!event.node.req.headers.authorization) {
-    sendError(event, new Error("Unathorized"));
   }
+
   event.context.auth = {
     authenticated: true,
   };

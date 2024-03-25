@@ -1,7 +1,7 @@
 // import { dbJobResolver } from '../../../helpers/helpers'
 // import DB from '../../db'
 import puppeteer from "puppeteer";
-const jobUrl = `https://www.linkedin.com/jobs/search?keywords=%22Back%2BEnd%2BDeveloper%22&location=Worldwide&trk=public_jobs_jobs-search-bar_search-submit&f_TP=1&sortBy=DD&redirect=false`;
+const jobUrl = `https://www.linkedin.com/jobs/search?keywords=%22Back%2BEnd%2BDeveloper%22&location=&geoId=&f_TPR=r86400&position=1&pageNum=0`;
 
 let page: any;
 let browser: any;
@@ -11,7 +11,7 @@ class LinkedinJobs {
     // console.log('Loading Page ...')
 
     browser = await puppeteer.launch({
-      // headless: false,
+      headless: false,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
@@ -25,7 +25,9 @@ class LinkedinJobs {
     });
     page = await browser.newPage();
     await Promise.race([
-      await page.goto(jobUrl, { waitUntil: "networkidle2" }).catch(() => {}),
+      await page
+        .goto(jobUrl, { timeout: 60000, waitUntil: "networkidle2" })
+        .catch(() => {}),
       await page
         .waitForSelector(".jobs-search__results-list")
         .catch((err: any) => {
@@ -43,7 +45,7 @@ class LinkedinJobs {
       .evaluate(() => {
         const cards = document.querySelectorAll(".job-result-card");
         cardArr = Array.from(cards);
-        // console.log(cardArr)
+        console.log(cardArr);
 
         const cardLinks: any = [];
         cardArr.map((card) => {
@@ -79,6 +81,7 @@ class LinkedinJobs {
         console.log(err, "Evaluate");
       });
 
+    // console.log(jobURLs);
     return jobURLs;
   }
 

@@ -70,71 +70,68 @@ export default defineNuxtConfig({
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
       script: [
-        {
-          type: "application/ld+json",
-          textContent: {
-            "@context": "http://schema.org",
-            "@graph": [
-              {
-                "@type": "WebPage",
-                author: { "@id": "#identity" },
-                copyrightHolder: { "@id": "#identity" },
-                copyrightYear: new Date(),
-                creator: { "@id": "#creator" },
-                dateModified: new Date(),
-                datePublished: "2019-06-06T10:10:00-07:00",
-                description:
-                  "Looking for a backend engineering job? Get Backend Jobs is the #1 Backend Engineering Job Board and has 50,000+ backend jobs as a Backend Developer, Backend Engineer, Remote Backend Engineer, Remote Backend Software Developer, Remote Backend Software Engineer and more! Find your backend engineering career where you can work remotely from anywhere.",
-                headline: "Get Backend Jobs",
-                image: {
-                  "@type": "ImageObject",
-                  url: "/logo.png",
-                },
-                inLanguage: "en-us",
-                mainEntityOfPage: "https://getbackendjobs.com/",
-                name: "Get Backend Jobs",
-                publisher: { "@id": "#creator" },
-                url: "https://getbackendjobs.com",
-              },
-              { "@id": "#identity", "@type": "LocalBusiness", priceRange: "$" },
-              { "@id": "#creator", "@type": "Organization" },
-              {
-                "@type": "BreadcrumbList",
-                description: "Breadcrumbs list",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    item: "https://getbackendjobs.com/",
-                    name: "Tailored Backend Jobs",
-                    position: 1,
-                  },
-
-                  {
-                    "@type": "ListItem",
-                    item: "https://getbackendjobs.com/categories/remote",
-                    name: "Remote Backend Jobs",
-                    position: 2,
-                  },
-
-                  {
-                    "@type": "ListItem",
-                    item: "https://getbackendjobs.com/signup",
-                    name: "Job Application Tracker & CRM",
-                    position: 3,
-                  },
-
-                  {
-                    "@type": "ListItem",
-                    item: "https://getbackendjobs.com/signup",
-                    name: "Application Streak",
-                    position: 4,
-                  },
-                ],
-                name: "Breadcrumbs",
-              },
-            ],
-          },
-        },
+        // {
+        //   type: "application/ld+json",
+        //   textContent: {
+        //     "@context": "http://schema.org",
+        //     "@graph": [
+        //       {
+        //         "@type": "WebPage",
+        //         author: { "@id": "#identity" },
+        //         copyrightHolder: { "@id": "#identity" },
+        //         copyrightYear: new Date(),
+        //         creator: { "@id": "#creator" },
+        //         dateModified: new Date(),
+        //         datePublished: "2019-06-06T10:10:00-07:00",
+        //         description:
+        //           "Looking for a backend engineering job? Get Backend Jobs is the #1 Backend Engineering Job Board and has 50,000+ backend jobs as a Backend Developer, Backend Engineer, Remote Backend Engineer, Remote Backend Software Developer, Remote Backend Software Engineer and more! Find your backend engineering career where you can work remotely from anywhere.",
+        //         headline: "Get Backend Jobs",
+        //         image: {
+        //           "@type": "ImageObject",
+        //           url: "/logo.png",
+        //         },
+        //         inLanguage: "en-us",
+        //         mainEntityOfPage: "https://getbackendjobs.com/",
+        //         name: "Get Backend Jobs",
+        //         publisher: { "@id": "#creator" },
+        //         url: "https://getbackendjobs.com",
+        //       },
+        //       { "@id": "#identity", "@type": "LocalBusiness", priceRange: "$" },
+        //       { "@id": "#creator", "@type": "Organization" },
+        //       {
+        //         "@type": "BreadcrumbList",
+        //         description: "Breadcrumbs list",
+        //         itemListElement: [
+        //           {
+        //             "@type": "ListItem",
+        //             item: "https://getbackendjobs.com/",
+        //             name: "Tailored Backend Jobs",
+        //             position: 1,
+        //           },
+        //           {
+        //             "@type": "ListItem",
+        //             item: "https://getbackendjobs.com/categories/remote",
+        //             name: "Remote Backend Jobs",
+        //             position: 2,
+        //           },
+        //           {
+        //             "@type": "ListItem",
+        //             item: "https://getbackendjobs.com/signup",
+        //             name: "Job Application Tracker & CRM",
+        //             position: 3,
+        //           },
+        //           {
+        //             "@type": "ListItem",
+        //             item: "https://getbackendjobs.com/signup",
+        //             name: "Application Streak",
+        //             position: 4,
+        //           },
+        //         ],
+        //         name: "Breadcrumbs",
+        //       },
+        //     ],
+        //   },
+        // },
       ],
     },
   },
