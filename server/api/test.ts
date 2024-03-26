@@ -1,3 +1,6 @@
+import Startup from "../scrappers/startup.jobs";
+
 export default defineEventHandler(async (event) => {
-  return true;
+  const data = await Startup.scrape();
+  return data;
 });

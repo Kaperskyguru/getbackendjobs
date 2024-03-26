@@ -138,6 +138,15 @@
 <script setup>
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
+// import { collection, doc } from "firebase/firestore";
+
+const { $modelsRef, $db } = useNuxtApp();
+
+const models = useCollection($modelsRef);
+
+// const jobs = useDocument(doc(collection($db, "jobs"), ""));
+
+console.log(models);
 </script>
 
 
