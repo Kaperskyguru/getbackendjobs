@@ -20,8 +20,7 @@
     "selenium-webdriver": "^4.18.1",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.19",
-    "vue-router": "^4.3.0",
-    "vuefire": "^3.1.23"
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.18",

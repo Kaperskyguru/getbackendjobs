@@ -5,7 +5,7 @@
       'border-t md:border-b': isFull || bgColor === 'white',
     }"
   >
-    <nuxt-link to="/jobs/asas">
+    <a target="_blank" :href="job?.apply_url">
       <div
         :class="{
           'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
@@ -20,11 +20,13 @@
         class="flex group md:my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
       >
         <div class="flex w-full items-center gap-5">
-          <div><Avatar name="Mastering Backend" /></div>
+          <div v-if="job?.show_company_logo">
+            <Avatar :src="job?.company_logo" :name="job?.company_name" />
+          </div>
           <div class="w-full">
             <div class="flex gap-2">
-              <h2>Backend Software Engineer</h2>
-              <div class="uppercase text-white text-sm">
+              <h2>{{ job?.position }}</h2>
+              <div class="uppercase text-white text-sm" v-if="isSticky(job)">
                 <span
                   class="original tooltip-set"
                   style="vertical-align: middle"
@@ -32,18 +34,18 @@
                   >🎈</span
                 >
               </div>
-              <div class="uppercase text-white text-sm">
+              <div class="uppercase text-white text-sm" v-if="isVerified(job)">
                 <span class="px-2 py-1 bg-green-600 rounded-full"
                   >verified</span
                 >
               </div>
             </div>
             <div class="py-1 flex">
-              <h3 class="text-sm">Mastering Backend</h3>
-              <span class="w-8 h-8"
+              <h3 class="text-sm">{{ job?.company_name }}</h3>
+              <!-- <span class="w-8 h-8"
                 ><img src="~/assets/hot2x.webp" alt="Hot 2x" class="w-full"
-              /></span>
-              <span class="w-8 h-8"
+              /></span> -->
+              <span class="w-8 h-8" v-if="isNew(job)"
                 ><img src="~/assets/new2x.webp" alt="New 2x" class="w-full"
               /></span>
             </div>
@@ -64,10 +66,21 @@
               </div>
 
               <div
+                v-if="hasSalary(job)"
                 class="rounded-full w-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
               >
                 <span>💰</span>
-                <span class="text-sm w-full">$130k-$150k</span>
+                <span class="text-sm w-full"
+                  >${{
+                    Intl.NumberFormat("en", { notation: "compact" }).format(
+                      job?.min_salary ?? 0.0
+                    )
+                  }}-${{
+                    Intl.NumberFormat("en", { notation: "compact" }).format(
+                      job?.max_salary ?? 0.0
+                    )
+                  }}</span
+                >
               </div>
             </div>
           </div>
@@ -102,9 +115,9 @@
             class="flex relative items-center justify-center gap-5 py-5 lg:py-1"
             style="align-content: baseline"
           >
-            <span class="flex items-center gap-1"
+            <span class="flex items-center gap-1" v-if="job?.posted_at"
               ><PaperClip class="" />
-              <p>4h</p>
+              <p>{{ job?.posted_at }}</p>
             </span>
             <button
               :class="{
@@ -123,7 +136,7 @@
           </div>
         </div>
       </div>
-    </nuxt-link>
+    </a>
 
     <div v-if="isFull">
       <div style="">
@@ -344,20 +357,17 @@
 
 <script setup>
 import PaperClip from "~/assets/paper-clip.svg";
-
-const locations = ref(["Nigeria", "Remote", "Africa"]);
-const skills = ref([
-  "Node.js",
-  "AWS",
-  "Serverless",
-  "JavaScript",
-  "TypeScript",
-]);
+import { Timestamp } from "firebase/firestore";
 
 const props = defineProps({
   bgColor: {
     default: "white",
     type: String,
+  },
+
+  job: {
+    type: Object,
+    default: () => {},
   },
 
   isFull: {
@@ -367,12 +377,43 @@ const props = defineProps({
 });
 
 const displayLocation = computed(() => {
-  return props.isFull ? locations.value : locations.value?.slice(0, 2);
+  return props.isFull
+    ? props.job?.locations
+    : props.job?.locations?.slice(0, 2);
 });
 
 const displaySkills = computed(() => {
-  return props.isFull ? skills.value : skills.value?.slice(0, 3);
+  return props.isFull ? props.job?.keywords : props.job?.keywords?.slice(0, 3);
 });
+
+function isNew(job) {
+  const now = new Date();
+  now.setHours(0, 0, 0);
+
+  const createdDate = Date.parse(job?.created_at);
+  const currentDate = Date.parse(now);
+
+  return createdDate >= currentDate;
+}
+
+function isVerified(job) {
+  if (!job?.company_email) return false;
+  const domain = company_email?.split("@")[1];
+
+  return (
+    domain.includes(job?.company_website) || domain.includes(job?.company_name)
+  );
+}
+
+function isSticky(job) {
+  return (
+    job?.stick_for_1_week || job?.stick_for_24_hours || job?.stick_for_1_month
+  );
+}
+
+function hasSalary(job) {
+  return job.min_salary > 0 && job?.max_salary > 0;
+}
 </script>
 
 <style>

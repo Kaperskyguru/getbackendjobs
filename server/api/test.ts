@@ -1,6 +1,7 @@
 import Startup from "../scrappers/startup.jobs";
+import StartupJobs from "../scrappers/startupjobs";
 
 export default defineEventHandler(async (event) => {
-  const data = await Startup.scrape();
+  const data = await StartupJobs.scrape();
   return data;
 });

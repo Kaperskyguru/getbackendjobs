@@ -1,6 +1,7 @@
 import { dbJobResolver } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome";
+import { addJobs, addJobsHelper } from "../api/services";
 const jobUrl = `https://startup.jobs/?q=backend`;
 
 let page: any;
@@ -38,8 +39,6 @@ class Startup {
     const elements = await driver.findElements(
       By.css("div.content > div > div > div.grid")
     );
-
-    console.log(elements);
 
     const jobs: Array<any> = [];
 
@@ -87,22 +86,25 @@ class Startup {
   static async scrape() {
     try {
       const jobs = await this.resolve();
-      await driver.quit();
-      //   const data = dbJobResolver(jobs);
+      const data = dbJobResolver(jobs);
+      await addJobsHelper("jobs", data);
+
       return {
         message: "Scraped successfully",
         status: 200,
-        data: jobs,
+        total_jobs: jobs.length,
+        data,
       };
     } catch (err) {
       console.log(err);
     } finally {
+      await driver.quit();
     }
   }
 
   static async getJobs() {
     const jobs = await this.resolve();
-    await browser.close();
+    await driver.quit();
     // console.log(jobs)
     const data: any = {};
     data.jobs = jobs;

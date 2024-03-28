@@ -103,33 +103,34 @@
             class="relative flex items-center md:w-2/6 w-full justify-center"
             style="align-content: baseline"
           >
-            <button
+            <a
+              target="_blank"
+              href="https://masteringbackend.com?ref=getbackendjobs"
               class="px-10 flex text-black left-1 py-2 bg-red-600 rounded-full bg-white"
             >
               Sign up today
-            </button>
+            </a>
           </div>
         </div>
       </section>
 
       <section>
-        <Job bg-color="blue" />
+        <span v-for="(job, i) in jobs" :key="i">
+          <Job
+            :job="job"
+            :bg-color="
+              job?.highlight_post_yellow
+                ? 'blue'
+                : job?.show_color
+                ? ''
+                : 'white'
+            "
+          />
+        </span>
 
-        <Job bg-color="red" />
+        <!-- <Job bg-color="red" /> -->
 
-        <Job />
-
-        <Job />
-
-        <Job bg-color="red" />
-
-        <Job bg-color="blue" />
-
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
+        <!-- <Job bg-color="blue" /> -->
       </section>
     </div>
   </div>
@@ -138,15 +139,25 @@
 <script setup>
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
-// import { collection, doc } from "firebase/firestore";
+const loading = ref(false);
+const jobs = ref([]);
 
-const { $modelsRef, $db } = useNuxtApp();
+const loadJobs = async () => {
+  try {
+    loading.value = true;
 
-const models = useCollection($modelsRef);
+    const { data } = await useFetch(`/api/jobs`);
 
-// const jobs = useDocument(doc(collection($db, "jobs"), ""));
+    console.log(data.value);
+    jobs.value = data.value?.result;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+};
 
-console.log(models);
+loadJobs();
 </script>
 
 

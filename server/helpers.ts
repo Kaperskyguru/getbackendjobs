@@ -22,14 +22,43 @@ export function jobResolver(jobs: any) {
 export function dbJobResolver(jobs: any) {
   return jobs.map((job: any) => {
     const resolvedJob: any = {};
-    resolvedJob.title = job.titleText;
-    resolvedJob.date = job.titleDate;
-    resolvedJob.description = job.titleDesc;
-    resolvedJob.website = job.titleURLHost;
-    resolvedJob.url = job.titleURL.split("?")[0];
-    resolvedJob.company = job.titleCompany;
-    resolvedJob.location = job.titleLocation;
-    resolvedJob.languages = job.titleLang;
+    resolvedJob.benefits = [];
+    resolvedJob.blast_to_newsletter = true;
+    resolvedJob.description = "";
+    resolvedJob.enable_qr_code = false;
+    resolvedJob.highlight_post_yellow = false;
+    resolvedJob.how_to_apply = "";
+    resolvedJob.locations = job.locations;
+    resolvedJob.primary_level = "";
+    resolvedJob.primium_support = false;
+    resolvedJob.send_to_directory = true;
+    resolvedJob.show_color = false;
+    resolvedJob.show_company_logo = true;
+    resolvedJob.stick_for_1_month = false;
+    resolvedJob.stick_for_1_week = false;
+    resolvedJob.stick_for_24_hours = false;
+    resolvedJob.total_amount = 0.0;
+    resolvedJob.type = "";
+    resolvedJob.apply_email = "";
+    resolvedJob.apply_url = job.jobURL;
+    resolvedJob.company_email = "";
+    resolvedJob.company_logo = job.logo;
+    resolvedJob.company_name = job.company;
+    resolvedJob.company_twitter = "";
+    resolvedJob.company_website = "";
+    resolvedJob.invoice_address = "";
+    resolvedJob.invoice_email = "";
+    resolvedJob.invoice_notes = "";
+    resolvedJob.keywords = job.tags;
+    resolvedJob.max_salary = 0.0;
+    resolvedJob.min_salary = 0.0;
+    resolvedJob.pay_later_email = "";
+    resolvedJob.position = job.title;
+    resolvedJob.posted_at = null;
+
+    resolvedJob.sticky_expired_date = null;
+    resolvedJob.total_views = 0;
+    resolvedJob.total_click = 0;
     return resolvedJob;
   });
 }

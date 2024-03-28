@@ -1,6 +1,7 @@
 import { dbJobResolver } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome";
+import { addJobsHelper } from "../api/services";
 const jobUrl = `https://www.startupjobs.com/jobs/development/back-end`;
 
 let browser: any;
@@ -43,21 +44,20 @@ class StartupJobs {
         .findElement(By.tagName("img"))
         ?.getAttribute("src");
       const company = await element.findElement(By.css("h6 > span")).getText();
-      const tags = [];
-      const tagsElement = await element.findElements(
+      const locations = [];
+      const locationsElement = await element.findElements(
         By.css("div >div > ul > li")
       );
-      for (const tag of tagsElement) {
-        tags.push(await tag.getText());
+      for (const location of locationsElement) {
+        locations.push(await location.getText());
       }
-
-      await driver.get(jobURL);
 
       jobs.push({
         title,
         logo,
         company,
-        tags,
+        locations,
+        tags: [],
         jobURL,
       });
     }
@@ -69,11 +69,15 @@ class StartupJobs {
     try {
       const jobs = await this.resolve();
       await driver.quit();
-      //   const data = dbJobResolver(jobs);
+      const data = dbJobResolver(jobs);
+
+      await addJobsHelper("jobs", data);
+
       return {
         message: "Scraped successfully",
         status: 200,
-        data: jobs,
+        total_jobs: jobs.length,
+        data,
       };
     } catch (err) {
       console.log(err);
