@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   css: ["~/assets/main.css"],
-
+  ssr: true,
   app: {
     head: {
       title:

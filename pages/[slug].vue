@@ -126,8 +126,6 @@ const loadJobs = async () => {
 
     const query = generateQuery();
 
-    console.log(query);
-
     const { data } = await useFetch(`/api/jobs?${query}`);
 
     jobs.value = data.value?.result;

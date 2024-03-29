@@ -56,8 +56,6 @@ export const queryByCollection = async (
     );
   }
 
-  console.log(locations);
-
   if (keywords.length) {
     jobQuery = query(colRef, where("keywords", "array-contains-any", keywords));
   }
