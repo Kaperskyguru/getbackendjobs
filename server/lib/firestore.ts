@@ -10,15 +10,85 @@ import {
   getDoc,
   query,
   limit,
+  or,
+  startAt,
+  and,
+  endAt,
   Timestamp,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebase";
 
-export const queryByCollection = async (col: string) => {
+export const queryByCollection = async (
+  col: string,
+  filters: {
+    search: String;
+    locations: Array<String>;
+    tags: Array<String>;
+    benefits: Array<String>;
+  }
+) => {
   // @ts-ignore
   const colRef = collection(firestoreDb, col);
 
-  const snapshot = await getDocs(colRef);
+  const locations = Array.isArray(filters?.locations)
+    ? [...filters?.locations]
+    : filters?.locations
+    ? [filters?.locations]
+    : [];
+
+  const keywords = Array.isArray(filters?.tags)
+    ? [...filters?.tags]
+    : filters?.tags
+    ? [filters?.tags]
+    : [];
+
+  const benefits = Array.isArray(filters?.benefits)
+    ? [...filters?.benefits]
+    : filters?.benefits
+    ? [filters?.benefits]
+    : [];
+
+  let jobQuery = colRef;
+  if (locations.length) {
+    jobQuery = query(
+      colRef,
+      where("locations", "array-contains-any", locations)
+    );
+  }
+
+  console.log(locations);
+
+  if (keywords.length) {
+    jobQuery = query(colRef, where("keywords", "array-contains-any", keywords));
+  }
+
+  if (benefits.length) {
+    jobQuery = query(colRef, where("benefits", "array-contains-any", benefits));
+  }
+
+  if (filters?.search) {
+    jobQuery = query(
+      colRef,
+      startAt([filters?.search]),
+      endAt([filters?.search + "\uf8ff"])
+    );
+  }
+
+  // const jobQuery = query(
+  //   colRef,
+  //   and(
+  //     where("	blast_to_newsletter", "==", true),
+  //     or(
+  //       where("locations", "in", locations),
+  //       where("keywords", "in", keywords),
+  //       where("benefits", "in", benefits)
+  //     )
+  //   ),
+  //   startAt([filters?.search]),
+  //   endAt([filters?.search + "\uf8ff"])
+  // );
+
+  const snapshot = await getDocs(jobQuery);
 
   const docs = Array.from(snapshot.docs).map((doc) => {
     return {

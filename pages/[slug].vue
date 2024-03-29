@@ -1,7 +1,7 @@
 <template>
   <div class="relaive">
     <section>
-      <Banner :title="title" :subtitle="subtitle" />
+      <Banner :search="false" :title="title" :subtitle="subtitle" />
     </section>
 
     <div class="page md:mx-auto md:container">
@@ -74,11 +74,61 @@ const jobs = ref([]);
 const title = ref("");
 const subtitle = ref("");
 
+function generateQuery() {
+  const slug = route.params?.slug;
+
+  if (slug.includes("backend-jobs-in")) {
+    const loc = slug.split("backend-jobs-in-")[1];
+    return `locations=${capitalize(loc.replaceAll("-", " "))}`;
+  }
+
+  if (slug.includes("remote")) {
+    return `locations=Remote`;
+  }
+
+  if (slug.includes("worldwide")) {
+    return `locations=Worldwide`;
+  }
+
+  const tags = slug.split("-");
+  if (!tags[0]?.includes("backend")) {
+    return `tags=${capitalize(tags[0])}`;
+  }
+
+  if (tags[0]?.includes("backend") && tags?.length > 2)
+    return `tags=${capitalize(tags[1])}`;
+
+  return `tags=${capitalize(tags[0])}`;
+}
+
+function capitalizeWord([first, ...rest], lc) {
+  return (
+    first.toUpperCase() + (lc ? rest.join("").toLowerCase() : rest.join(""))
+  );
+}
+
+function capitalize(str, lc = true, all = true) {
+  if (str.includes(".")) {
+    return str.toUpperCase();
+  }
+
+  return all
+    ? str
+        .split(/(\s|-|')/)
+        .map((s) => capitalizeWord(s, lc))
+        .join("")
+    : capitalizeWord(str, lc);
+}
+
 const loadJobs = async () => {
   try {
     loading.value = true;
 
-    const { data } = await useFetch(`/api/jobs`);
+    const query = generateQuery();
+
+    console.log(query);
+
+    const { data } = await useFetch(`/api/jobs?${query}`);
 
     jobs.value = data.value?.result;
   } catch (error) {
@@ -103,13 +153,6 @@ function getPageDetails() {
   subtitle.value = `Find tailored ${text}`;
 }
 getPageDetails();
-
-// To search
-/**
- * If the first is Backend and array is two more. Take the second element
- *
- * If the first is not Backend, Take the first to search
- */
 
 useHead({
   title: title.value,

@@ -61,6 +61,38 @@
           <span class="text-2xl font-black">Backend Job</span> or the Perfect
           <span class="text-2xl font-black">Backend Talent</span>.
         </p>
+
+        <form v-if="search" class="max-w-md w-full mx-auto pb-5">
+          <div
+            class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 m-4 p-1 rounded-full max-w-sm"
+          >
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-black"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="default-search"
+              class="block p-3 w-full rounded-full focus:outline-none w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
+              placeholder="backend engineers, remote backend roles"
+            />
+          </div>
+        </form>
       </div>
     </div>
 
@@ -79,6 +111,10 @@ const props = defineProps({
   title: {
     type: String,
     defualt: "",
+  },
+  search: {
+    default: true,
+    type: Boolean,
   },
   subtitle: {
     type: String,

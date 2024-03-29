@@ -1,5 +1,5 @@
 export const locations = [
-  "🌏 Worldwide",
+  "🌏 Remote",
   "🦁 Africa",
   "⛩ Asia",
   "🇪🇺 Europe",

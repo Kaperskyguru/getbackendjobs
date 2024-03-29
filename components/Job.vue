@@ -424,7 +424,7 @@ function isRemote(location) {
 }
 
 function getLocationSlug(location) {
-  const _location = location.toLowerCase().replaceAll(".", "");
+  const _location = location.toLowerCase();
 
   if (
     _location.toLowerCase().includes("hybrid") ||
