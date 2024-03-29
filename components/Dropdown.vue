@@ -1,5 +1,5 @@
 <template>
-  <span class="w-full relative">
+  <span class="w-full">
     <button
       @click="showMenu = !showMenu"
       id="dropdownSearchButton"

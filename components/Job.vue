@@ -5,7 +5,7 @@
       'border-t md:border-b': isFull || bgColor === 'white',
     }"
   >
-    <a target="_blank" :href="job?.apply_url">
+    <div>
       <div
         :class="{
           'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
@@ -50,20 +50,21 @@
               /></span>
             </div>
             <div
-              class="flex gap-2 py-1 w-ful items-center"
+              class="flex gap-2 py-1 w-full items-center"
               :class="{
                 'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col':
                   isFull,
               }"
             >
-              <div
+              <nuxt-link
+                :to="getLocationSlug(location)"
                 v-for="(location, i) in displayLocation"
                 :key="i"
                 class="rounded-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
               >
-                <span>🌏</span>
+                <span v-if="isRemote(location)">🌏</span>
                 <span class="text-sm">{{ location }}</span>
-              </div>
+              </nuxt-link>
 
               <div
                 v-if="hasSalary(job)"
@@ -94,7 +95,8 @@
               'md:flex hidden': !isFull,
             }"
           >
-            <div
+            <nuxt-link
+              :to="getTagSlug(skill)"
               v-for="(skill, i) in displaySkills"
               :key="i"
               class="rounded-full w-full flex items-center gap-3 px-2 py-1"
@@ -109,7 +111,7 @@
               }"
             >
               <span class="">{{ skill }}</span>
-            </div>
+            </nuxt-link>
           </div>
           <div
             class="flex relative items-center justify-center gap-5 py-5 lg:py-1"
@@ -119,7 +121,9 @@
               ><PaperClip class="" />
               <p>{{ job?.posted_at }}</p>
             </span>
-            <button
+            <a
+              target="_blank"
+              :href="job?.apply_url"
               :class="{
                 'bg-white text-[#ff4742]': bgColor === 'red',
                 'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
@@ -132,11 +136,11 @@
               class="px-6 text-black absolute left-10 py-2 bg-red-600 rounded-full bg-white"
             >
               Apply
-            </button>
+            </a>
           </div>
         </div>
       </div>
-    </a>
+    </div>
 
     <div v-if="isFull">
       <div style="">
@@ -413,6 +417,39 @@ function isSticky(job) {
 
 function hasSalary(job) {
   return job.min_salary > 0 && job?.max_salary > 0;
+}
+
+function isRemote(location) {
+  return location.toLowerCase().includes("emote");
+}
+
+function getLocationSlug(location) {
+  const _location = location.toLowerCase().replaceAll(".", "");
+
+  if (
+    _location.toLowerCase().includes("hybrid") ||
+    _location.includes("remote")
+  )
+    return `remote-backend-jobs`;
+
+  if (_location.includes("0")) return "";
+  if (_location.includes("time")) return `${_location}-backend-jobs`;
+
+  return `/backend-jobs-in-${_location.replaceAll(" ", "-")}`;
+}
+
+function getTagSlug(tag) {
+  const _tag = tag.toLowerCase();
+
+  if (_tag == "engineer" || _tag == "developer") {
+    return `/backend-${_tag.replaceAll(" ", "-")}-jobs`;
+  }
+
+  if (!_tag.includes("backend")) {
+    return `/${_tag.replaceAll(" ", "-")}-backend-jobs`;
+  }
+
+  return `/${_tag.replaceAll(" ", "-")}-jobs`;
 }
 </script>
 

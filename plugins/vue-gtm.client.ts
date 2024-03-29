@@ -1,6 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
   const { gtagId, appEnv } = useRuntimeConfig().public;
-  if (appEnv !== "production") return;
+  if (appEnv == "development") return;
+
   function gtag() {
     window.dataLayer.push(arguments);
   }

@@ -56,6 +56,7 @@ export function dbJobResolver(jobs: any) {
     resolvedJob.position = job.title;
     resolvedJob.posted_at = null;
 
+    resolvedJob.external = true;
     resolvedJob.sticky_expired_date = null;
     resolvedJob.total_views = 0;
     resolvedJob.total_click = 0;

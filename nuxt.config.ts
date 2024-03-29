@@ -53,7 +53,7 @@ export default defineNuxtConfig({
         {
           hid: "og:type",
           property: "og:type",
-          content: "article",
+          content: "website",
         },
 
         {
@@ -136,17 +136,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // modules: ["nuxt-vuefire"],
-
-  // vuefire: {
-  //   config: {
-  //     apiKey: process.env.FIREBASE_API_KEY,
-  //     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  //     projectId: process.env.FIREBASE_PROJECT_ID,
-  //     appId: process.env.FIREBASE_APP_ID,
-  //     // there could be other properties depending on the project
-  //   },
-  // },
+  modules: ["@nuxtjs/cloudinary"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -165,6 +155,8 @@ export default defineNuxtConfig({
       authDomain: process.env.FIREBASE_AUTH_DOMAIN,
       projectId: process.env.FIREBASE_PROJECT_ID,
       apiID: process.env.FIREBASE_APP_ID,
+      cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
+      appEnv: process.env.NODE_ENV,
     },
   },
 

@@ -36,11 +36,28 @@
         <div class="flex flex-row justify-around gap-2 my-5 overflow-x-auto">
           <div class="flex w-full gap-5">
             <div>
-              <Dropdown title="Filter" />
+              <Dropdown
+                title="Filter"
+                :items="[
+                  'Full-time',
+                  'Part-time',
+                  'Contractor',
+                  'Temporary',
+                  'Internship',
+                  'Volunteer',
+                  'Senior',
+                  'Principal',
+                  'Junior',
+                  'Staff',
+                  'Entry-Level',
+                  'Intern',
+                  'Cofounder',
+                ]"
+              />
             </div>
 
             <div>
-              <Dropdown title="Location" />
+              <Dropdown title="Location" :items="locations" />
             </div>
 
             <div>
@@ -48,34 +65,64 @@
             </div>
 
             <div>
-              <Dropdown title="Benefits" />
+              <Dropdown title="Benefits" :items="benefits" />
             </div>
 
             <div class="md:hidden block">
-              <Dropdown title="Sort By" />
+              <Dropdown
+                title="Sort By"
+                :items="[
+                  'Latest jobs',
+                  'Highest Paid',
+                  'Most viewed',
+                  'Most applied',
+                  'Hottest',
+                  'Most benefits',
+                ]"
+              />
             </div>
           </div>
           <div class="md:w-40 w-full hidden md:block">
-            <Dropdown title="Sort By" />
+            <Dropdown
+              title="Sort By"
+              :items="[
+                '⏰ Latest jobs',
+                '💰 Highest paid',
+                '🫵 Most viewed',
+                '✅ Most applied',
+                '🔥 Hottest',
+                '🎁 Most benefits',
+              ]"
+            />
           </div>
         </div>
 
         <div class="flex overflow-x-auto gap-2">
           <div class="flex w-full gap-5">
             <div>
-              <Suggested title="Location" />
+              <Suggested title="Remote" link="/remote-backend-jobs" />
+            </div>
+            <div>
+              <Suggested title="Senior" link="/senior-backend-jobs" />
             </div>
 
             <div>
-              <Suggested title="Salary" />
+              <Suggested title="Principal" link="/principal-backend-jobs" />
             </div>
 
             <div>
-              <Suggested title="Benefits" />
+              <Suggested title="Junior" link="/junior-backend-jobs" />
             </div>
 
             <div>
-              <Suggested title="Benefits" />
+              <Suggested title="Contractors" link="/contractors-backend-jobs" />
+            </div>
+
+            <div>
+              <Suggested
+                title="Backend Jobs in US"
+                link="/backend-jobs-in-us"
+              />
             </div>
           </div>
         </div>
@@ -139,7 +186,9 @@
 <script setup>
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
+import { locations, benefits } from "~/helpers";
 const loading = ref(false);
+
 const jobs = ref([]);
 
 const loadJobs = async () => {
@@ -148,7 +197,6 @@ const loadJobs = async () => {
 
     const { data } = await useFetch(`/api/jobs`);
 
-    console.log(data.value);
     jobs.value = data.value?.result;
   } catch (error) {
     console.log(error);

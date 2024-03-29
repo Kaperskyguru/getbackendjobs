@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="flex relative justify-center py-2">
+    <div v-if="false" class="flex relative justify-center py-2">
       <p class="font-bold text-lg text-center">
         🏷 A discount of 10% with code 573ACB3B8848293F9E81010ADFF53383 is
         applied on checkout
@@ -55,6 +55,9 @@
                 placeholder="Company name"
               />
             </div>
+            <span class="text-xs text-red-500" v-if="v$.company_name.$error">{{
+              v$.company_name.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               Your company's brand/trade name: without Inc., Ltd., B.V., Pte.,
               etc.
@@ -76,6 +79,9 @@
                 placeholder="Position"
               />
             </div>
+            <span class="text-xs text-red-500" v-if="v$.position.$error">{{
+              v$.position.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               Please specify as single job position like "Senior Backend
               Engineer" or "Node JS Developer", not a sentence like "Looking for
@@ -109,6 +115,9 @@
                 <option value="Volunteer">Volunteer</option>
                 <!-- <option>Full-time</option> -->
               </select>
+              <span class="text-xs text-red-500" v-if="v$.type.$error">{{
+                v$.type.$errors[0].$message
+              }}</span>
             </div>
           </div>
 
@@ -135,6 +144,9 @@
                 <option value="Cofounder">Cofounder</option>
               </select>
             </div>
+            <span class="text-xs text-red-500" v-if="v$.primary_level.$error">{{
+              v$.primary_level.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               Select a primary tag This primary tag shows first and increases
               visibility in the main sections. Your job is shown on every page
@@ -162,6 +174,9 @@
                 />
               </div>
             </div>
+            <span class="text-xs text-red-500" v-if="v$.keywords.$error">{{
+              v$.keywords.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               Short tags are preferred. Use tags like industry and tech stack.
               The first 3 or 4 tags are shown on the site, the other tags aren't
@@ -189,6 +204,9 @@
                 />
               </div>
             </div>
+            <span class="text-xs text-red-500" v-if="v$.locations.$error">{{
+              v$.locations.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               If you'd only like to hire people from a specific location or
               timezone this backend job is restricted to (e.g. Europe, United
@@ -553,12 +571,29 @@
                   ></label
                 >
               </div>
-              <input
-                type="file"
-                @change="selectedFile"
-                id="company_logo"
-                class="block p-3 w-full rounded-lg focus:outline-none w-full text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
-              />
+              <div class="inline-block mr-5">
+                <Avatar size="medium" />
+              </div>
+              <CldUploadWidget
+                :options="{
+                  showPoweredBy: false,
+                  folder: '/Get Backend Jobs/logos',
+                  multiple: false,
+                  sources: ['local', 'url'],
+                  clientAllowedFormats: ['jpeg', 'png', 'jpg'],
+                }"
+                v-slot="{ open }"
+                signatureEndpoint="/api/sign-cloudinary-params"
+                @on-success="uploadImage"
+              >
+                <button
+                  class="py-2 px-3 bg-blue-600 rounded text-white"
+                  type="button"
+                  @click="open"
+                >
+                  Upload an Image
+                </button>
+              </CldUploadWidget>
             </div>
           </div>
 
@@ -607,6 +642,10 @@
             >
               2x more views
             </span>
+
+            <span class="text-xs text-red-500" v-if="v$.brand_color.$error">{{
+              v$.brand_color.$errors[0].$message
+            }}</span>
           </div>
 
           <div class="pb-5">
@@ -656,6 +695,14 @@
               </div>
             </div>
           </div>
+
+          <span class="text-xs text-red-500" v-if="v$.min_salary.$error"
+            >{{ v$.min_salary.$errors[0].$message }} |
+          </span>
+
+          <span class="text-xs text-red-500" v-if="v$.max_salary.$error">{{
+            v$.max_salary.$errors[0].$message
+          }}</span>
 
           <p class="text-gray-500 pt-2 pb-5 text-xs font-thin">
             <span>
@@ -709,6 +756,9 @@
                 ></textarea>
               </div>
             </div>
+            <span class="text-xs text-red-500" v-if="v$.description.$error">{{
+              v$.description.$errors[0].$message
+            }}</span>
           </div>
 
           <div class="py-5">
@@ -720,38 +770,16 @@
               </div>
               <div class="pb- bg-white rounded-lg">
                 <Dropdown
-                  :items="[
-                    '401(k)',
-                    'Distributed Team',
-                    'Async',
-                    'Vision Insurance',
-                    'Dental Insurance',
-                    'Medical Insurance',
-                    'Unlimited vacation',
-                    'Paid time off',
-                    '4 day workweek',
-                    '401k matching',
-                    'Company retreats',
-                    'Coworking budget',
-                    'Learning budget',
-                    'Free gym membership',
-                    'Mental wellness budget',
-                    'Home office budget',
-                    'Pay in crypto',
-                    'Pseudonymous',
-                    'Profit sharing',
-                    'Equity compensation',
-                    'No whiteboard interview',
-                    'No monitoring system',
-                    'No politics at work',
-                    'We hire old (young)',
-                  ]"
+                  :items="benefits"
                   @selected="selectedbenefits"
                   title="Benefits"
                   :isRoundedFull="false"
                 />
               </div>
             </div>
+            <span class="text-xs text-red-500" v-if="v$.benefits.$error">{{
+              v$.benefits.$errors[0].$message
+            }}</span>
           </div>
 
           <div class="pb-5">
@@ -771,6 +799,9 @@
                 ></textarea>
               </div>
             </div>
+            <span class="text-xs text-red-500" v-if="v$.how_to_apply.$error">{{
+              v$.how_to_apply.$errors[0].$message
+            }}</span>
           </div>
 
           <div class="py-5">
@@ -788,6 +819,9 @@
                 placeholder="Apply URL"
               />
             </div>
+            <span class="text-xs text-red-500" v-if="v$.apply_url.$error">{{
+              v$.apply_url.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               Apply URLs with a form an applicant can fill out generally receive
               a lot more applicants than having people apply by email (below). A
@@ -801,7 +835,7 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="apply_email">APPLY Email Address*</label>
+                <label for="apply_email">APPLY Email Address</label>
               </div>
               <input
                 type="email"
@@ -811,6 +845,9 @@
                 placeholder="Apply Emaill Address"
               />
             </div>
+            <span class="text-xs text-red-500" v-if="v$.apply_email.$error">{{
+              v$.apply_email.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               This email is public (!), the [ Apply ] button links to it if you
               do not specify an Apply URL above. We recommend using an Apply
@@ -835,6 +872,11 @@
                 placeholder="Twitter username"
               />
             </div>
+            <span
+              class="text-xs text-red-500"
+              v-if="v$.company_twitter.$error"
+              >{{ v$.company_twitter.$errors[0].$message }}</span
+            >
             <p class="text-gray-500 pt-2 text-xs">
               Twitter username without @. Not required, but used to tag your
               company when we tweet out your job post.
@@ -858,6 +900,9 @@
                 placeholder="Company email"
               />
             </div>
+            <span class="text-xs text-red-500" v-if="v$.company_email.$error">{{
+              v$.company_email.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               Make sure this email is accessible by you! We use this to send the
               invoice and edit link. We can not and do not manually resend it!
@@ -881,6 +926,11 @@
                 placeholder="Company website"
               />
             </div>
+            <span
+              class="text-xs text-red-500"
+              v-if="v$.company_website.$error"
+              >{{ v$.company_website.$errors[0].$message }}</span
+            >
           </div>
 
           <div class="py-5">
@@ -898,6 +948,9 @@
                 placeholder="Invoice email"
               />
             </div>
+            <span class="text-xs text-red-500" v-if="v$.invoice_email.$error">{{
+              v$.invoice_email.$errors[0].$message
+            }}</span>
             <p class="text-gray-500 pt-2 text-xs">
               We send a copy of the invoice and edit link to here too. You can
               write your finance department or accountant expenses email here so
@@ -910,7 +963,7 @@
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
               <div class="p-2 text-white font-bold text-lg">
-                <label for="invoice_address">INVOICE ADDRESS* </label>
+                <label for="invoice_address">INVOICE ADDRESS </label>
               </div>
               <textarea
                 id="invoice_address"
@@ -920,6 +973,11 @@
                 rows="5"
               ></textarea>
             </div>
+            <span
+              class="text-xs text-red-500"
+              v-if="v$.invoice_address.$error"
+              >{{ v$.invoice_address.$errors[0].$message }}</span
+            >
             <p class="text-gray-500 pt-2 text-xs">
               Specify your company address here and we'll put it on your invoice
               for your bookkeeping. Be sure to [ Save changes ] in bottom right
@@ -988,6 +1046,11 @@
                 placeholder="Pay later email address"
               />
             </div>
+            <span
+              class="text-xs text-red-500"
+              v-if="v$.pay_later_email.$error"
+              >{{ v$.pay_later_email.$errors[0].$message }}</span
+            >
             <p class="text-gray-500 pt-2 text-xs">
               We will send a link to pay for this job to this email address.
             </p>
@@ -1305,12 +1368,12 @@
               </div>
 
               <div class="flex justify-center md:w-60 w-full">
-                <button
-                  disabled
+                <a
+                  href="https://masteringbackend.com?ref=getbackendjobs"
                   class="border-solid flex border text-black bg-white border-white px-6 rounded-lg py-1"
                 >
                   Sign up now
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -1695,62 +1758,21 @@
 <script setup>
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
-
+import useVuelidate from "@vuelidate/core";
+import {
+  email,
+  helpers,
+  minLength,
+  required,
+  requiredIf,
+  url,
+} from "@vuelidate/validators";
+import { Timestamp } from "firebase/firestore";
+import { locations, benefits } from "~/helpers";
 const should_pay_later = ref(false);
 const company_logo = ref("");
-const locations = [
-  "🌏 Worldwide",
-  "🦁 Africa",
-  "⛩ Asia",
-  "🇪🇺 Europe",
-  "💃 Latin America",
-  "🕌 Middle East",
-  "⛰️ North America",
-  "🌊 Oceania",
-  "🇦🇫 Afghanistan",
-  "🇦🇱 Albania",
-  "🇩🇿 Algeria",
-  "🇦🇸 American Samoa",
-  "🇦🇩 Andorra",
-  "🇦🇴 Angola",
-  "🇦🇮 Anguilla",
-  "🇦🇶 Antarctica",
-  "🇦🇬 Antigua and Barbuda",
-  "🇦🇷 Argentina",
-  "🇦🇲 Armenia",
-  "🇦🇼 Aruba",
-  "🇦🇺 Australia",
-  "🇦🇹 Austria",
-  "🇦🇿 Azerbaijan",
-  "🇧🇭 Bahrain",
-  "🇧🇩 Bangladesh",
-  "🇧🇧 Barbados",
-  "🇧🇾 Belarus",
-  "🇧🇪 Belgium",
-  "🇧🇿 Belize",
-  "🇧🇯 Benin",
-  "🇧🇲 Bermuda",
-  "🇧🇹 Bhutan",
-  "🇧🇴 Bolivia",
-  "🇧🇦 Bosnia",
-  "🇧🇼 Botswana",
-  "🇧🇻 Bouvet Island",
-  "🇧🇷 Brazil",
-  "🇮🇴 British Indian Ocean Territory",
-  "🇻🇬 British Virgin Islands",
-  "🇧🇳 Brunei",
-  "🇧🇬 Bulgaria",
-  "🇧🇫 Burkina Faso",
-  "🇧🇮 Burundi",
-  "🇰🇭 Cambodia",
-  "🇨🇲 Cameroon",
-  "🇨🇦 Canada",
-  "🇨🇻 Cape Verde",
-  "🇧🇶 Caribbean Netherlands",
-  "🇰🇾 Cayman Islands",
-  "🇨🇫 Central African Republic",
-  "🇹🇩 Chad",
-];
+
+const color = ref("#fff");
 const image = ref("");
 const job = shallowReactive({
   show_color: false,
@@ -1769,8 +1791,32 @@ const job = shallowReactive({
   locations: [],
   description: ``,
   how_to_apply: ``,
+  brand_color: color.value,
+
+  external: false,
+  posted_at: null,
+  external: true,
+  sticky_expired_date: null,
+  total_views: 0,
+  total_click: 0,
+
+  total_amount: 0.0,
+  apply_email: "",
+  apply_url: "",
+  company_email: "",
+  company_logo: "",
+  company_name: "",
+  company_twitter: "",
+  company_website: "",
+  invoice_address: "",
+  invoice_email: "",
+  invoice_notes: "",
+  keywords: "",
+  max_salary: 0.0,
+  min_salary: 0.0,
+  pay_later_email: "",
+  position: "",
 });
-const color = ref("#fff");
 
 const calculatedViews = computed(() => {
   let defaultViews = 122;
@@ -1894,9 +1940,238 @@ function selectedLocation(items) {
   job.locations = items;
 }
 
-function startHiring() {
-  console.log(job);
+function calculateStickyDate(job) {
+  let date = null;
+  if (job.stick_for_24_hours) {
+    date = new Date().setDate(a.getDate() + 1);
+  }
+
+  if (job.stick_for_1_week) {
+    date = new Date().setDate(now.getDate() + 1 * 7);
+  }
+
+  if (job.stick_for_1_month) {
+    date = new Date(date.setMonth(date.getMonth() + 1));
+  }
+
+  return date;
 }
+
+const mustBeUsername = (value) => !value.includes("@");
+
+const rules = computed(() => {
+  return {
+    company_name: {
+      required: helpers.withMessage(
+        "The company name field is required",
+        required
+      ),
+    },
+
+    position: {
+      required: helpers.withMessage("The position field is required", required),
+      minLength: minLength(6),
+    },
+
+    type: {
+      required: helpers.withMessage("The job type field is required", required),
+    },
+
+    primary_level: {
+      required: helpers.withMessage(
+        "The Job seniority field is required",
+        required
+      ),
+    },
+
+    keywords: {
+      required: helpers.withMessage(
+        "The tags,keywords or stacks field is required",
+        required
+      ),
+    },
+
+    locations: {
+      required: helpers.withMessage(
+        "The locations field is required",
+        required
+      ),
+    },
+
+    min_salary: {
+      required: helpers.withMessage(
+        "The min salary field is required",
+        required
+      ),
+    },
+
+    max_salary: {
+      required: helpers.withMessage(
+        "The max salary field is required",
+        required
+      ),
+    },
+
+    description: {
+      required: helpers.withMessage(
+        "The Job Description field is required",
+        required
+      ),
+    },
+
+    benefits: {
+      required: helpers.withMessage(
+        "The Job Benefits field is required",
+        required
+      ),
+    },
+
+    how_to_apply: {
+      required: helpers.withMessage(
+        'The "How To Apply" field is required',
+        required
+      ),
+    },
+
+    apply_url: {
+      required: helpers.withMessage(
+        "The Apply URL field is required",
+        required
+      ),
+    },
+
+    apply_email: {
+      email: helpers.withMessage("Invalid email format", email),
+    },
+
+    company_twitter: {
+      mustBeUsername: helpers.withMessage(
+        "The Company Twitter field must not contain @",
+        mustBeUsername
+      ),
+    },
+
+    company_email: {
+      required: helpers.withMessage(
+        "The Company Email field is required",
+        required
+      ),
+      email: helpers.withMessage("Invalid email format", email),
+    },
+
+    company_website: {
+      url: helpers.withMessage("The Company Website field must be a URL", url),
+    },
+
+    invoice_email: {
+      email: helpers.withMessage("Invalid email format", email),
+    },
+
+    invoice_address: {
+      minLength: minLength(6),
+    },
+
+    pay_later_email: {
+      requiredIf: helpers.withMessage(
+        "The Pay Later Email field is required",
+        requiredIf(job?.should_pay_later)
+      ),
+      email: helpers.withMessage("Invalid email format", email),
+    },
+
+    brand_color: {
+      requiredIf: helpers.withMessage(
+        "The Brand Color field is required",
+        requiredIf(job?.show_color)
+      ),
+    },
+  };
+});
+
+const v$ = useVuelidate(rules, job);
+
+function uploadImage(data) {
+  // Use Cloudinary
+
+  console.log(data);
+}
+function startHiring() {
+  v$.value.$validate();
+  if (v$.value.$error) return;
+
+  console.log(job);
+
+  // Upload image
+  job.company_logo = uploadImage(job);
+
+  job.posted_at = Timestamp.now();
+
+  // Calculate sticky_expired_date
+  job.sticky_expired_date = calculateStickyDate(job);
+
+  $fetch("/api/jobs", {
+    method: "POST",
+    body: job,
+  });
+}
+
+useHead({
+  title: "Hire Backend Engineers Remotely",
+  meta: [
+    {
+      hid: "keywords",
+      name: "keywords",
+      content: `hire remote backend engineers, hire C# Backend engineers, hire PHP Backend engineers, hire Java Backend engineers, hire JavaScript Backend engineers, hire Rust Backend engineers, hire Golang Backend engineers, hire backend developers`,
+    },
+    {
+      hid: "description",
+      name: "description",
+      content: `Hire the best remote backend talent in the world on Get Backend Jobs and reach millions of applicants, just like Amazon, Microsoft, Stripe, EasyJet, Shopify, ESPN, Intercom, GoDaddy, Namecheap, Invision, Toptal and thousands more remote companies.`,
+    },
+
+    {
+      hid: "og:title",
+      property: "og:title",
+      content: "Hire Backend Engineers Remotely",
+    },
+    {
+      hid: "og:description",
+      property: "og:description",
+      content:
+        "Hire the best remote backend talent in the world on Get Backend Jobs and reach millions of applicants, just like Vonage, Amazon, Microsoft, Stripe, Leetcode, Shopify, ESPN, Intercom, GoDaddy, Namecheap, Invision, Toptal and thousands more remote companies.",
+    },
+    {
+      hid: "og:image",
+      property: "og:image",
+      content: `https://res.cloudinary.com/kaperskydisk/image/upload/v1710945111/Get%20Backend%20Jobs/hero.png`,
+    },
+    {
+      hid: "og:url",
+      property: "og:url",
+      content: `/hire-backend`,
+    },
+    {
+      hid: "og:image:width",
+      property: "og:image:width",
+      content: "100",
+    },
+    {
+      hid: "og:image:height",
+      property: "og:image:height",
+      content: "100",
+    },
+    {
+      hid: "og:type",
+      property: "og:type",
+      content: "website",
+    },
+    {
+      hid: "twitter:card",
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+  ],
+});
 </script>
 
 <style scoped>
