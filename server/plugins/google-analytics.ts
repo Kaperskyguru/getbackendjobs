@@ -1,8 +1,6 @@
-import { defineNitroPlugin } from "nitropack/runtime/plugin";
-
-export default defineNitroPlugin((nitroApp) => {
+export default defineNitroPlugin((nitroApp: any) => {
   if (process.env.NODE_ENV == "development") return;
-  nitroApp.hooks.hook("render:html", (html, { event }) => {
+  nitroApp.hooks.hook("render:html", (html: any, { event }: any) => {
     html.head.push(`
     
     <!-- Google tag (gtag.js) -->
