@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
       title: job?.position ?? "-",
       url: job?.apply_url,
       date: job.created_at,
-      author: job.company,
+      author: job.company_name,
       description: job.description,
       categories: job.keywords,
       custom_elements: job.locations,
