@@ -138,6 +138,12 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/cloudinary"],
 
+  nitro: {
+    prerender: {
+      routes: ["/feeds.xml"],
+    },
+  },
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
     dirs: [
