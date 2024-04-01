@@ -86,34 +86,47 @@
       >
         <li v-for="(item, i) in newItems" :key="i">
           <div
-            v-if="multiple"
             class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
           >
             <input
               id="checkbox-item-11"
-              type="checkbox"
+              :type="multiple ? `checkbox` : 'radio'"
               v-model="selected"
-              :value="item"
+              :value="item?.value ?? item"
+              :name="item?.value ?? item"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
             />
             <label
               for="checkbox-item-11"
               class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-              >{{ item }}</label
+              >{{ item?.title ?? item }}</label
             >
           </div>
 
-          <div
-            @click="onSelected(item)"
+          <!-- <div
+            @click="onSelected(item?.value ?? item)"
             v-else
             class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
           >
+            <input
+              id="checkbox-item-11"
+              type="radio"
+              v-model="selected"
+              :value="item?.value ?? item"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+            />
+            <label
+              for="checkbox-item-11"
+              class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+              >{{ item?.title ?? item }}</label
+            >
+
             <p
               class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
             >
-              {{ item }}
+              {{ item.title ?? item }}
             </p>
-          </div>
+          </div> -->
         </li>
       </ul>
     </div>
@@ -151,10 +164,6 @@ const props = defineProps({
 });
 
 onMounted(() => (newItems.value = props.items));
-
-function onSelected(item) {
-  selected.value.push(item);
-}
 
 function addItem() {
   if (!newItem.value) return;

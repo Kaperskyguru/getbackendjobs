@@ -1,7 +1,7 @@
 <template>
   <div class="relaive">
     <section>
-      <Banner />
+      <Banner @search="onSearch" />
     </section>
 
     <div class="page md:mx-auto md:container">
@@ -53,46 +53,59 @@
                   'Intern',
                   'Cofounder',
                 ]"
+                @selected="onFilterSelected"
               />
             </div>
 
             <div>
-              <Dropdown title="Location" :items="locations" />
+              <Dropdown
+                title="Location"
+                :items="locations"
+                @selected="onLocationSelected"
+              />
             </div>
 
             <div>
-              <Dropdown title="Salary" />
+              <Dropdown
+                title="Keywords"
+                :items="[
+                  'JavaScript',
+                  'Python',
+                  'Rust',
+                  'PHP',
+                  'Go',
+                  'Java',
+                  'Backend',
+                  'Engineer',
+                  'Developer',
+                ]"
+                @selected="onKeywordSelected"
+              />
             </div>
 
             <div>
-              <Dropdown title="Benefits" :items="benefits" />
+              <Dropdown
+                title="Benefits"
+                :items="benefits"
+                @selected="onBenefitSelected"
+              />
             </div>
 
             <div class="md:hidden block">
               <Dropdown
                 title="Sort By"
-                :items="[
-                  'Latest jobs',
-                  'Highest Paid',
-                  'Most viewed',
-                  'Most applied',
-                  'Hottest',
-                  'Most benefits',
-                ]"
+                :multiple="false"
+                :items="sortItems"
+                @selected="onSortBySelected"
               />
             </div>
           </div>
           <div class="md:w-40 w-full hidden md:block">
             <Dropdown
               title="Sort By"
-              :items="[
-                '⏰ Latest jobs',
-                '💰 Highest paid',
-                '🫵 Most viewed',
-                '✅ Most applied',
-                '🔥 Hottest',
-                '🎁 Most benefits',
-              ]"
+              :multiple="false"
+              :items="sortItems"
+              @selected="onSortBySelected"
             />
           </div>
         </div>
@@ -186,16 +199,25 @@
 <script setup>
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
-import { locations, benefits } from "~/helpers";
+import {
+  locations,
+  benefits,
+  capitalizeSpecialCharacters,
+  sortItems,
+} from "~/helpers";
 const loading = ref(false);
-
+const filters = ref({});
 const jobs = ref([]);
 
-const loadJobs = async () => {
+const loadJobs = async (queries = {}) => {
   try {
     loading.value = true;
 
-    const { data } = await useFetch(`/api/jobs`);
+    let url = `/api/jobs`;
+
+    if (JSON.stringify(queries) !== "{}") url = `/api/jobs?${queries}`;
+
+    const { data } = await useFetch(url);
 
     jobs.value = data.value?.result;
   } catch (error) {
@@ -205,7 +227,74 @@ const loadJobs = async () => {
   }
 };
 
+function onLocationSelected(locations) {
+  filters.value.locations = [...(filters.value?.locations ?? []), ...locations];
+}
+function onKeywordSelected(keywords) {
+  filters.value.keywords = keywords;
+}
+function onBenefitSelected(benefits) {
+  filters.value.benefits = benefits;
+}
+function onSortBySelected(sortBy) {
+  filters.value.sortBy = sortBy;
+}
+function onFilterSelected(filter) {
+  filters.value.locations = [...(filters.value?.locations ?? []), ...filter];
+}
+
+function onSearch(search) {
+  filters.value.search = search;
+}
+
 loadJobs();
+
+function generateQuery(filters) {
+  if (filters?.locations) {
+    return `locations=${capitalizeSpecialCharacters(
+      filters?.locations.join(";"),
+      ";"
+    )}`;
+  }
+
+  if (filters?.benefits) {
+    return `benefits=${capitalizeSpecialCharacters(
+      filters?.benefits.join(";"),
+      ";"
+    )}`;
+  }
+
+  if (filters?.keywords) {
+    return `keywords=${capitalizeSpecialCharacters(
+      filters?.keywords.join(";"),
+      ";"
+    )}`;
+  }
+
+  if (filters?.filter) {
+    return `locations=${capitalizeSpecialCharacters(
+      filters?.filter.join(";"),
+      ";"
+    )}`;
+  }
+
+  if (filters?.sortBy) {
+    return `sortBy=${filters?.sortBy}`;
+  }
+
+  if (filters?.search) {
+    return `search=${filters?.search}`;
+  }
+}
+
+watch(
+  () => filters.value,
+  () => {
+    const queries = generateQuery(filters.value);
+    loadJobs(queries);
+  },
+  { deep: true }
+);
 </script>
 
 

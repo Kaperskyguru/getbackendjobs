@@ -88,6 +88,7 @@
             <input
               type="text"
               id="default-search"
+              @input="onSearch"
               class="block p-3 w-full rounded-full focus:outline-none w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-black dark:text-white"
               placeholder="backend engineers, remote backend roles"
             />
@@ -107,6 +108,7 @@
 </template>
 
 <script setup>
+const emit = defineEmits(["search"]);
 const props = defineProps({
   title: {
     type: String,
@@ -121,6 +123,11 @@ const props = defineProps({
     defualt: "",
   },
 });
+
+function onSearch(e) {
+  console.log(e);
+  emit("search", e?.target?.value);
+}
 </script>
 
 <style>

@@ -67,6 +67,7 @@
   <script setup>
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
+import { capitalize } from "~/helpers";
 
 const loading = ref(false);
 const route = useRoute();
@@ -99,25 +100,6 @@ function generateQuery() {
     return `tags=${capitalize(tags[1])}`;
 
   return `tags=${capitalize(tags[0])}`;
-}
-
-function capitalizeWord([first, ...rest], lc) {
-  return (
-    first.toUpperCase() + (lc ? rest.join("").toLowerCase() : rest.join(""))
-  );
-}
-
-function capitalize(str, lc = true, all = true) {
-  if (str.includes(".")) {
-    return str.toUpperCase();
-  }
-
-  return all
-    ? str
-        .split(/(\s|-|')/)
-        .map((s) => capitalizeWord(s, lc))
-        .join("")
-    : capitalizeWord(str, lc);
 }
 
 const loadJobs = async () => {

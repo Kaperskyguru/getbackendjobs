@@ -10,11 +10,10 @@ import {
   getDoc,
   query,
   limit,
-  or,
   startAt,
-  and,
   endAt,
   Timestamp,
+  orderBy,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebase";
 
@@ -22,71 +21,79 @@ export const queryByCollection = async (
   col: string,
   filters: {
     search: String;
-    locations: Array<String>;
-    tags: Array<String>;
-    benefits: Array<String>;
+    locations: String;
+    keywords: String;
+    benefits: String;
+    sortBy: String;
   }
 ) => {
   // @ts-ignore
   const colRef = collection(firestoreDb, col);
 
-  const locations = Array.isArray(filters?.locations)
-    ? [...filters?.locations]
-    : filters?.locations
-    ? [filters?.locations]
+  const locations = filters?.locations
+    ? [...filters?.locations?.split(";")]
     : [];
 
-  const keywords = Array.isArray(filters?.tags)
-    ? [...filters?.tags]
-    : filters?.tags
-    ? [filters?.tags]
-    : [];
+  const keywords = filters?.keywords ? [...filters?.keywords?.split(";")] : [];
 
-  const benefits = Array.isArray(filters?.benefits)
-    ? [...filters?.benefits]
-    : filters?.benefits
-    ? [filters?.benefits]
-    : [];
+  const benefits = filters?.benefits ? [...filters?.benefits?.split(";")] : [];
 
-  let jobQuery = colRef;
+  const queryConstraints = [];
+  let sortBy = orderBy("created_at", "desc");
+
+  let jobSearchQuery: any = null;
   if (locations.length) {
-    jobQuery = query(
-      colRef,
-      where("locations", "array-contains-any", locations)
-    );
+    queryConstraints.push(where("locations", "array-contains-any", locations));
   }
 
   if (keywords.length) {
-    jobQuery = query(colRef, where("keywords", "array-contains-any", keywords));
+    queryConstraints.push(where("keywords", "array-contains-any", keywords));
   }
 
   if (benefits.length) {
-    jobQuery = query(colRef, where("benefits", "array-contains-any", benefits));
+    queryConstraints.push(where("benefits", "array-contains-any", benefits));
+  }
+
+  if (filters?.sortBy?.includes("latest")) {
+    sortBy = orderBy("created_at", "desc");
+  }
+
+  if (filters?.sortBy?.includes("highest")) {
+    sortBy = orderBy("max_salary", "desc");
+  }
+
+  if (filters?.sortBy?.includes("viewed")) {
+    sortBy = orderBy("total_views", "desc");
+  }
+
+  if (filters?.sortBy?.includes("applied")) {
+    sortBy = orderBy("total_click", "desc");
+  }
+
+  // Calculate and store "hottest" by total views * total clicks / 100
+  // if (filters?.sortBy?.includes("hottest")) {
+  //   sortBy = orderBy("max_salary", "desc");
+  // }
+
+  if (filters?.sortBy?.includes("benefits")) {
+    sortBy = orderBy("benefits", "desc");
   }
 
   if (filters?.search) {
-    jobQuery = query(
+    jobSearchQuery = query(
       colRef,
-      startAt([filters?.search]),
-      endAt([filters?.search + "\uf8ff"])
+      orderBy("position"),
+      startAt(filters?.search),
+      endAt(filters?.search + "\uf8ff")
+      // ...queryConstraints
     );
   }
 
-  // const jobQuery = query(
-  //   colRef,
-  //   and(
-  //     where("	blast_to_newsletter", "==", true),
-  //     or(
-  //       where("locations", "in", locations),
-  //       where("keywords", "in", keywords),
-  //       where("benefits", "in", benefits)
-  //     )
-  //   ),
-  //   startAt([filters?.search]),
-  //   endAt([filters?.search + "\uf8ff"])
-  // );
-
-  const snapshot = await getDocs(jobQuery);
+  const snapshot = await getDocs(
+    filters?.search
+      ? jobSearchQuery
+      : query(colRef, sortBy, ...queryConstraints)
+  );
 
   const docs = Array.from(snapshot.docs).map((doc) => {
     return {
