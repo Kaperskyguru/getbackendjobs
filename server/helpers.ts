@@ -1,4 +1,5 @@
 // const strtotime = require('locutus/php/datetime/strtotime')
+const excludeList = ["frontend", "Front end", "react", "nextjs", "Front-End"];
 
 export function jobResolver(jobs: any) {
   const resolvedJob = jobs.map((job: any) => {
@@ -56,11 +57,19 @@ export function dbJobResolver(jobs: any) {
     resolvedJob.position = job.title;
     resolvedJob.posted_at = null;
 
+    resolvedJob.isLive = true;
     resolvedJob.external = true;
     resolvedJob.sticky_expired_date = null;
     resolvedJob.total_views = 0;
     resolvedJob.total_click = 0;
     return resolvedJob;
+  });
+}
+
+export function filterJobs(jobs: Array<any>) {
+  return jobs.filter((job) => {
+    if (job.position.toLowerCase().includes("back-end")) return job;
+    else if (job.position.toLowerCase().includes("backend")) return job;
   });
 }
 

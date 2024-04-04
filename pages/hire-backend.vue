@@ -198,6 +198,7 @@
               <div class="pb- bg-white rounded-lg">
                 <Dropdown
                   :items="locations"
+                  editable
                   title="Locations"
                   @selected="selectedLocation"
                   :isRoundedFull="false"
@@ -572,7 +573,11 @@
                 >
               </div>
               <div class="inline-block mr-5">
-                <Avatar size="medium" />
+                <Avatar
+                  size="medium"
+                  :src="job.company_logo"
+                  :name="job.company_name"
+                />
               </div>
               <CldUploadWidget
                 :options="{
@@ -584,7 +589,7 @@
                 }"
                 v-slot="{ open }"
                 signatureEndpoint="/api/sign-cloudinary-params"
-                @on-success="uploadImage"
+                :on-upload="uploadImage"
               >
                 <button
                   class="py-2 px-3 bg-blue-600 rounded text-white"
@@ -771,6 +776,7 @@
               <div class="pb- bg-white rounded-lg">
                 <Dropdown
                   :items="benefits"
+                  editable
                   @selected="selectedbenefits"
                   title="Benefits"
                   :isRoundedFull="false"
@@ -1116,7 +1122,10 @@
             >
               <div class="flex justify-between items-center gap-20">
                 <div v-if="job.show_company_logo">
-                  <Avatar :src="image" :name="job.company_name"></Avatar>
+                  <Avatar
+                    :src="job.company_logo"
+                    :name="job.company_name"
+                  ></Avatar>
                 </div>
                 <div class="flex flex-col">
                   <p>{{ job?.company_name ? job.company_name : "Company" }}</p>
@@ -1251,7 +1260,7 @@
                 <div class="flex justify-center">
                   <Avatar
                     :name="job.company_name ? job.company_name : 'Company'"
-                    :src="company_logo"
+                    :src="job.company_logo"
                     size="medium"
                   />
                 </div>
@@ -1585,7 +1594,8 @@
               <a href="https://masteringbackend.com?ref=getbackendjobs"
                 >Mastering Backend</a
               >,
-              <a href="playground.masteringbackend.com?ref=getbackendjobs"
+              <a
+                href="https://playground.masteringbackend.com?ref=getbackendjobs"
                 >Backend Code Playground</a
               >, <a href="#">Backend Interview Prep</a>,
               <a href="#">Backend Joy</a>.
@@ -1633,7 +1643,10 @@
           >
             <div class="flex justify-between items-center gap-20">
               <div v-if="job.show_company_logo">
-                <Avatar :src="image" :name="job.company_name"></Avatar>
+                <Avatar
+                  :src="job.company_logo"
+                  :name="job.company_name"
+                ></Avatar>
               </div>
               <div class="flex flex-col gap-2">
                 <p class="text-inherit">
@@ -1770,10 +1783,8 @@ import {
 import { Timestamp } from "firebase/firestore";
 import { locations, benefits } from "~/helpers";
 const should_pay_later = ref(false);
-const company_logo = ref("");
 
 const color = ref("#fff");
-const image = ref("");
 const job = shallowReactive({
   show_color: false,
   show_company_logo: true,
@@ -1795,7 +1806,7 @@ const job = shallowReactive({
 
   external: false,
   posted_at: null,
-  external: true,
+  isLive: false,
   sticky_expired_date: null,
   total_views: 0,
   total_click: 0,
@@ -1920,13 +1931,6 @@ watch(
     }
   }
 );
-
-function selectedFile(e) {
-  if (!e?.target?.files?.length) return;
-  job.company_logo = e?.target?.files[0];
-
-  image.value = URL.createObjectURL(e.target.files[0]);
-}
 
 function selectedbenefits(items) {
   job.benefits = items;
@@ -2090,26 +2094,36 @@ const rules = computed(() => {
 
 const v$ = useVuelidate(rules, job);
 
-function uploadImage(data) {
-  // Use Cloudinary
-
-  console.log(data);
+async function uploadImage(data) {
+  const result = data.value;
+  if (result.event !== "success") return;
+  job.company_logo = result?.info?.secure_url;
 }
-function startHiring() {
+async function startHiring() {
   v$.value.$validate();
   if (v$.value.$error) return;
-
-  console.log(job);
-
-  // Upload image
-  job.company_logo = uploadImage(job);
 
   job.posted_at = Timestamp.now();
 
   // Calculate sticky_expired_date
   job.sticky_expired_date = calculateStickyDate(job);
 
-  $fetch("/api/jobs", {
+  if (job.should_pay_later && job.pay_later_email) {
+    const res = await $fetch("/api/jobs", {
+      method: "POST",
+      body: job,
+    });
+
+    // Email Draft link
+    return;
+  }
+
+  // Make Payment
+
+  // Create job
+
+  job.isLive = true;
+  const res = await $fetch("/api/jobs", {
     method: "POST",
     body: job,
   });

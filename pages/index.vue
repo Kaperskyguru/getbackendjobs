@@ -134,7 +134,7 @@
             <div>
               <Suggested
                 title="Backend Jobs in US"
-                link="/backend-jobs-in-U.S."
+                link="/backend-jobs-in-u.s."
               />
             </div>
           </div>

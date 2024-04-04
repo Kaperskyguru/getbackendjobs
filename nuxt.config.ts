@@ -163,6 +163,7 @@ export default defineNuxtConfig({
       apiID: process.env.FIREBASE_APP_ID,
       cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
       appEnv: process.env.NODE_ENV,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     },
   },
 

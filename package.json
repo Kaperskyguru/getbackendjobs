@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@gtm-support/vue-gtm": "^2.2.0",
-    "@nuxtjs/cloudinary": "^2.7.2",
+    "@nuxtjs/cloudinary": "^2.7.3",
     "@tailwindcss/forms": "^0.5.7",
     "@types/rss": "^0.0.32",
     "@types/selenium-webdriver": "^4.1.22",
