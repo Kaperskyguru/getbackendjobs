@@ -199,8 +199,8 @@ class Slack {
 }
 
 function link(job: any) {
-  if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}`;
-  return `/jobs/${job?.slug}`;
+  if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}&ref=slack`;
+  return `/jobs/${job?.slug}?ref=slack`;
 }
 
 function getRandomJob(jobs: Array<any>) {
