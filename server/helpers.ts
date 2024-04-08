@@ -1,3 +1,5 @@
+import slugify from "slugify";
+
 // const strtotime = require('locutus/php/datetime/strtotime')
 const excludeList = ["frontend", "Front end", "react", "nextjs", "Front-End"];
 
@@ -57,6 +59,10 @@ export function dbJobResolver(jobs: any) {
     resolvedJob.position = job.title;
     resolvedJob.posted_at = null;
 
+    resolvedJob.slug = `${slugify(job.title, {
+      trim: true,
+      lower: true,
+    })}-${generateString(6)}`;
     resolvedJob.isLive = true;
     resolvedJob.external = true;
     resolvedJob.sticky_expired_date = null;
@@ -64,6 +70,18 @@ export function dbJobResolver(jobs: any) {
     resolvedJob.total_click = 0;
     return resolvedJob;
   });
+}
+
+function generateString(length: number) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
 
 export function filterJobs(jobs: Array<any>) {

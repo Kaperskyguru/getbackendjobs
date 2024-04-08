@@ -5,7 +5,7 @@
       'border-t md:border-b': isFull || bgColor === 'white',
     }"
   >
-    <div>
+    <a :href="link">
       <div
         :class="{
           'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
@@ -122,7 +122,9 @@
               <p>{{ job?.posted_at }}</p>
             </span>
             <a
+              @click.prevent="openLink"
               target="_blank"
+              ref="apply_btn"
               :href="job?.apply_url"
               :class="{
                 'bg-white text-[#ff4742]': bgColor === 'red',
@@ -140,7 +142,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </a>
 
     <div v-if="isFull">
       <div style="">
@@ -151,45 +153,20 @@
           <div class="flex flex-col lg:flex-row justify-between relative gap-5">
             <div class="pb-3">
               <div>
-                <h2 class="text-3xl py-4">Mastering Backend is hiring a</h2>
+                <h2 class="text-3xl py-4">
+                  {{ job?.company_name }} is hiring a
+                </h2>
 
-                <h1 class="text-4xl font-bold">Backend Software Engineer</h1>
+                <h1 class="text-4xl font-bold">{{ job.position }}</h1>
               </div>
               <div class="pt-2">
-                <article>
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Obcaecati quod amet dolorum libero consectetur nam ipsa
-                    laudantium, voluptas consequatur et, suscipit labore quidem
-                    corporis hic praesentium optio possimus facilis placeat.
-                  </p>
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. In
-                    consequuntur excepturi alias deserunt modi dolorem nobis
-                    reiciendis perspiciatis est, perferendis, commodi id aliquid
-                    provident impedit! Sunt natus neque illum aut.
-                  </p>
-
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Obcaecati quod amet dolorum libero consectetur nam ipsa
-                    laudantium, voluptas consequatur et, suscipit labore quidem
-                    corporis hic praesentium optio possimus facilis placeat.
-                  </p>
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. In
-                    consequuntur excepturi alias deserunt modi dolorem nobis
-                    reiciendis perspiciatis est, perferendis, commodi id aliquid
-                    provident impedit! Sunt natus neque illum aut.
-                  </p>
-
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Obcaecati quod amet dolorum libero consectetur nam ipsa
-                    laudantium, voluptas consequatur et, suscipit labore quidem
-                    corporis hic praesentium optio possimus facilis placeat.
-                  </p>
-                </article>
+                <article
+                  v-html="
+                    job?.description
+                      ? job?.description
+                      : 'Click on APPLY to view more imformation'
+                  "
+                ></article>
               </div>
             </div>
 
@@ -198,24 +175,30 @@
               style="float: right"
             >
               <div class="flex justify-center">
-                <Avatar name="Mastering Backend" size="medium" />
+                <Avatar
+                  :name="job?.company_name"
+                  :src="job?.company_logo"
+                  size="medium"
+                />
               </div>
               <div class="py-4 text-center">
-                <h4 class="text-2xl font-black">Mastering Backend</h4>
+                <h4 class="text-2xl font-black">{{ job?.company_name }}</h4>
 
                 <a
-                  href="https://masteringbackend.com"
+                  :href="job?.company_website"
                   class="underline text-xl w-full font-bold"
-                  ><p class="w-full">masteringbackend.com</p></a
+                  ><p class="w-full">{{ job?.company_website }}</p></a
                 >
               </div>
 
               <div class="py-2">
-                <button
-                  class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
-                >
-                  Apply Now
-                </button>
+                <a :href="job?.apply_url" @click.prevent="openLink">
+                  <button
+                    class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
+                  >
+                    Apply Now
+                  </button>
+                </a>
               </div>
 
               <div class="py-2 text-center">
@@ -233,90 +216,43 @@
                 <h5 class="text-lg font-bold pb-2">Share this job:</h5>
                 <input
                   type="text"
-                  placeholder="https://getbackendjobs.com/jobs/remote-software-development-team-leader-venture-personnel-624164?ref=sh"
+                  :placeholder="getSharedLink"
                   class="rounded-lg"
-                  value="https://getbackendjobs.com/jobs/remote-software-development-team-leader-venture-personnel-624164?ref=sh"
+                  :value="getSharedLink"
                 />
               </div>
             </div>
           </div>
 
           <div>
-            <article>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Obcaecati quod amet dolorum libero consectetur nam ipsa
-                laudantium, voluptas consequatur et, suscipit labore quidem
-                corporis hic praesentium optio possimus facilis placeat.
-              </p>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. In
-                consequuntur excepturi alias deserunt modi dolorem nobis
-                reiciendis perspiciatis est, perferendis, commodi id aliquid
-                provident impedit! Sunt natus neque illum aut.
-              </p>
-            </article>
+            <article
+              v-html="
+                job?.how_to_apply
+                  ? job?.description
+                  : 'Click on APPLY to view more imformation on how to apply'
+              "
+            ></article>
 
             <div id="salary" class="py-5">
               <h2 class="text-4xl font-bold">Salary and compensation</h2>
-              <p>
-                No salary data published by company so we estimated salary based
-                on similar jobs related to Senior and Legal jobs that are
-                similar:
+
+              <p v-if="!job?.min_salary || !job?.max_salary">
+                Salary details are listed on the companies website regarding
+                this job. Click on the APPLY button to see more information.
               </p>
-              <p>$60,000 — $145,000/year</p>
+              <p v-else>${{ job?.min_salary }} — ${{ job?.max_salary }}/year</p>
             </div>
 
             <div id="benefits" class="py-5">
               <h2 class="text-4xl font-bold">Benefits</h2>
               <ul>
-                <li>💰 401(k)</li>
+                <p class="py-4" v-if="!job?.benefits?.length">
+                  Click on APPLY to view more benefits
+                </p>
 
-                <li>🌎 Distributed team</li>
-
-                <li>⏰ Async</li>
-
-                <li>🤓 Vision insurance</li>
-
-                <li>🦷 Dental insurance</li>
-
-                <li>🚑 Medical insurance</li>
-
-                <li>🏖 Unlimited vacation</li>
-
-                <li>🏖 Paid time off</li>
-
-                <li>📆 4 day workweek</li>
-
-                <li>💰 401k matching</li>
-
-                <li>🏔 Company retreats</li>
-
-                <li>🏬 Coworking budget</li>
-
-                <li>📚 Learning budget</li>
-
-                <li>💪 Free gym membership</li>
-
-                <li>🧘 Mental wellness budget</li>
-
-                <li>🖥 Home office budget</li>
-
-                <li>🥧 Pay in crypto</li>
-
-                <li>🥸 Pseudonymous</li>
-
-                <li>💰 Profit sharing</li>
-
-                <li>💰 Equity compensation</li>
-
-                <li>⬜️ No whiteboard interview</li>
-
-                <li>👀 No monitoring system</li>
-
-                <li>🚫 No politics at work</li>
-
-                <li>🎅 We hire old (and young)</li>
+                <li v-for="(benefit, i) in job?.benefits" :key="i">
+                  {{ benefit }}
+                </li>
               </ul>
             </div>
           </div>
@@ -326,7 +262,8 @@
           >
             <div class="w-full">
               <a
-                href="#"
+                @click.prevent="openLink"
+                :href="job?.apply_url"
                 class="px-3 flex justify-center py-3 bg-red-600 text-white w-full rounded-lg"
                 >Apply for this job</a
               >
@@ -363,6 +300,7 @@
 import PaperClip from "~/assets/paper-clip.svg";
 import { Timestamp } from "firebase/firestore";
 
+const apply_btn = ref(null);
 const props = defineProps({
   bgColor: {
     default: "white",
@@ -400,6 +338,14 @@ function isNew(job) {
   return createdDate >= currentDate;
 }
 
+const link = computed(() => {
+  if (props.isFull) return "#";
+
+  const job = props.job;
+  if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}`;
+  return `/jobs/${job?.slug}`;
+});
+
 function isVerified(job) {
   if (!job?.company_email) return false;
   const domain = company_email?.split("@")[1];
@@ -436,6 +382,24 @@ function getLocationSlug(location) {
   if (_location.includes("time")) return `${_location}-backend-jobs`;
 
   return `/backend-jobs-in-${_location.replaceAll(" ", "-")}`;
+}
+
+const getSharedLink = computed(() => {
+  const id = useRoute().query?.id;
+  const path = useRoute().path;
+  let host = "https://getbackendjobs.com";
+
+  if (process.env.NODE_ENV === "development") host = "http://localhost:3000";
+
+  if (id) return `${host}${path}?id=${id}&ref=shareable_link`;
+
+  return `${host}${path}?ref=shareable_link`;
+});
+
+function openLink() {
+  // Update Click
+
+  window.open(props.job?.apply_url, "_blank");
 }
 
 function getTagSlug(tag) {

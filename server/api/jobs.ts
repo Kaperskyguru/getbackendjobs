@@ -1,9 +1,18 @@
-import { addJob, addJobs, getJob, getJobs } from "./services";
+import { addJob, addJobs, getJob, getJobs, dispatchJob } from "./services";
 
 export default defineEventHandler(async (event) => {
   const COL = "jobs";
 
   try {
+    if (
+      event.method === "GET" &&
+      (event.path.includes("/api/jobs/dispatch") ||
+        event.path.includes("/api/jobs/dispatch/"))
+    ) {
+      console.log("sas");
+      return await dispatchJob(event, COL);
+    }
+
     if (
       event.method === "POST" &&
       (event.path.includes("/api/jobs") || event.path.includes("/api/jobs/"))
@@ -24,7 +33,7 @@ export default defineEventHandler(async (event) => {
       (event.path.includes("/api/jobs") || event.path.includes("/api/jobs/"))
     ) {
       const query = getQuery(event);
-      if (!query?.id) return getJobs(event, COL);
+      if (!query?.slug) return getJobs(event, COL);
       return getJob(event, COL);
     }
   } catch (error: any) {

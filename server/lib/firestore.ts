@@ -7,13 +7,13 @@ import {
   doc,
   writeBatch,
   setDoc,
-  getDoc,
   query,
   limit,
   startAt,
   endAt,
   Timestamp,
   orderBy,
+  documentId,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebase";
 
@@ -107,13 +107,39 @@ export const queryByCollection = async (
   return docs;
 };
 
-export const get = async (id: string, col: string) => {
+export const get = async (
+  params: { id?: string; slug?: string },
+  col: string
+) => {
   // @ts-ignore
-  const docRef = doc(firestoreDb, col, id);
-  const snapshot: any = await getDoc(docRef);
+  try {
+    let queryConstraints = [];
 
-  if (!snapshot.exists()) throw new Error("No data found");
-  return snapshot.data();
+    if (params?.id) {
+      queryConstraints.push(where(documentId(), "==", params?.id));
+    }
+
+    if (params?.slug) {
+      queryConstraints.push(where("slug", "==", params?.slug));
+    }
+
+    const colRef = collection(firestoreDb, col);
+    const jobQuery = query(colRef, ...queryConstraints, limit(1));
+
+    const snapshot: any = await getDocs(jobQuery);
+
+    const docs = Array.from(snapshot.docs).map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+        created_at: doc?.data().created_at?.toDate(),
+        updated_at: doc?.data().updated_at?.toDate(),
+      };
+    });
+    return docs;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const set = async (col: string, document: Object) => {

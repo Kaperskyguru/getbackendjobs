@@ -31,24 +31,53 @@
             class="relative flex items-center md:w-2/6 w-full justify-center"
             style="align-content: baseline"
           >
-            <button
-              class="px-10 flex text-black left-1 py-2 bg-red-600 rounded-full bg-white"
-            >
-              Sign up today
-            </button>
+            <a href="https://app.masteringbackend.com?ref=getbackendjobs">
+              <button
+                class="px-10 flex text-black left-1 py-2 bg-red-600 rounded-full bg-white"
+              >
+                Sign up today
+              </button>
+            </a>
           </div>
         </div>
       </section>
 
       <section>
-        <Job :is-full="true" />
+        <Job :is-full="true" :job="job" />
       </section>
     </div>
   </div>
 </template>
 
 <script setup>
-function getJob() {}
+const job = ref({});
+const loading = ref(false);
+
+const query = computed(() => {
+  let id = useRoute()?.query?.id;
+  let slug = useRoute()?.params?.slug;
+
+  if (!id) return `?slug=${slug}`;
+  return `?slug=${id}&id=${id}`;
+});
+
+async function getJob() {
+  try {
+    loading.value = true;
+
+    const { data } = await useFetch(`/api/jobs${query.value}`);
+
+    job.value = data.value?.result[0];
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+}
+await getJob();
+
+function updateViews() {}
+updateViews();
 
 // useHead({
 //   "@context": "https://schema.org/",

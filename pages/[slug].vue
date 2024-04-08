@@ -33,7 +33,7 @@
           >
             <a
               target="_blank"
-              href="https://masteringbackend.com?ref=getbackendjobs"
+              href="https://app.masteringbackend.com?ref=getbackendjobs"
               class="px-10 flex text-black left-1 py-2 bg-red-600 rounded-full bg-white"
             >
               Sign up today
@@ -65,8 +65,6 @@
 </template>
   
   <script setup>
-import Pressone from "~/assets/pressone-fulltext-logo.svg";
-import Contentre from "~/assets/contentre.svg";
 import { capitalize } from "~/helpers";
 
 const loading = ref(false);

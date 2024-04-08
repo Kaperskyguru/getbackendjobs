@@ -1772,6 +1772,7 @@
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
 import useVuelidate from "@vuelidate/core";
+import slugify from "slugify";
 import {
   email,
   helpers,
@@ -1810,7 +1811,7 @@ const job = shallowReactive({
   sticky_expired_date: null,
   total_views: 0,
   total_click: 0,
-
+  slug: "",
   total_amount: 0.0,
   apply_email: "",
   apply_url: "",
@@ -2103,7 +2104,13 @@ async function startHiring() {
   v$.value.$validate();
   if (v$.value.$error) return;
 
+  const slug = `${slugify(job.position, {
+    trim: true,
+    lower: true,
+  })}-${generateString(6)}`;
+
   job.posted_at = Timestamp.now();
+  job.slug = slug;
 
   // Calculate sticky_expired_date
   job.sticky_expired_date = calculateStickyDate(job);
@@ -2116,6 +2123,18 @@ async function startHiring() {
 
     // Email Draft link
     return;
+  }
+
+  function generateString(length) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
   }
 
   // Make Payment
