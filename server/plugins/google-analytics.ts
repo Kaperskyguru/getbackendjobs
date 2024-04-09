@@ -13,6 +13,9 @@ export default defineNitroPlugin((nitroApp: any) => {
   gtag('config', 'G-L2D0DMYE2P');
 </script>
 
+
+<script defer src="https://analytics.us.umami.is/script.js" data-website-id="5996851d-15d1-4b11-9ce7-9dd9aa2ef6d2"></script>
+
     `);
   });
 });
