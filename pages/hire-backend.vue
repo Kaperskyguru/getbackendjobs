@@ -235,7 +235,10 @@
             <label
               for="premium_support"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Get 💁‍♀️ premium support and help with your job post (FREE
+              >Get 💁‍♀️ premium support and help with your job post (<span
+                class="font-bold"
+                >FREE</span
+              >
               <span class="pr-2 line-through decoration-red-500">$50</span
               >)</label
             >
@@ -253,7 +256,9 @@
             <label
               for="showCompanyLogo"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Show my ⭐️ company logo besides my post (+$5
+              >Show my ⭐️ company logo besides my post (<span class="font-bold"
+                >+$5</span
+              >
               <span class="pr-2 line-through decoration-red-500">$20</span
               >)</label
             >
@@ -290,7 +295,10 @@
               for="blast_to_newsletter"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
-              Email blast my job post to 📮15,000 backend engineers (+$10
+              Email blast my job post to 📮15,000 backend engineers (<span
+                class="font-bold"
+                >+$10</span
+              >
               <span class="pr-2 line-through decoration-red-500">$40</span>)
             </label>
             <span
@@ -334,6 +342,44 @@
           <div class="flex items-center py-2">
             <input
               checked
+              id="highlight_post_yellow"
+              v-model="job.highlight_post_yellow"
+              type="checkbox"
+              value=""
+              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="highlight_post_yellow"
+              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
+            >
+              Highlight your post in ⚠️ gradient (<span class="font-bold"
+                >+$15</span
+              >
+              <span class="pr-2 line-through decoration-red-500">$39</span>)
+            </label>
+            <span
+              class="tooltip"
+              title="Based on previous job post data compared to a regular job post"
+              style="
+                border: 1px solid #ff4742;
+                background: none;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #ff4742;
+                font-size: 12px;
+                margin-left: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                padding: 3px;
+              "
+            >
+              2x more views
+            </span>
+          </div>
+
+          <div class="flex items-center py-2">
+            <input
+              checked
               id="enable_qr_code"
               v-model="job.enable_qr_code"
               type="checkbox"
@@ -361,42 +407,6 @@
 
           <div class="flex items-center py-2">
             <input
-              checked
-              id="highlight_post_yellow"
-              v-model="job.highlight_post_yellow"
-              type="checkbox"
-              value=""
-              class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              for="highlight_post_yellow"
-              class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-            >
-              Highlight your post in ⚠️ gradient (+$15
-              <span class="pr-2 line-through decoration-red-500">$39</span>)
-            </label>
-            <span
-              class="tooltip"
-              title="Based on previous job post data compared to a regular job post"
-              style="
-                border: 1px solid #ff4742;
-                background: none;
-                display: inline-block;
-                text-transform: uppercase;
-                color: #ff4742;
-                font-size: 12px;
-                margin-left: 14px;
-                font-weight: bold;
-                border-radius: 6px;
-                padding: 3px;
-              "
-            >
-              2x more views
-            </span>
-          </div>
-
-          <div class="flex items-center py-2">
-            <input
               id="stick_for_24_hours"
               type="checkbox"
               v-model="job.stick_for_24_hours"
@@ -408,7 +418,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 24
-              hours (+$19
+              hours (<span class="font-bold">+$19</span>
               <span class="pr-2 line-through decoration-red-500">$49</span>)
             </label>
             <span
@@ -444,7 +454,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              week (+$25
+              week (<span class="font-bold">+$25</span>
               <span class="pr-2 line-through decoration-red-500">$147</span>)
             </label>
             <span
@@ -480,7 +490,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              month (+$50
+              month (<span class="font-bold">+$50</span>
               <span class="pr-2 line-through decoration-red-500">$441</span>)
             </label>
             <span
@@ -1805,7 +1815,7 @@ const job = shallowReactive({
   show_company_logo: true,
   blast_to_newsletter: true,
   send_to_directory: true,
-  enable_qr_code: true,
+  enable_qr_code: false,
   primium_support: true,
   highlight_post_yellow: true,
   stick_for_24_hours: false,
