@@ -1864,7 +1864,7 @@ const calculatedClicks = computed(() => {
 });
 
 const calculatedPrice = computed(() => {
-  let price = 99;
+  let price = 0;
 
   if (job.show_company_logo) price += 20;
   if (job.primium_support) price += 50;
