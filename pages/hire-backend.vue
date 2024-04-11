@@ -236,7 +236,7 @@
               for="premium_support"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
               >Get 💁‍♀️ premium support and help with your job post (<span
-                class="font-bold"
+                class="font-bold pr-1"
                 >FREE</span
               >
               <span class="pr-2 line-through decoration-red-500">$50</span
@@ -256,7 +256,8 @@
             <label
               for="showCompanyLogo"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Show my ⭐️ company logo besides my post (<span class="font-bold"
+              >Show my ⭐️ company logo besides my post (<span
+                class="font-bold pr-1"
                 >+$5</span
               >
               <span class="pr-2 line-through decoration-red-500">$20</span
@@ -296,7 +297,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Email blast my job post to 📮15,000 backend engineers (<span
-                class="font-bold"
+                class="font-bold pr-1"
                 >+$10</span
               >
               <span class="pr-2 line-through decoration-red-500">$40</span>)
@@ -352,7 +353,7 @@
               for="highlight_post_yellow"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
-              Highlight your post in ⚠️ gradient (<span class="font-bold"
+              Highlight your post in ⚠️ gradient (<span class="font-bold pr-1"
                 >+$15</span
               >
               <span class="pr-2 line-through decoration-red-500">$39</span>)
@@ -418,7 +419,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 24
-              hours (<span class="font-bold">+$19</span>
+              hours (<span class="font-bold pr-1">+$19</span>
               <span class="pr-2 line-through decoration-red-500">$49</span>)
             </label>
             <span
@@ -454,7 +455,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              week (<span class="font-bold">+$25</span>
+              week (<span class="font-bold pr-1">+$25</span>
               <span class="pr-2 line-through decoration-red-500">$147</span>)
             </label>
             <span
@@ -490,7 +491,7 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              month (<span class="font-bold">+$50</span>
+              month (<span class="font-bold pr-1">+$50</span>
               <span class="pr-2 line-through decoration-red-500">$441</span>)
             </label>
             <span
