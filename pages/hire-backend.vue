@@ -1431,7 +1431,7 @@
           <div class="p-10">
             <p class="flex flex-col justify-center">
               <span class="">Starting from</span>
-              <span class="font-bold text-xl">$99</span>
+              <span class="font-bold text-xl">$0</span>
               <span>for 30 days</span>
             </p>
           </div>
@@ -1767,10 +1767,13 @@
               class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 w-full py-6 text-white font-bold text-xl rounded-lg"
             >
               Start hiring -- $<span
-                class="pr-2 line-through decoration-red-500"
+                class="pr-2"
+                :class="{ 'line-through decoration-red-500': discount }"
                 >{{ calculatedPrice }}</span
               >
-              ${{ calculatedPrice - calculatedPrice * 0.1 }}
+              <span v-if="discount">
+                ${{ calculatedPrice - calculatedPrice * 0.1 }}</span
+              >
             </button>
           </div>
         </div>
@@ -1795,7 +1798,7 @@ import {
 import { Timestamp } from "firebase/firestore";
 import { locations, benefits } from "~/helpers";
 const should_pay_later = ref(false);
-
+const discount = ref(false);
 const color = ref("#fff");
 const job = shallowReactive({
   show_color: false,
