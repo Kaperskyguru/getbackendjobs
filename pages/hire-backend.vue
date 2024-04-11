@@ -235,7 +235,9 @@
             <label
               for="premium_support"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Get 💁‍♀️ premium support and help with your job post (+$50)</label
+              >Get 💁‍♀️ premium support and help with your job post (FREE
+              <span class="pr-2 line-through decoration-red-500">$50</span
+              >)</label
             >
           </div>
 
@@ -251,7 +253,9 @@
             <label
               for="showCompanyLogo"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-              >Show my ⭐️ company logo besides my post (+$20)</label
+              >Show my ⭐️ company logo besides my post (+$5
+              <span class="pr-2 line-through decoration-red-500">$20</span
+              >)</label
             >
             <span
               class="tooltip"
@@ -286,7 +290,8 @@
               for="blast_to_newsletter"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
-              Email blast my job post to 📮15,000 backend engineers (+$40)
+              Email blast my job post to 📮15,000 backend engineers (+$10
+              <span class="pr-2 line-through decoration-red-500">$40</span>)
             </label>
             <span
               class="tooltip"
@@ -367,7 +372,8 @@
               for="highlight_post_yellow"
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
-              Highlight your post in ⚠️ gradient (+$39)
+              Highlight your post in ⚠️ gradient (+$15
+              <span class="pr-2 line-through decoration-red-500">$39</span>)
             </label>
             <span
               class="tooltip"
@@ -402,7 +408,8 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 24
-              hours (+$49)
+              hours (+$19
+              <span class="pr-2 line-through decoration-red-500">$49</span>)
             </label>
             <span
               class="tooltip"
@@ -437,7 +444,8 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              week (+$147)
+              week (+$25
+              <span class="pr-2 line-through decoration-red-500">$147</span>)
             </label>
             <span
               class="tooltip"
@@ -472,7 +480,8 @@
               class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
             >
               Sticky your post so it stays on 📌 top of the frontpage for ⏰ 1
-              month (+$441)
+              month (+$50
+              <span class="pr-2 line-through decoration-red-500">$441</span>)
             </label>
             <span
               class="tooltip"
@@ -614,7 +623,9 @@
               <label
                 for="show_color"
                 class="ms-2 text-md font-light text-gray-900 dark:text-gray-300"
-                >Highlight with your company's 🌈 brand color (+$199) 👉</label
+                >Highlight with your company's 🌈 brand color (+$29
+                <span class="pr-2 line-through decoration-red-500">$199</span>)
+                👉</label
               >
             </div>
             <input
@@ -1866,15 +1877,15 @@ const calculatedClicks = computed(() => {
 const calculatedPrice = computed(() => {
   let price = 0;
 
-  if (job.show_company_logo) price += 20;
-  if (job.primium_support) price += 50;
+  if (job.show_company_logo) price += 5;
+  if (job.primium_support) price += 0;
   if (job.enable_qr_code) price += 24;
-  if (job.highlight_post_yellow) price += 39;
-  if (job.blast_to_newsletter) price += 40;
-  if (job.show_color) price += 199;
-  if (job.stick_for_24_hours) price += 49;
-  if (job.stick_for_1_week) price += 147;
-  if (job.stick_for_1_month) price += 441;
+  if (job.highlight_post_yellow) price += 15;
+  if (job.blast_to_newsletter) price += 10;
+  if (job.show_color) price += 29;
+  if (job.stick_for_24_hours) price += 19;
+  if (job.stick_for_1_week) price += 25;
+  if (job.stick_for_1_month) price += 50;
   job.total_amount = price;
   return price;
 });
