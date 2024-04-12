@@ -62,6 +62,7 @@ export function dbJobResolver(jobs: any) {
     resolvedJob.slug = `${slugify(job.title, {
       trim: true,
       lower: true,
+      strict: true,
     })}-${generateString(6)}`;
     resolvedJob.isLive = true;
     resolvedJob.external = true;

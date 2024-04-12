@@ -2132,6 +2132,7 @@ async function startHiring() {
   const slug = `${slugify(job.position, {
     trim: true,
     lower: true,
+    strict: true,
   })}-${generateString(6)}`;
 
   job.posted_at = Timestamp.now();
@@ -2141,25 +2142,13 @@ async function startHiring() {
   job.sticky_expired_date = calculateStickyDate(job);
 
   if (job.should_pay_later && job.pay_later_email) {
-    const res = await $fetch("/api/jobs", {
-      method: "POST",
-      body: job,
-    });
+    // const res = await $fetch("/api/jobs", {
+    //   method: "POST",
+    //   body: job,
+    // });
 
     // Email Draft link
     return;
-  }
-
-  function generateString(length) {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
   }
 
   // Make Payment
@@ -2167,10 +2156,22 @@ async function startHiring() {
   // Create job
 
   job.isLive = true;
-  const res = await $fetch("/api/jobs", {
-    method: "POST",
-    body: job,
-  });
+  // const res = await $fetch("/api/jobs", {
+  //   method: "POST",
+  //   body: job,
+  // });
+}
+
+function generateString(length) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
 
 useHead({
