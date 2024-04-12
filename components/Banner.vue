@@ -5,7 +5,7 @@
     >
       <div class="absolute inset-0">
         <img
-          src="https://res.cloudinary.com/kaperskydisk/image/upload/v1712965791/Get%20Backend%20Jobs/christin-hume-unsplash_1.jpg"
+          src="https://res.cloudinary.com/kaperskydisk/image/upload/v1712966097/Get%20Backend%20Jobs/christin-hume-unsplash_20_1.webp"
           alt="Background Image"
           class="object-cover object-center w-full h-full"
         />
