@@ -157,7 +157,7 @@
                   {{ job?.company_name }} is hiring a
                 </h2>
 
-                <h1 class="text-4xl font-bold">{{ job.position }}</h1>
+                <h1 class="text-4xl font-bold">{{ job?.position }}</h1>
               </div>
               <div class="pt-2">
                 <article
