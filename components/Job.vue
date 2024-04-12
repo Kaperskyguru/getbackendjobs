@@ -362,7 +362,7 @@ function isSticky(job) {
 }
 
 function hasSalary(job) {
-  return job.min_salary > 0 && job?.max_salary > 0;
+  return job?.min_salary > 0 && job?.max_salary > 0;
 }
 
 function isRemote(location) {
