@@ -24,12 +24,12 @@
         </div>
 
         <div class="absolute right-0 top-0 mt-5 lg:flex gap-3 hidden">
-          <a href="#" class="px-3 py-2 text-white border rounded-lg"> Login </a>
+          <!-- <a href="#" class="px-3 py-2 text-white border rounded-lg"> Login </a> -->
           <a
-            href="#"
+            href="https://plausible.io/getbackendjobs.com/"
             class="px-3 py-2 text-white rounded-lg text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600"
           >
-            Sign Up
+            Live Analytics
           </a>
           <a
             href="/hire-backend"
