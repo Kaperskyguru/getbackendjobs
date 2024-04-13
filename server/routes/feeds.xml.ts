@@ -8,9 +8,9 @@ export default defineEventHandler(async (event) => {
     feed_url: `https://getbackendjobs.com/feeds.xml`,
   });
 
-  const jobRes = await getJobs(event, "jobs");
+  // const jobRes = await getJobs(event, "jobs");
 
-  const jobs = jobRes.result;
+  const jobs = jobRes?.result ?? [];
 
   for (const job of jobs) {
     feed.item({
