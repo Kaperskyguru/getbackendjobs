@@ -1,5 +1,5 @@
 <template>
-  <div class="relaive">
+  <div class="relaive" ref="el">
     <section>
       <Banner @search="onSearch" />
     </section>
@@ -197,6 +197,7 @@
 </template>
 
 <script setup>
+import { useInfiniteScroll } from "@vueuse/core";
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
 import {
@@ -205,11 +206,12 @@ import {
   capitalizeSpecialCharacters,
   sortItems,
 } from "~/helpers";
+const el = ref(null);
 const loading = ref(false);
 const filters = ref({});
 const jobs = ref([]);
 
-const loadJobs = async (queries = {}) => {
+const loadJobs = async (queries = { limit: 20 }) => {
   try {
     loading.value = true;
 
@@ -286,6 +288,18 @@ function generateQuery(filters) {
     return `search=${filters?.search}`;
   }
 }
+
+useInfiniteScroll(
+  el,
+  () => {
+    // load more
+    const moreData = loadJobs({
+      limit: 10,
+    });
+    jobs.value.push(...moreData);
+  },
+  { distance: 10 }
+);
 
 watch(
   () => filters.value,
