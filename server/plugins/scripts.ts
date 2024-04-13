@@ -16,6 +16,10 @@ export default defineNitroPlugin((nitroApp: any) => {
 
 <script defer src="https://analytics.us.umami.is/script.js" data-website-id="5996851d-15d1-4b11-9ce7-9dd9aa2ef6d2"></script>
 
+<!-- Plausible -->
+<script defer data-domain="getbackendjobs.com" src="https://plausible.io/js/script.js"></script>
+
+
     `);
   });
 });

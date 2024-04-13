@@ -136,7 +136,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/cloudinary"],
+  modules: ["@nuxtjs/cloudinary", "@vueuse/nuxt"],
 
   nitro: {
     prerender: {
