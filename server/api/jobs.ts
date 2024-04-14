@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
       (event.path.includes("/api/jobs/dispatch") ||
         event.path.includes("/api/jobs/dispatch/"))
     ) {
-      console.log("sas");
       return await dispatchJob(event, COL);
     }
 

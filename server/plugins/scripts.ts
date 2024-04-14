@@ -1,5 +1,5 @@
 export default defineNitroPlugin((nitroApp: any) => {
-  if (process.env.NODE_ENV == "development") return;
+  if (process.env.NODE_ENV === "development") return;
   nitroApp.hooks.hook("render:html", (html: any, { event }: any) => {
     html.head.push(`
     

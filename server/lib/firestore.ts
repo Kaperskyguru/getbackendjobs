@@ -12,6 +12,7 @@ import {
   startAt,
   endAt,
   Timestamp,
+  startAfter,
   orderBy,
   documentId,
 } from "firebase/firestore";
@@ -25,86 +26,125 @@ export const queryByCollection = async (
     keywords: String;
     benefits: String;
     sortBy: String;
+    nanoseconds?: string;
+    seconds?: string;
   }
 ) => {
   // @ts-ignore
-  const colRef = collection(firestoreDb, col);
+  try {
+    const colRef = collection(firestoreDb, col);
 
-  const locations = filters?.locations
-    ? [...filters?.locations?.split(";")]
-    : [];
+    const locations = filters?.locations
+      ? [...filters?.locations?.split(";")]
+      : [];
 
-  const keywords = filters?.keywords ? [...filters?.keywords?.split(";")] : [];
+    const keywords = filters?.keywords
+      ? [...filters?.keywords?.split(";")]
+      : [];
 
-  const benefits = filters?.benefits ? [...filters?.benefits?.split(";")] : [];
+    const benefits = filters?.benefits
+      ? [...filters?.benefits?.split(";")]
+      : [];
 
-  const queryConstraints = [];
-  let sortBy = orderBy("created_at", "desc");
+    const queryConstraints = [];
+    let sortBy = orderBy("created_at", "desc");
+    let _limit = 20;
 
-  let jobSearchQuery: any = null;
-  if (locations.length) {
-    queryConstraints.push(where("locations", "array-contains-any", locations));
-  }
+    let jobSearchQuery: any = null;
+    if (locations.length) {
+      queryConstraints.push(
+        where("locations", "array-contains-any", locations)
+      );
+    }
 
-  if (keywords.length) {
-    queryConstraints.push(where("keywords", "array-contains-any", keywords));
-  }
+    if (keywords.length) {
+      queryConstraints.push(where("keywords", "array-contains-any", keywords));
+    }
 
-  if (benefits.length) {
-    queryConstraints.push(where("benefits", "array-contains-any", benefits));
-  }
+    if (benefits.length) {
+      queryConstraints.push(where("benefits", "array-contains-any", benefits));
+    }
 
-  if (filters?.sortBy?.includes("latest")) {
-    sortBy = orderBy("created_at", "desc");
-  }
+    if (filters?.sortBy?.includes("latest")) {
+      sortBy = orderBy("created_at", "desc");
+    }
 
-  if (filters?.sortBy?.includes("highest")) {
-    sortBy = orderBy("max_salary", "desc");
-  }
+    if (filters?.sortBy?.includes("highest")) {
+      sortBy = orderBy("max_salary", "desc");
+    }
 
-  if (filters?.sortBy?.includes("viewed")) {
-    sortBy = orderBy("total_views", "desc");
-  }
+    if (filters?.sortBy?.includes("viewed")) {
+      sortBy = orderBy("total_views", "desc");
+    }
 
-  if (filters?.sortBy?.includes("applied")) {
-    sortBy = orderBy("total_click", "desc");
-  }
+    if (filters?.sortBy?.includes("applied")) {
+      sortBy = orderBy("total_click", "desc");
+    }
 
-  // Calculate and store "hottest" by total views * total clicks / 100
-  // if (filters?.sortBy?.includes("hottest")) {
-  //   sortBy = orderBy("max_salary", "desc");
-  // }
+    // Calculate and store "hottest" by total views * total clicks / 100
+    // if (filters?.sortBy?.includes("hottest")) {
+    //   sortBy = orderBy("max_salary", "desc");
+    // }
 
-  if (filters?.sortBy?.includes("benefits")) {
-    sortBy = orderBy("benefits", "desc");
-  }
+    if (filters?.sortBy?.includes("benefits")) {
+      sortBy = orderBy("benefits", "desc");
+    }
 
-  if (filters?.search) {
-    jobSearchQuery = query(
-      colRef,
-      orderBy("position"),
-      startAt(filters?.search),
-      endAt(filters?.search + "\uf8ff")
-      // ...queryConstraints
+    if (filters?.search) {
+      jobSearchQuery = query(
+        colRef,
+        orderBy("position"),
+        startAt(filters?.search),
+        endAt(filters?.search + "\uf8ff"),
+        limit(_limit)
+        // ...queryConstraints
+      );
+    }
+
+    if (filters?.seconds && filters?.nanoseconds) {
+      const timestamp = new Timestamp(filters?.seconds, filters?.nanoseconds);
+      const q = query(
+        colRef,
+        orderBy("created_at", "desc"),
+        limit(_limit),
+        startAfter(timestamp)
+      );
+
+      const snapshot = await getDocs(q);
+
+      const docs = Array.from(snapshot.docs).map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+          created_at: doc.data()?.created_at?.toDate(),
+          updated_at: doc.data()?.updated_at?.toDate(),
+          timestamp: doc.data()?.created_at,
+        };
+      });
+
+      return docs;
+    }
+
+    const snapshot = await getDocs(
+      filters?.search
+        ? jobSearchQuery
+        : query(colRef, sortBy, limit(_limit), ...queryConstraints)
     );
+
+    const docs = Array.from(snapshot.docs).map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+        created_at: doc.data()?.created_at?.toDate(),
+        updated_at: doc.data()?.updated_at?.toDate(),
+        timestamp: doc.data()?.created_at,
+      };
+    });
+
+    return docs;
+  } catch (error) {
+    console.log(error);
   }
-
-  const snapshot = await getDocs(
-    filters?.search
-      ? jobSearchQuery
-      : query(colRef, sortBy, ...queryConstraints)
-  );
-
-  const docs = Array.from(snapshot.docs).map((doc) => {
-    return {
-      ...doc.data(),
-      id: doc.id,
-      created_at: doc.data()?.created_at?.toDate(),
-      updated_at: doc.data()?.updated_at?.toDate(),
-    };
-  });
-
-  return docs;
 };
 
 export const get = async (
