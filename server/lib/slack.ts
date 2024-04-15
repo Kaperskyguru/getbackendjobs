@@ -1,6 +1,6 @@
 import axios from "axios";
 // import moment from '@nuxtjs/moment'
-// import DB from "../db";
+import { getRandomJob, link } from "../helpers";
 import { getJobs } from "../api/services";
 
 class Slack {
@@ -121,7 +121,9 @@ class Slack {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `<${process.env.BASE_URL}${link(job)} |* ${job.position}*>`,
+            text: `<${process.env.BASE_URL}${link(job, "slack")} |* ${
+              job.position
+            }*>`,
           },
         },
         {
@@ -139,7 +141,7 @@ class Slack {
             },
             value: "click_me_123",
             style: "primary",
-            url: `${process.env.BASE_URL}${link(job)}`,
+            url: `${process.env.BASE_URL}${link(job, "slack")}`,
             action_id: "button-action",
           },
         },
@@ -187,8 +189,6 @@ class Slack {
   }
 
   static postToSlack(url: string, message: any) {
-    console.log(JSON.stringify(message));
-
     return axios
       .post(url, JSON.stringify(message))
       .then((result) => result.data)
@@ -198,12 +198,12 @@ class Slack {
   }
 }
 
-function link(job: any) {
-  if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}&ref=slack`;
-  return `/jobs/${job?.slug}?ref=slack`;
-}
+// function link(job: any) {
+//   if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}&ref=slack`;
+//   return `/jobs/${job?.slug}?ref=slack`;
+// }
 
-function getRandomJob(jobs: Array<any>) {
-  return jobs[Math.floor(Math.random() * jobs?.length)];
-}
+// function getRandomJob(jobs: Array<any>) {
+//   return jobs[Math.floor(Math.random() * jobs?.length)];
+// }
 export default Slack;

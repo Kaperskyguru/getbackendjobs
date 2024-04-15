@@ -32,37 +32,41 @@ class StartupJobs {
   static async resolve() {
     await this.init();
     // console.log('Grabbing List of Job URLS ...')
+    try {
+      const elements = await driver.findElements(By.css("main a.group"));
 
-    const elements = await driver.findElements(
-      By.css("main > div > div >a.group")
-    );
-    const jobs: Array<any> = [];
-    for (const element of elements) {
-      const jobURL = await element.getAttribute("href");
-      const title = await element.findElement(By.tagName("h5")).getText();
-      const logo = await element
-        .findElement(By.tagName("img"))
-        ?.getAttribute("src");
-      const company = await element.findElement(By.css("h6 > span")).getText();
-      const locations = [];
-      const locationsElement = await element.findElements(
-        By.css("div >div > ul > li")
-      );
-      for (const location of locationsElement) {
-        locations.push(await location.getText());
+      const jobs: Array<any> = [];
+      for (const element of elements) {
+        const jobURL = await element.getAttribute("href");
+        const title = await element.findElement(By.tagName("h5")).getText();
+        const logo = await element
+          .findElement(By.tagName("img"))
+          ?.getAttribute("src");
+        const company = await element
+          .findElement(By.css("h6 > span"))
+          .getText();
+        const locations = [];
+        const locationsElement = await element.findElements(
+          By.css("div >div > ul > li")
+        );
+        for (const location of locationsElement) {
+          locations.push(await location.getText());
+        }
+
+        jobs.push({
+          title,
+          logo,
+          company,
+          locations,
+          tags: [],
+          jobURL,
+        });
       }
 
-      jobs.push({
-        title,
-        logo,
-        company,
-        locations,
-        tags: [],
-        jobURL,
-      });
+      return jobs;
+    } catch (error) {
+      console.log(error);
     }
-
-    return jobs;
   }
 
   static async scrape() {

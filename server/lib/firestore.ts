@@ -220,10 +220,10 @@ export const batch = async (col: string, documents: Array<Object>) => {
         };
       });
 
-      document.created_at = Timestamp.now();
-      document.updated_at = Timestamp.now();
-
       if (!docs.length) {
+        document.created_at = Timestamp.now();
+        document.updated_at = Timestamp.now();
+
         const docRef = doc(collection(firestoreDb, col)); // Create a new document reference with a unique ID
         batch.set(docRef, document); // Add the data to the batch for this document reference
       }
@@ -233,7 +233,7 @@ export const batch = async (col: string, documents: Array<Object>) => {
   batch
     .commit()
     .then(() => {
-      console.log("Batch write operation completed");
+      console.log("Batch write operation completed " + documents.length);
     })
     .catch((error) => {
       console.error("Batch write operation failed: ", error);
