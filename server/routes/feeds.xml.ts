@@ -1,10 +1,10 @@
 import RSS from "rss";
-
+import { link } from "../helpers";
 import { getJobs } from "../api/services";
 export default defineEventHandler(async (event) => {
   const feed = new RSS({
     title: "Get Backend Jobs",
-    site_url: "https://getbackendjobs.com",
+    site_url: "https://getbackendjobs.com?ref=feeds",
     feed_url: `https://getbackendjobs.com/feeds.xml`,
   });
 
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   for (const job of jobs) {
     feed.item({
       title: job?.position ?? "-",
-      url: job?.apply_url,
+      url: `${process.env.BASE_URL}${link(job, "feeds")}`,
       date: job.created_at,
       author: job.company_name,
       description: job.description,
