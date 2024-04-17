@@ -24,7 +24,12 @@
         </div>
 
         <div class="absolute right-0 top-0 mt-5 lg:flex gap-3 hidden">
-          <!-- <a href="#" class="px-3 py-2 text-white border rounded-lg"> Login </a> -->
+          <!-- <a
+            href="/blog"
+            class="px-4 py-2 text-black text-xl rounded border text-white"
+          >
+            Blog
+          </a> -->
           <a
             target="_blank"
             href="https://plausible.io/getbackendjobs.com/"

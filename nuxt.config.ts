@@ -136,7 +136,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/cloudinary", "@vueuse/nuxt"],
+  modules: ["@nuxtjs/cloudinary", "@vueuse/nuxt", "@nuxt/content"],
 
   nitro: {
     prerender: {
@@ -164,6 +164,11 @@ export default defineNuxtConfig({
       cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
       appEnv: process.env.NODE_ENV,
       storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      lemon_API_key: process.env.LEMON_API_KEY,
+      lemon_store: process.env.LEMON_STORE,
+      lemon_variant: process.env.LEMON_VARIANT,
+      baseURL: process.env.BASE_URL,
+      tinymce: process.env.TINYMCE,
     },
   },
 

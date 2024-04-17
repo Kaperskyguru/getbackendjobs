@@ -10,9 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^16.3.5",
     "@gtm-support/vue-gtm": "^2.2.0",
+    "@lemonsqueezy/lemonsqueezy.js": "^2.2.0",
+    "@nuxt/content": "^2.12.1",
     "@nuxtjs/cloudinary": "^2.7.3",
     "@tailwindcss/forms": "^0.5.7",
+    "@tinymce/tinymce-vue": "^5",
     "@types/rss": "^0.0.32",
     "@types/selenium-webdriver": "^4.1.22",
     "@vuelidate/core": "^2.0.3",

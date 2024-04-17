@@ -11,6 +11,9 @@
         </div>
 
         <div class="px-4">
+          <a href="/blog" class="px-4 py-2 text-black text-xl rounded">
+            Blog
+          </a>
           <button
             class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded"
           >
@@ -773,14 +776,23 @@
               <div class="p-2 text-white font-bold text-lg">
                 <label for="job_description">Job description*</label>
               </div>
-              <div class="flex items-center">
-                <textarea
-                  id="job_description"
-                  v-model="job.description"
-                  class="w-full"
-                  rows="20"
-                  placeholder="The description of the job position will appear here. Write this in the 'Job Description' box above."
-                ></textarea>
+              <div class="flex w-full items-center">
+                <div class="w-full">
+                  <Editor
+                    id="job_description"
+                    :init="{
+                      menubar: false,
+                      plugins:
+                        'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+                      toolbar:
+                        'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat',
+                    }"
+                    class="w-full"
+                    initial-valu="The description of the job position will appear here. Write this in the 'Job Description' box above."
+                    :api-key="config.public?.tinymce"
+                    v-model="job.description"
+                  />
+                </div>
               </div>
             </div>
             <span class="text-xs text-red-500" v-if="v$.description.$error">{{
@@ -818,13 +830,30 @@
                 <label for="how_to_apply">How to Apply</label>
               </div>
               <div class="flex items-center">
-                <textarea
+                <!-- <textarea
                   v-model="job.how_to_apply"
                   id="how_to_apply"
                   class="w-full"
                   rows="20"
                   placeholder="Here the instructions go on how to apply for this job. Write them in the 'How to Apply?' box"
-                ></textarea>
+                ></textarea> -->
+
+                <div class="w-full">
+                  <Editor
+                    id="how_to_apply"
+                    :init="{
+                      menubar: false,
+                      plugins:
+                        'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+                      toolbar:
+                        'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat',
+                    }"
+                    class="w-full"
+                    initial-valu="Here the instructions go on how to apply for this job. Write them in the 'How to Apply?' box"
+                    :api-key="config.public?.tinymce"
+                    v-model="job.how_to_apply"
+                  />
+                </div>
               </div>
             </div>
             <span class="text-xs text-red-500" v-if="v$.how_to_apply.$error">{{
@@ -1776,14 +1805,19 @@
             <button
               @click="startHiring"
               class="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 w-full py-6 text-white font-bold text-xl rounded-lg"
+              :class="{ 'opacity-1': loading }"
+              :disabled="loading"
             >
-              Start hiring -- $<span
-                class="pr-2"
-                :class="{ 'line-through decoration-red-500': discount }"
-                >{{ calculatedPrice }}</span
-              >
-              <span v-if="discount">
-                ${{ calculatedPrice - calculatedPrice * 0.1 }}</span
+              <span v-if="loading">Loading...</span>
+              <span v-else>
+                Start hiring -- $<span
+                  class="pr-2"
+                  :class="{ 'line-through decoration-red-500': discount }"
+                  >{{ calculatedPrice }}</span
+                >
+                <span v-if="discount">
+                  ${{ calculatedPrice - calculatedPrice * 0.1 }}</span
+                ></span
               >
             </button>
           </div>
@@ -1794,6 +1828,11 @@
 </template>
 
 <script setup>
+import {
+  lemonSqueezySetup,
+  createCheckout,
+} from "@lemonsqueezy/lemonsqueezy.js";
+import Editor from "@tinymce/tinymce-vue";
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
 import Contentre from "~/assets/contentre.svg";
 import useVuelidate from "@vuelidate/core";
@@ -1810,6 +1849,8 @@ import { Timestamp } from "firebase/firestore";
 import { locations, benefits } from "~/helpers";
 const should_pay_later = ref(false);
 const discount = ref(false);
+const config = useRuntimeConfig();
+const loading = ref(false);
 const color = ref("#fff");
 const job = shallowReactive({
   show_color: false,
@@ -2126,6 +2167,7 @@ async function uploadImage(data) {
   job.company_logo = result?.info?.secure_url;
 }
 async function startHiring() {
+  loading.value = true;
   v$.value.$validate();
   if (v$.value.$error) return;
 
@@ -2142,12 +2184,14 @@ async function startHiring() {
   job.sticky_expired_date = calculateStickyDate(job);
 
   if (job.should_pay_later && job.pay_later_email) {
-    // const res = await $fetch("/api/jobs", {
-    //   method: "POST",
-    //   body: job,
-    // });
+    const res = await $fetch("/api/jobs", {
+      method: "POST",
+      body: job,
+    });
 
     // Email Draft link
+    // Email Sequence
+    loading.value = false;
     return;
   }
 
@@ -2155,11 +2199,51 @@ async function startHiring() {
 
   // Create job
 
+  await payment();
   job.isLive = true;
-  // const res = await $fetch("/api/jobs", {
-  //   method: "POST",
-  //   body: job,
-  // });
+  const res = await $fetch("/api/jobs", {
+    method: "POST",
+    body: job,
+  });
+
+  // Email link
+  // Email Sequence
+  loading.value = false;
+}
+
+async function payment() {
+  lemonSqueezySetup({
+    apiKey: config.public?.lemon_API_key,
+  });
+
+  const storeId = config.public?.lemon_store ?? 82309;
+  const variantId = config.public?.lemon_variant ?? 342075;
+  const newCheckout = {
+    productOptions: {
+      name: "Post Backend Job",
+      description: generateDesc(job),
+      redirect_url: `${config.public?.baseURL}?redirect=payment-success`,
+    },
+    checkoutOptions: {},
+    checkoutData: {
+      email: job?.company_email,
+    },
+    expiresAt: null,
+    preview: true,
+    testMode: config.public?.appEnv == "development",
+    customPrice: calculatedPrice.value * 100,
+  };
+  const { statusCode, error, data } = await createCheckout(
+    storeId,
+    variantId,
+    newCheckout
+  );
+
+  if (statusCode == 201) {
+    const checkoutUrl = data["data"]["attributes"]["url"];
+    window.location = checkoutUrl;
+    return;
+  }
 }
 
 function generateString(length) {
@@ -2172,6 +2256,20 @@ function generateString(length) {
   }
 
   return result;
+}
+
+function generateDesc(job) {
+  let desc = "You customized your job post with premium listing features. \n\n";
+  if (job.show_color) desc += " Highlight with your company's 🌈 brand color +";
+  if (job.show_company_logo) desc += " Show my ⭐️ company logo +";
+  if (job.blast_to_newsletter) desc += " Email blast to 📮15,000 engineers +";
+  if (job.enable_qr_code) desc += " QR-code short link for your post +";
+  if (job.primium_support) desc += " Get 💁‍♀️ premium support and help +";
+  if (job.highlight_post_yellow) desc += " Highlight your post in gradient +";
+  if (job.stick_for_24_hours) desc += " Sticky on 📌 top for ⏰ 24 hours +";
+  if (job.stick_for_1_week) desc += " Sticky 📌 top for ⏰ 1 week +";
+  if (job.stick_for_1_month) desc += " Sticky 📌 top for ⏰ 1 month";
+  return desc;
 }
 
 useHead({

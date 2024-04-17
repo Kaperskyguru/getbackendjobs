@@ -199,6 +199,14 @@
         </section>
       </div>
     </div>
+
+    <Dialog
+      :visible="showPaymentSuccess"
+      @update:visible="showPaymentSuccess = false"
+      ><p class="text-green-500 text-xl">
+        You payment was successfully and your job will be posted ASAP.
+      </p></Dialog
+    >
   </div>
 </template>
 
@@ -212,12 +220,13 @@ import {
   capitalizeSpecialCharacters,
   sortItems,
 } from "~/helpers";
+import { onMounted } from "vue";
 const el = ref(null);
 const loading = ref(false);
 const filters = ref({});
 const jobs = ref([]);
 const isLast = ref(false);
-
+const showPaymentSuccess = ref(false);
 const loadJobs = async (queries = {}) => {
   try {
     loading.value = true;
@@ -329,6 +338,13 @@ watch(
   },
   { deep: true }
 );
+
+onMounted(() => {
+  if (useRoute().query?.redirect === "payment-success") {
+    showPaymentSuccess.value = true;
+    useRouter().replace({ query: [] });
+  }
+});
 </script>
 
 
