@@ -245,6 +245,7 @@
               <span class="pr-2 line-through decoration-red-500">$50</span
               >)</label
             >
+            [<a href="https://twitter.com/kaperskyguru">My Twitter</a>]
           </div>
 
           <div class="flex items-center py-2">
