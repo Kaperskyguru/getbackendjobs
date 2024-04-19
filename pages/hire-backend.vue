@@ -1471,7 +1471,7 @@
           <div class="p-10">
             <p class="flex flex-col justify-center">
               <span class="">Starting from</span>
-              <span class="font-bold text-xl">$0</span>
+              <span class="font-bold text-xl">$0 - $118</span>
               <span>for 30 days</span>
             </p>
           </div>
@@ -1854,12 +1854,12 @@ const loading = ref(false);
 const color = ref("#fff");
 const job = shallowReactive({
   show_color: false,
-  show_company_logo: true,
-  blast_to_newsletter: true,
+  show_company_logo: false,
+  blast_to_newsletter: false,
   send_to_directory: true,
   enable_qr_code: false,
   primium_support: true,
-  highlight_post_yellow: true,
+  highlight_post_yellow: false,
   stick_for_24_hours: false,
   stick_for_1_week: false,
   stick_for_1_month: false,
