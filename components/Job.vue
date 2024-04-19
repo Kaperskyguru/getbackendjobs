@@ -23,6 +23,9 @@
           <div v-if="job?.show_company_logo">
             <Avatar :src="job?.company_logo" :name="job?.company_name" />
           </div>
+          <div v-else>
+            <Avatar :name="job?.company_name" />
+          </div>
           <div class="w-full">
             <div class="flex gap-2">
               <h2>{{ job?.position }}</h2>
@@ -119,19 +122,19 @@
           >
             <span class="flex items-center gap-1" v-if="job?.posted_at"
               ><PaperClip class="" />
-              <p>{{ job?.posted_at }}</p>
+              <p>{{ postedAt }}</p>
             </span>
             <a
-              @click.prevent="openLink"
               target="_blank"
               ref="apply_btn"
-              :href="job?.apply_url"
+              :href="link"
               :class="{
                 'bg-white text-[#ff4742]': bgColor === 'red',
                 'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
                   bgColor === 'white',
 
                 'hidden group-hover:block': !isFull,
+                'left-40': job?.posted_at,
 
                 hidden: isFull,
               }"
@@ -196,7 +199,8 @@
                   <button
                     class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
                   >
-                    Apply Now
+                    <span v-if="job?.apply_url"> Apply Now </span
+                    ><span v-else>Apply Now via email</span>
                   </button>
                 </a>
               </div>
@@ -265,7 +269,8 @@
                 @click.prevent="openLink"
                 :href="job?.apply_url"
                 class="px-3 flex justify-center py-3 bg-red-600 text-white w-full rounded-lg"
-                >Apply for this job</a
+                ><span v-if="job?.apply_url">Apply for this job</span>
+                <span v-else>Click here to apply vial email</span></a
               >
             </div>
             <p class="font-bold text-center text-sm py-4">
@@ -299,7 +304,7 @@
 <script setup>
 import PaperClip from "~/assets/paper-clip.svg";
 import { Timestamp } from "firebase/firestore";
-
+import { format } from "timeago.js";
 const apply_btn = ref(null);
 const props = defineProps({
   bgColor: {
@@ -338,6 +343,11 @@ function isNew(job) {
   return createdDate >= currentDate;
 }
 
+const postedAt = computed(() => {
+  const date = new Date(props.job?.posted_at?.seconds * 1000);
+  return format(date, "en_US");
+});
+
 const link = computed(() => {
   if (props.isFull) return "#";
 
@@ -349,9 +359,12 @@ const link = computed(() => {
 function isVerified(job) {
   if (!job?.company_email) return false;
   const domain = job.company_email?.split("@")[1];
+  const domainName = domain?.split(".")[0];
 
   return (
-    domain.includes(job?.company_website) || domain.includes(job?.company_name)
+    (job?.company_website ?? domain.includes(job?.company_website)) ||
+    (job?.company_name &&
+      job?.company_name.toLowerCase().split(" ").includes(domainName))
   );
 }
 
@@ -398,8 +411,12 @@ const getSharedLink = computed(() => {
 
 function openLink() {
   // Update Click
+  if (props.job?.apply_url) {
+    window.open(props.job?.apply_url, "_blank");
+    return;
+  }
 
-  window.open(props.job?.apply_url, "_blank");
+  window.location.href = `mailto:${props.job?.apply_email}`;
 }
 
 function getTagSlug(tag) {

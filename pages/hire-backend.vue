@@ -1847,7 +1847,7 @@ import {
   url,
 } from "@vuelidate/validators";
 import { Timestamp } from "firebase/firestore";
-import { locations, benefits } from "~/helpers";
+import { locations, benefits, capitalizeSpecialCharacters } from "~/helpers";
 const should_pay_later = ref(false);
 const discount = ref(false);
 const config = useRuntimeConfig();
@@ -2009,7 +2009,7 @@ function selectedKeywords(items) {
 }
 
 function selectedLocation(items) {
-  job.locations = items;
+  job.locations = items.map((a) => a.charAt(0).toUpperCase() + a.substr(1));
 }
 
 function calculateStickyDate(job) {
@@ -2106,14 +2106,18 @@ const rules = computed(() => {
     },
 
     apply_url: {
-      required: helpers.withMessage(
-        "The Apply URL field is required",
-        required
+      requiredIf: helpers.withMessage(
+        "The Apply URL field is required if 'Apply email' is empty",
+        requiredIf(job?.apply_email === "")
       ),
     },
 
     apply_email: {
       email: helpers.withMessage("Invalid email format", email),
+      requiredIf: helpers.withMessage(
+        "Required if Apply URL is empty",
+        requiredIf(job?.apply_url === "")
+      ),
     },
 
     company_twitter: {
@@ -2169,8 +2173,8 @@ async function uploadImage(data) {
 }
 async function startHiring() {
   loading.value = true;
-  // v$.value.$validate();
-  // if (v$.value.$error) return;
+  v$.value.$validate();
+  if (v$.value.$error) return;
 
   const slug = `${slugify(job.position, {
     trim: true,
@@ -2184,7 +2188,6 @@ async function startHiring() {
   // Calculate sticky_expired_date
   job.sticky_expired_date = calculateStickyDate(job);
 
-  console.log(calculatedPrice.value);
   if (
     (job.should_pay_later && job.pay_later_email) ||
     calculatedPrice.value < 1
@@ -2194,10 +2197,9 @@ async function startHiring() {
       body: job,
     });
 
-    console.log(res);
-
     // Email Draft link
     // Email Sequence
+    // Notify Me
     loading.value = false;
     return;
   }

@@ -31,6 +31,7 @@
     "rss": "^1.2.2",
     "selenium-webdriver": "^4.18.1",
     "slugify": "^1.6.6",
+    "timeago.js": "^4.0.2",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.19",
     "vue-router": "^4.3.0"
