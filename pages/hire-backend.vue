@@ -2169,8 +2169,8 @@ async function uploadImage(data) {
 }
 async function startHiring() {
   loading.value = true;
-  v$.value.$validate();
-  if (v$.value.$error) return;
+  // v$.value.$validate();
+  // if (v$.value.$error) return;
 
   const slug = `${slugify(job.position, {
     trim: true,
@@ -2184,11 +2184,17 @@ async function startHiring() {
   // Calculate sticky_expired_date
   job.sticky_expired_date = calculateStickyDate(job);
 
-  if (job.should_pay_later && job.pay_later_email) {
+  console.log(calculatedPrice.value);
+  if (
+    (job.should_pay_later && job.pay_later_email) ||
+    calculatedPrice.value < 1
+  ) {
     const res = await $fetch("/api/jobs", {
       method: "POST",
       body: job,
     });
+
+    console.log(res);
 
     // Email Draft link
     // Email Sequence
@@ -2242,7 +2248,8 @@ async function payment() {
 
   if (statusCode == 201) {
     const checkoutUrl = data["data"]["attributes"]["url"];
-    window.location = checkoutUrl;
+    console.log(checkoutUrl);
+    // window.location = checkoutUrl;
     return;
   }
 }

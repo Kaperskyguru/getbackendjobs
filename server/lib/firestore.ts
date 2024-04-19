@@ -189,7 +189,8 @@ export const set = async (col: string, document: Object) => {
 export const add = async (col: string, document: Object) => {
   // @ts-ignore
   const colRef = collection(firestoreDb, col);
-
+  document.created_at = Timestamp.now();
+  document.updated_at = Timestamp.now();
   const docRef = await addDoc(colRef, document);
 
   return docRef;
