@@ -348,7 +348,7 @@ const link = computed(() => {
 
 function isVerified(job) {
   if (!job?.company_email) return false;
-  const domain = company_email?.split("@")[1];
+  const domain = job.company_email?.split("@")[1];
 
   return (
     domain.includes(job?.company_website) || domain.includes(job?.company_name)
