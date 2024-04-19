@@ -38,7 +38,7 @@
             </div>
             <button
               @click.prevent="close"
-              class="mr-6 text-white focus:outline-none"
+              class="mr-6 text-red-500 focus:outline-none"
             >
               Close(X)
               <!-- <CloseIcon /> -->

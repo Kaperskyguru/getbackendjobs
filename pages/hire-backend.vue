@@ -1825,6 +1825,15 @@
         </div>
       </section>
     </section>
+
+    <Dialog
+      :visible="showJobPostedSuccess"
+      @update:visible="showJobPostedSuccess = false"
+      ><p class="text-green-500 text-xl">
+        Your Job was added successfully to the queue and will be posted ASAP
+        after review.
+      </p></Dialog
+    >
   </main>
 </template>
 
@@ -1853,6 +1862,7 @@ const discount = ref(false);
 const config = useRuntimeConfig();
 const loading = ref(false);
 const color = ref("#fff");
+const showJobPostedSuccess = ref(false);
 const job = shallowReactive({
   show_color: false,
   show_company_logo: false,
@@ -2200,6 +2210,7 @@ async function startHiring() {
     // Email Draft link
     // Email Sequence
     // Notify Me
+    showJobPostedSuccess.value = true;
     loading.value = false;
     return;
   }
@@ -2233,7 +2244,9 @@ async function payment() {
       description: generateDesc(job),
       redirect_url: `${config.public?.baseURL}?redirect=payment-success`,
     },
-    checkoutOptions: {},
+    checkoutOptions: {
+      embed: true,
+    },
     checkoutData: {
       email: job?.company_email,
     },
@@ -2250,8 +2263,8 @@ async function payment() {
 
   if (statusCode == 201) {
     const checkoutUrl = data["data"]["attributes"]["url"];
-    console.log(checkoutUrl);
-    // window.location = checkoutUrl;
+    // console.log(checkoutUrl);
+    window.location = checkoutUrl;
     return;
   }
 }
