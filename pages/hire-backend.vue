@@ -1857,6 +1857,7 @@ import {
 } from "@vuelidate/validators";
 import { Timestamp } from "firebase/firestore";
 import { locations, benefits, capitalizeSpecialCharacters } from "~/helpers";
+import { watch } from "vue";
 const should_pay_later = ref(false);
 const discount = ref(false);
 const config = useRuntimeConfig();
@@ -1961,6 +1962,21 @@ const calculatedPercent = computed(() =>
 );
 
 watch(
+  () => color.value,
+  (value) => {
+    job.brand_color = value;
+  },
+  { deep: true }
+);
+
+watch(
+  () => job.show_color,
+  (val) => {
+    if (val) job.brand_color = "#ff4742";
+  }
+);
+
+watch(
   () => job.stick_for_24_hours,
   (value) => {
     if (value) {
@@ -2023,7 +2039,7 @@ function selectedLocation(items) {
 }
 
 function calculateStickyDate(job) {
-  let date = null;
+  let date = new Date();
   if (job.stick_for_24_hours) {
     date = new Date().setDate(a.getDate() + 1);
   }
@@ -2225,6 +2241,8 @@ async function startHiring() {
     method: "POST",
     body: job,
   });
+
+  console.log(res);
 
   // Email link
   // Email Sequence

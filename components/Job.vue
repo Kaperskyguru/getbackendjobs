@@ -10,13 +10,11 @@
         :class="{
           'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
             bgColor === 'blue',
-
-          'bg-[#ff4742] text-white': bgColor === 'red',
-
           'md:rounded-t-lg': isFull,
           'md:rounded-lg': !isFull,
           'border-t border-solid border-gray-300': bgColor !== 'white',
         }"
+        :style="[...colors]"
         class="flex group md:my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
       >
         <div class="flex w-full items-center gap-5">
@@ -102,16 +100,14 @@
               :to="getTagSlug(skill)"
               v-for="(skill, i) in displaySkills"
               :key="i"
-              class="rounded-full w-full flex items-center gap-3 px-2 py-1"
+              class="rounded-full bg-white w-full flex items-center gap-3 px-2 py-1"
               :class="{
-                'bg-white text-[#ff4742] border-solid border border-gray-[#ff4742]':
-                  bgColor === 'red',
-
-                '  bg-white text-black border-solid border border-gray-800':
+                'bg-white text-black border-solid border border-gray-800':
                   bgColor === 'white',
 
                 'bg-white text-black': bgColor === 'blue',
               }"
+              :style="[bgColor.includes('#') ? { color: `${bgColor}` } : '']"
             >
               <span class="">{{ skill }}</span>
             </nuxt-link>
@@ -128,8 +124,12 @@
               target="_blank"
               ref="apply_btn"
               :href="link"
+              :style="[
+                bgColor.includes('#')
+                  ? { color: `${bgColor}`, 'background-color': '#fff' }
+                  : '',
+              ]"
               :class="{
-                'bg-white text-[#ff4742]': bgColor === 'red',
                 'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
                   bgColor === 'white',
 
@@ -354,6 +354,17 @@ const link = computed(() => {
   const job = props.job;
   if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}`;
   return `/jobs/${job?.slug}`;
+});
+
+const colors = computed(() => {
+  const colors = [];
+  if (props.job?.show_color)
+    colors.push({
+      "background-color": `${props.job?.brand_color}`,
+      color: "white",
+    });
+
+  return colors;
 });
 
 function isVerified(job) {

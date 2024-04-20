@@ -180,22 +180,32 @@
         </section>
 
         <section>
-          <span v-for="(job, i) in jobs" :key="i">
+          <!-- Pin Jobs -->
+          <span v-for="(job, i) in pinJobs" :key="i">
+            <Job
+              :job="job"
+              v-if="!isStickyExpired(job?.sticky_expired_date)"
+              :bg-color="
+                job?.highlight_post_yellow
+                  ? 'blue'
+                  : job?.show_color
+                  ? job?.brand_color
+                  : 'white'
+              "
+            />
+          </span>
+          <span v-for="(job, i) in unPinJobs" :key="i">
             <Job
               :job="job"
               :bg-color="
                 job?.highlight_post_yellow
                   ? 'blue'
                   : job?.show_color
-                  ? ''
+                  ? job?.brand_color
                   : 'white'
               "
             />
           </span>
-
-          <!-- <Job bg-color="red" /> -->
-
-          <!-- <Job bg-color="blue" /> -->
         </section>
       </div>
     </div>
@@ -220,7 +230,7 @@ import {
   capitalizeSpecialCharacters,
   sortItems,
 } from "~/helpers";
-import { onMounted } from "vue";
+import { computed, onMounted } from "vue";
 const el = ref(null);
 const loading = ref(false);
 const filters = ref({});
@@ -344,6 +354,33 @@ onMounted(() => {
     showPaymentSuccess.value = true;
     useRouter().replace({ query: [] });
   }
+});
+
+function isStickyExpired(date) {
+  return new Date(date).getTime() < Date.now();
+}
+
+const pinJobs = computed(() => {
+  if (!jobs.value.length) return [];
+  return jobs.value.filter((job) => {
+    return (
+      job?.stick_for_1_month || job?.stick_for_1_week || job?.stick_for_24_hours
+    );
+  });
+});
+
+const unPinJobs = computed(() => {
+  if (!jobs.value.length) return [];
+
+  return jobs.value.filter((job) => {
+    if (isStickyExpired(job?.sticky_expired_date)) return job;
+    if (
+      !job?.stick_for_1_month &&
+      !job?.stick_for_1_week &&
+      !job?.stick_for_24_hours
+    )
+      return job;
+  });
 });
 </script>
 
