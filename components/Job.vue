@@ -389,10 +389,10 @@ function getLocationSlug(location) {
     _location.toLowerCase().includes("hybrid") ||
     _location.includes("remote")
   )
-    return `remote-backend-jobs`;
+    return `/remote-backend-jobs`;
 
   if (_location.includes("0")) return "";
-  if (_location.includes("time")) return `${_location}-backend-jobs`;
+  if (_location.includes("time")) return `/${_location}-backend-jobs`;
 
   return `/backend-jobs-in-${_location.replaceAll(" ", "-")}`;
 }
