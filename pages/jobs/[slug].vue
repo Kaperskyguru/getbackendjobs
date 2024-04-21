@@ -79,47 +79,65 @@ await getJob();
 function updateViews() {}
 updateViews();
 
-// useHead({
-//   "@context": "https://schema.org/",
-//   "@type": "JobPosting",
-//   title: "Software Engineer",
-//   description:
-//     "<p>Google aspires to be an organization that reflects the globally diverse audience that our products and technology serve. We believe that in addition to hiring the best talent, a diversity of perspectives, ideas and cultures leads to the creation of better products and services.</p>",
-//   identifier: {
-//     "@type": "PropertyValue",
-//     name: "Google",
-//     value: "1234567",
-//   },
-//   datePosted: "2017-01-18",
-//   validThrough: "2017-03-18T00:00",
-//   employmentType: "CONTRACTOR",
-//   hiringOrganization: {
-//     "@type": "Organization",
-//     name: "Google",
-//     sameAs: "https://www.google.com",
-//     logo: "https://www.example.com/images/logo.png",
-//   },
-//   jobLocation: {
-//     "@type": "Place",
-//     address: {
-//       "@type": "PostalAddress",
-//       streetAddress: "1600 Amphitheatre Pkwy",
-//       addressLocality: "Mountain View",
-//       addressRegion: "CA",
-//       postalCode: "94043",
-//       addressCountry: "US",
-//     },
-//   },
-//   baseSalary: {
-//     "@type": "MonetaryAmount",
-//     currency: "USD",
-//     value: {
-//       "@type": "QuantitativeValue",
-//       value: 40.0,
-//       unitText: "HOUR",
-//     },
-//   },
-// });
+useHead({
+  title: `${job.value?.position} (${job.value?.locations?.join(", ")}) at ${
+    job.value?.company_name
+  }`,
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: `${job.value?.company_name} is hiring a ${
+        job.value?.position
+      } (${job.value?.locations?.join(", ")})`,
+    },
+
+    {
+      hid: "og:title",
+      property: "og:title",
+      content: `${job.value?.position} (${job.value?.locations?.join(
+        ", "
+      )}) at ${job.value?.company_name}`,
+    },
+    {
+      hid: "og:description",
+      property: "og:description",
+      content: `${job.value?.company_name} is hiring a ${
+        job.value?.position
+      } (${job.value?.locations?.join(", ")})`,
+    },
+    {
+      hid: "og:image",
+      property: "og:image",
+      content: `https://res.cloudinary.com/kaperskydisk/image/upload/v1710945111/Get%20Backend%20Jobs/hero.png`,
+    },
+    {
+      hid: "og:url",
+      property: "og:url",
+      content: `/${useRoute().params?.slug}`,
+    },
+    {
+      hid: "og:image:width",
+      property: "og:image:width",
+      content: "100",
+    },
+    {
+      hid: "og:image:height",
+      property: "og:image:height",
+      content: "100",
+    },
+    {
+      hid: "og:type",
+      property: "og:type",
+      content: "website",
+    },
+    {
+      hid: "twitter:card",
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+  ],
+});
 </script>
 
 <style>

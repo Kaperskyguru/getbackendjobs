@@ -136,11 +136,6 @@ useHead({
   title: title.value,
   meta: [
     {
-      hid: "keywords",
-      name: "keywords",
-      content: `remote backend jobs, C# Backend Jobs, PHP Backend Jobs, Java Backend Jobs, JavaScript Backend Jobs, Rust Backend Jobs, Golang Backend Jobs`,
-    },
-    {
       hid: "description",
       name: "description",
       content: `${subtitle.value} in ${new Date().toLocaleString("en-us", {

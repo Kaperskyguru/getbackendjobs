@@ -21,6 +21,12 @@ export default defineNuxtConfig({
         },
 
         {
+          hid: "keywords",
+          name: "keywords",
+          content: `remote backend jobs, C# Backend Jobs, PHP Backend Jobs, Java Backend Jobs, JavaScript Backend Jobs, Rust Backend Jobs, Golang Backend Jobs`,
+        },
+
+        {
           hid: "og:title",
           property: "og:title",
           content: `Remote Backend Engineering Jobs in Programming, Software Engineering, Backend Engineering and more`,
