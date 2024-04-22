@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-const textToImage = require("text-to-image");
+import { generate } from "text-to-image";
 const job = ref({});
 const loading = ref(false);
 
@@ -79,7 +79,7 @@ await getJob();
 
 async function generateImage() {
   try {
-    const dataUri = await textToImage.generate(
+    const dataUri = await generate(
       `${job.value?.company_name} is hiring \n\n Role: ${
         job.value?.position
       } \n\n Locations: ${job.value?.locations?.join(

@@ -2892,7 +2892,7 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001587, caniuse-lite@^1.0.30001591:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001591.tgz#16745e50263edc9f395895a7cd468b9f3767cf33"
   integrity sha512-PCzRMei/vXjJyL5mJtzNiUCKP59dm8Apqc3PH8gJkMnMXZGox93RbE76jHsmLwmIo6/3nsYIpJtx0O7u5PqFuQ==
 
-canvas@^2.6.0:
+canvas@^2.9.3:
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/canvas/-/canvas-2.11.2.tgz#553d87b1e0228c7ac0fc72887c3adbac4abbd860"
   integrity sha512-ItanGBMrmRV7Py2Z+Xhs7cT+FNt5K0vPL4p9EZ/UX/Mu7hFbkxSjKF2KVtPwX7UYWp7dRKnrTvReflgrItJbdw==
@@ -7536,12 +7536,12 @@ terser@^5.17.4:
     commander "^2.20.0"
     source-map-support "~0.5.20"
 
-text-to-image@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/text-to-image/-/text-to-image-5.2.0.tgz#7fd657fd0000603ebc1bc9cb4e022e490874020e"
-  integrity sha512-J6PH9zwMXA3M+QUpxDOOgo8NWYKav6CwFtd5B7wJd9C6iDBPZiD6OX1pyV9ZxnVrOivAevqqkmOcMXPXjFkI+A==
+text-to-image@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/text-to-image/-/text-to-image-6.0.0.tgz#4ba20fd7598152194a7552ede9251424cdbe74cd"
+  integrity sha512-3aRYluLf5FeZ7+Ar+7oRzxKRFJbn5iZgnJu9TT2hDn3QbehM5QgAGWrVr427nP/HZj5X/MdHayLvj5jeE+UiKg==
   dependencies:
-    canvas "^2.6.0"
+    canvas "^2.9.3"
 
 thenify-all@^1.0.0:
   version "1.6.0"
