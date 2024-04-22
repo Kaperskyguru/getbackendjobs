@@ -19,7 +19,11 @@
       >
         <div class="absolute left-0 top-0 mt-5 lg:flex gap-3 w-20 h-auto">
           <nuxt-link href="/">
-            <img src="~/assets/logo.png" class="w-full" alt="" />
+            <img
+              src="~/assets/logo.png"
+              class="w-full"
+              alt="GetbackendJob logo"
+            />
           </nuxt-link>
         </div>
 

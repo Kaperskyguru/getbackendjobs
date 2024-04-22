@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     head: {
+      htmlAttrs: {
+        lang: "en",
+      },
       title:
         "Remote Backend Engineering Jobs in Programming, Software Engineering, Backend Engineering and more",
       meta: [

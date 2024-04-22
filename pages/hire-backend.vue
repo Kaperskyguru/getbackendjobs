@@ -6,7 +6,11 @@
       >
         <div class="lg:flex gap-3 w-20 h-auto">
           <nuxt-link href="/">
-            <img src="~/assets/logo.png" class="w-full" alt="" />
+            <img
+              src="~/assets/logo.png"
+              class="w-full"
+              alt="getbackendjobs logo"
+            />
           </nuxt-link>
         </div>
 
@@ -1456,7 +1460,7 @@
               <img
                 src="~/assets/masteringlogo.png"
                 class="w-full cover"
-                alt=""
+                alt="masteringlogo"
               />
             </div>
             <div class="w-">
@@ -1601,7 +1605,7 @@
               <div>
                 <img
                   src="https://remoteok.com/assets/payment-methods.png?1708185060"
-                  alt=""
+                  alt="payment-methods"
                 />
               </div>
               <span>Secure payment with Stripe or Paddle</span>

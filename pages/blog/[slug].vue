@@ -6,7 +6,11 @@
       >
         <div class="lg:flex gap-3 w-20 h-auto">
           <nuxt-link href="/">
-            <img src="~/assets/logo.png" class="w-full" alt="" />
+            <img
+              src="~/assets/logo.png"
+              class="w-full"
+              alt="getbackendjobs logo"
+            />
           </nuxt-link>
         </div>
 

@@ -20,7 +20,7 @@
                 <img
                   src="~/assets/masteringlogo.png"
                   class="w-full cover"
-                  alt=""
+                  alt="masteringlogo"
                 />
               </div>
               <div class="w-40">
