@@ -1,6 +1,6 @@
 import { dbJobResolver } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
-import chrome from "selenium-webdriver/chrome";
+import chrome from "/opt/build/repo/node_modules/chromium/lib/chromium/chrome-linux/chrome";
 import { addJobs, addJobsHelper } from "../api/services";
 const jobUrl = `https://startup.jobs/?q=backend`;
 
