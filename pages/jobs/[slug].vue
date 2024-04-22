@@ -100,7 +100,7 @@ async function generateImage() {
   } catch (error) {}
 }
 
-await generateImage();
+// await generateImage();
 
 function updateViews() {}
 updateViews();
