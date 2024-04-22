@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <section>
-      <Banner />
+      <Banner :is-full="true" />
     </section>
 
     <div class="page md:mx-auto md:container">

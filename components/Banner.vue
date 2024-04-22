@@ -45,16 +45,33 @@
           </a>
         </div>
 
-        <h1
-          v-if="title"
-          class="text-5xl font-bold leading-tight mb-4 capitalize"
-        >
-          {{ title }}
-        </h1>
+        <span v-if="isFull">
+          <h2
+            v-if="title"
+            class="text-5xl font-bold leading-tight mb-4 capitalize"
+          >
+            {{ title }}
+          </h2>
 
-        <h1 v-else class="text-5xl font-bold leading-tight mb-4">
-          Unlock Your <span class="lg:text-6xl font-black">Backend</span> Future
-        </h1>
+          <h2 v-else class="text-5xl font-bold leading-tight mb-4">
+            Unlock Your
+            <span class="lg:text-6xl font-black">Backend</span> Future
+          </h2>
+        </span>
+
+        <span v-else>
+          <h1
+            v-if="title"
+            class="text-5xl font-bold leading-tight mb-4 capitalize"
+          >
+            {{ title }}
+          </h1>
+
+          <h1 v-else class="text-5xl font-bold leading-tight mb-4">
+            Unlock Your
+            <span class="lg:text-6xl font-black">Backend</span> Future
+          </h1>
+        </span>
 
         <p
           v-if="subtitle"
@@ -122,6 +139,10 @@ const props = defineProps({
   },
   search: {
     default: true,
+    type: Boolean,
+  },
+  isFull: {
+    default: false,
     type: Boolean,
   },
   subtitle: {
