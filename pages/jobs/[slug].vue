@@ -50,6 +50,7 @@
 </template>
 
 <script setup>
+const textToImage = require("text-to-image");
 const job = ref({});
 const loading = ref(false);
 
@@ -75,6 +76,31 @@ async function getJob() {
   }
 }
 await getJob();
+
+async function generateImage() {
+  try {
+    const dataUri = await textToImage.generate(
+      `${job.value?.company_name} is hiring \n\n Role: ${
+        job.value?.position
+      } \n\n Locations: ${job.value?.locations?.join(
+        ", "
+      )} \n\n\n by getbackendjobs.com`,
+      {
+        debug: true,
+        debugFilename: `./public/jobs/${useRoute().params?.slug}.png`,
+        maxWidth: 750,
+        fontSize: 30,
+        fontWeight: "bold",
+        lineHeight: 30,
+        customHeight: 400,
+        margin: 30,
+      }
+    );
+    return dataUri;
+  } catch (error) {}
+}
+
+await generateImage();
 
 function updateViews() {}
 updateViews();
@@ -109,7 +135,7 @@ useHead({
     {
       hid: "og:image",
       property: "og:image",
-      content: `https://res.cloudinary.com/kaperskydisk/image/upload/v1710945111/Get%20Backend%20Jobs/hero.png`,
+      content: `/jobs/${useRoute().params?.slug}.png`,
     },
     {
       hid: "og:url",
