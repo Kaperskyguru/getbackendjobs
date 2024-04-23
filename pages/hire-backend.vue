@@ -2376,7 +2376,7 @@ useHead({
 });
 </script>
 
-<style scoped>
+<style>
 label {
   text-transform: uppercase;
 }
