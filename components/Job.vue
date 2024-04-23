@@ -206,12 +206,13 @@
 
               <div class="py-2 text-center">
                 <div class="text-lg py-2 font-light">
-                  <span> 👀 </span> <span>18,541 views</span>
+                  <span> 👀 </span> <span>N/A views</span>
                 </div>
 
                 <div class="text-lg py-2 font-light">
                   <span> ✅ </span>
-                  <span>2,780 applied (15%)</span>
+                  <span>N/A applied </span>
+                  <!-- (15%) -->
                 </div>
               </div>
 
