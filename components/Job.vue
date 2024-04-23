@@ -231,7 +231,7 @@
             <article
               v-html="
                 job?.how_to_apply
-                  ? job?.description
+                  ? job?.how_to_apply
                   : 'Click on APPLY to view more imformation on how to apply'
               "
             ></article>
@@ -446,14 +446,39 @@ function getTagSlug(tag) {
 
 <style>
 article p {
-  @apply py-2;
+  @apply py-3 text-lg;
 }
 
-#benefits ul li {
-  @apply py-2;
+article h2 {
+  @apply py-4 text-2xl;
 }
 
-#salary p {
-  @apply py-2;
+article h3 {
+  @apply py-3 text-xl;
+}
+
+article h4 {
+  @apply py-2 text-lg;
+}
+
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  @apply font-bold;
+}
+
+article ul,
+article ol {
+  @apply list-disc px-5;
+}
+
+article img {
+  @apply py-3;
+}
+
+article li {
+  @apply py-1;
 }
 </style>
