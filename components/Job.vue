@@ -5,156 +5,161 @@
       'border-t md:border-b': isFull || bgColor === 'white',
     }"
   >
-    <a :href="link">
-      <div
-        :class="{
-          'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
-            bgColor === 'blue',
-          'md:rounded-t-lg': isFull,
-          'md:rounded-lg': !isFull,
-          'border-t border-solid border-gray-300': bgColor !== 'white',
-        }"
-        :style="[...colors]"
-        class="flex group md:my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
-      >
-        <div class="flex w-full items-center gap-5">
-          <div v-if="job?.show_company_logo">
-            <Avatar :src="job?.company_logo" :name="job?.company_name" />
-          </div>
-          <div v-else>
-            <Avatar :name="job?.company_name" />
-          </div>
-          <div class="w-full">
-            <div class="flex gap-2">
-              <h2>{{ job?.position }}</h2>
-              <div class="uppercase text-white text-sm" v-if="isSticky(job)">
-                <span
-                  class="original tooltip-set"
-                  style="vertical-align: middle"
-                  title="This post was bumped by its poster 3 days ago"
-                  >🎈</span
-                >
-              </div>
-              <div class="uppercase text-white text-sm" v-if="isVerified(job)">
-                <span class="px-2 py-1 bg-green-600 rounded-full"
-                  >verified</span
-                >
-              </div>
+    <span>
+      <a :href="link">
+        <div
+          :class="{
+            'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
+              bgColor === 'blue',
+            'md:rounded-t-lg': isFull,
+            'md:rounded-lg': !isFull,
+            'border-t border-solid border-gray-300': bgColor !== 'white',
+          }"
+          :style="[...colors]"
+          class="flex group md:my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
+        >
+          <div class="flex w-full items-center gap-5">
+            <div v-if="job?.show_company_logo">
+              <Avatar :src="job?.company_logo" :name="job?.company_name" />
             </div>
-            <div class="py-1 flex">
-              <h3 class="text-sm">{{ job?.company_name }}</h3>
-              <!-- <span class="w-8 h-8"
+            <div v-else>
+              <Avatar :name="job?.company_name" />
+            </div>
+            <div class="w-full">
+              <div class="flex gap-2">
+                <h2>{{ job?.position }}</h2>
+                <div class="uppercase text-white text-sm" v-if="isSticky(job)">
+                  <span
+                    class="original tooltip-set"
+                    style="vertical-align: middle"
+                    title="This post was bumped by its poster 3 days ago"
+                    >🎈</span
+                  >
+                </div>
+                <div
+                  class="uppercase text-white text-sm"
+                  v-if="isVerified(job)"
+                >
+                  <span class="px-2 py-1 bg-green-600 rounded-full"
+                    >verified</span
+                  >
+                </div>
+              </div>
+              <div class="py-1 flex">
+                <h3 class="text-sm">{{ job?.company_name }}</h3>
+                <!-- <span class="w-8 h-8"
                 ><img src="~/assets/hot2x.webp" alt="Hot 2x" class="w-full"
               /></span> -->
-              <span class="w-8 h-8" v-if="isNew(job)"
-                ><img src="~/assets/new2x.webp" alt="New 2x" class="w-full"
-              /></span>
+                <span class="w-8 h-8" v-if="isNew(job)"
+                  ><img src="~/assets/new2x.webp" alt="New 2x" class="w-full"
+                /></span>
+              </div>
+              <div
+                class="flex gap-2 py-1 w-full items-center"
+                :class="{
+                  'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col':
+                    isFull,
+                }"
+              >
+                <nuxt-link
+                  :to="getLocationSlug(location)"
+                  v-for="(location, i) in displayLocation"
+                  :key="i"
+                  class="rounded-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
+                >
+                  <span v-if="isRemote(location)">🌏</span>
+                  <span class="text-sm">{{ location }}</span>
+                </nuxt-link>
+
+                <div
+                  v-if="hasSalary(job)"
+                  class="rounded-full w-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
+                >
+                  <span>💰</span>
+                  <span class="text-sm w-full"
+                    >${{
+                      Intl.NumberFormat("en", { notation: "compact" }).format(
+                        job?.min_salary ?? 0.0
+                      )
+                    }}-${{
+                      Intl.NumberFormat("en", { notation: "compact" }).format(
+                        job?.max_salary ?? 0.0
+                      )
+                    }}</span
+                  >
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="flex md:flex-row flex-col justify-around w-full">
             <div
-              class="flex gap-2 py-1 w-full items-center"
+              class="gap-3 items-center"
               :class="{
                 'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col':
                   isFull,
+
+                'md:flex hidden': !isFull,
               }"
             >
               <nuxt-link
-                :to="getLocationSlug(location)"
-                v-for="(location, i) in displayLocation"
+                :to="getTagSlug(skill)"
+                v-for="(skill, i) in displaySkills"
                 :key="i"
-                class="rounded-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
-              >
-                <span v-if="isRemote(location)">🌏</span>
-                <span class="text-sm">{{ location }}</span>
-              </nuxt-link>
+                class="rounded-full bg-white w-full flex items-center gap-3 px-2 py-1"
+                :class="{
+                  'bg-white text-black border-solid border border-gray-800':
+                    bgColor === 'white',
 
-              <div
-                v-if="hasSalary(job)"
-                class="rounded-full w-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
+                  'bg-white text-black': bgColor === 'blue',
+                }"
+                :style="[bgColor.includes('#') ? { color: `${bgColor}` } : '']"
               >
-                <span>💰</span>
-                <span class="text-sm w-full"
-                  >${{
-                    Intl.NumberFormat("en", { notation: "compact" }).format(
-                      job?.min_salary ?? 0.0
-                    )
-                  }}-${{
-                    Intl.NumberFormat("en", { notation: "compact" }).format(
-                      job?.max_salary ?? 0.0
-                    )
-                  }}</span
-                >
-              </div>
+                <span class="">{{ skill }}</span>
+              </nuxt-link>
+            </div>
+            <div
+              class="flex relative items-center justify-center gap-5 py-5 lg:py-1"
+              style="align-content: baseline"
+            >
+              <span class="flex items-center gap-1" v-if="job?.posted_at"
+                ><PaperClip class="" />
+                <p>{{ postedAt }}</p>
+              </span>
+              <a
+                target="_blank"
+                ref="apply_btn"
+                :href="link"
+                :style="[
+                  bgColor.includes('#')
+                    ? { color: `${bgColor}`, 'background-color': '#fff' }
+                    : '',
+                ]"
+                :class="{
+                  'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
+                    bgColor === 'white',
+
+                  'hidden group-hover:block': !isFull,
+                  'left-40': job?.posted_at,
+
+                  hidden: isFull,
+                }"
+                class="px-6 text-black absolute left-10 py-2 bg-red-600 rounded-full bg-white"
+              >
+                Apply
+              </a>
             </div>
           </div>
         </div>
-        <div class="flex md:flex-row flex-col justify-around w-full">
-          <div
-            class="gap-3 items-center"
-            :class="{
-              'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col': isFull,
-
-              'md:flex hidden': !isFull,
-            }"
-          >
-            <nuxt-link
-              :to="getTagSlug(skill)"
-              v-for="(skill, i) in displaySkills"
-              :key="i"
-              class="rounded-full bg-white w-full flex items-center gap-3 px-2 py-1"
-              :class="{
-                'bg-white text-black border-solid border border-gray-800':
-                  bgColor === 'white',
-
-                'bg-white text-black': bgColor === 'blue',
-              }"
-              :style="[bgColor.includes('#') ? { color: `${bgColor}` } : '']"
-            >
-              <span class="">{{ skill }}</span>
-            </nuxt-link>
-          </div>
-          <div
-            class="flex relative items-center justify-center gap-5 py-5 lg:py-1"
-            style="align-content: baseline"
-          >
-            <span class="flex items-center gap-1" v-if="job?.posted_at"
-              ><PaperClip class="" />
-              <p>{{ postedAt }}</p>
-            </span>
-            <a
-              target="_blank"
-              ref="apply_btn"
-              :href="link"
-              :style="[
-                bgColor.includes('#')
-                  ? { color: `${bgColor}`, 'background-color': '#fff' }
-                  : '',
-              ]"
-              :class="{
-                'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
-                  bgColor === 'white',
-
-                'hidden group-hover:block': !isFull,
-                'left-40': job?.posted_at,
-
-                hidden: isFull,
-              }"
-              class="px-6 text-black absolute left-10 py-2 bg-red-600 rounded-full bg-white"
-            >
-              Apply
-            </a>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <div v-if="isFull">
+      </a>
+    </span>
+    <div class="w-full" v-if="isFull">
       <div style="">
         <div
           class="p-5 container mx-auto"
           style="max-width: 900px; margin: 0 auto"
         >
           <div class="flex flex-col lg:flex-row justify-between relative gap-5">
-            <div class="pb-3">
+            <div class="pb-3 w-full">
               <div>
                 <h2 class="text-3xl py-4">
                   {{ job?.company_name }} is hiring a
@@ -172,58 +177,59 @@
               </div>
             </div>
 
-            <div
-              class="rounded-lg border border-solid border-gray-200 p-5 lg:my-0 my-4 lg:w-[250px] w-full justify-center bg-[#fbfaf8]"
-              style="float: right"
-            >
-              <div class="flex justify-center">
-                <Avatar
-                  :name="job?.company_name"
-                  :src="job?.company_logo"
-                  size="medium"
-                />
-              </div>
-              <div class="py-4 text-center">
-                <h4 class="text-2xl font-black">{{ job?.company_name }}</h4>
+            <div class="">
+              <div
+                class="rounded-lg border border-solid border-gray-200 p-5 lg:my-0 my-4 w-full justify-center bg-[#fbfaf8]"
+              >
+                <div class="flex justify-center">
+                  <Avatar
+                    :name="job?.company_name"
+                    :src="job?.company_logo"
+                    size="medium"
+                  />
+                </div>
+                <div class="py-4 text-center">
+                  <h4 class="text-2xl font-black">{{ job?.company_name }}</h4>
 
-                <a
-                  :href="job?.company_website"
-                  class="underline text-xl w-full font-bold"
-                  ><p class="w-full">{{ job?.company_website }}</p></a
-                >
-              </div>
-
-              <div class="py-2">
-                <a :href="job?.apply_url" @click.prevent="openLink">
-                  <button
-                    class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
+                  <a
+                    :href="job?.company_website"
+                    class="underline text-xl w-full font-bold"
+                    ><p class="w-full">{{ job?.company_website }}</p></a
                   >
-                    <span v-if="job?.apply_url"> Apply Now </span
-                    ><span v-else>Apply Now via email</span>
-                  </button>
-                </a>
-              </div>
-
-              <div class="py-2 text-center">
-                <div class="text-lg py-2 font-light">
-                  <span> 👀 </span> <span>N/A views</span>
                 </div>
 
-                <div class="text-lg py-2 font-light">
-                  <span> ✅ </span>
-                  <span>N/A applied </span>
-                  <!-- (15%) -->
+                <div class="py-2">
+                  <a :href="job?.apply_url" @click.prevent="openLink">
+                    <button
+                      class="px-3 py-2 bg-red-600 rounded-lg text-white w-full"
+                    >
+                      <span v-if="job?.apply_url"> Apply Now </span
+                      ><span v-else>Apply Now via email</span>
+                    </button>
+                  </a>
                 </div>
-              </div>
 
-              <div class="flex justify-center text-center py-2 flex-col">
-                <h5 class="text-lg font-bold pb-2">Share this job:</h5>
-                <input
-                  type="text"
-                  :placeholder="getSharedLink"
-                  class="rounded-lg"
-                  :value="getSharedLink"
-                />
+                <div class="py-2 text-center">
+                  <div class="text-lg py-2 font-light">
+                    <span> 👀 </span> <span>N/A views</span>
+                  </div>
+
+                  <div class="text-lg py-2 font-light">
+                    <span> ✅ </span>
+                    <span>N/A applied </span>
+                    <!-- (15%) -->
+                  </div>
+                </div>
+
+                <div class="flex justify-center text-center py-2 flex-col">
+                  <h5 class="text-lg font-bold pb-2">Share this job:</h5>
+                  <input
+                    type="text"
+                    :placeholder="getSharedLink"
+                    class="rounded-lg"
+                    :value="getSharedLink"
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -58,8 +58,8 @@
           </h2>
 
           <h2 v-else class="text-5xl font-bold leading-tight mb-4">
-            Unlock Your
-            <span class="lg:text-6xl font-black">Backend</span> Future
+            Find
+            <span class="lg:text-6xl font-black">Backend Engineering</span> Jobs
           </h2>
         </span>
 
@@ -72,8 +72,8 @@
           </h1>
 
           <h1 v-else class="text-5xl font-bold leading-tight mb-4">
-            Unlock Your
-            <span class="lg:text-6xl font-black">Backend</span> Future
+            Find
+            <span class="lg:text-6xl font-black">Backend Engineering</span> Jobs
           </h1>
         </span>
 

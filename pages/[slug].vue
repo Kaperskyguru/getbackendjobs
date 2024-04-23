@@ -50,15 +50,11 @@
               job?.highlight_post_yellow
                 ? 'blue'
                 : job?.show_color
-                ? ''
+                ? job.brand_color
                 : 'white'
             "
           />
         </span>
-
-        <!-- <Job bg-color="red" /> -->
-
-        <!-- <Job bg-color="blue" /> -->
       </section>
     </div>
   </div>

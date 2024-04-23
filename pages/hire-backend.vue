@@ -827,7 +827,7 @@
             }}</span>
           </div>
 
-          <div class="pb-5">
+          <!-- <div class="pb-5">
             <div
               class="relative bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 p-1 rounded-lg w-full"
             >
@@ -835,13 +835,7 @@
                 <label for="how_to_apply">How to Apply</label>
               </div>
               <div class="flex items-center">
-                <!-- <textarea
-                  v-model="job.how_to_apply"
-                  id="how_to_apply"
-                  class="w-full"
-                  rows="20"
-                  placeholder="Here the instructions go on how to apply for this job. Write them in the 'How to Apply?' box"
-                ></textarea> -->
+               
 
                 <div class="w-full">
                   <Editor
@@ -864,7 +858,7 @@
             <span class="text-xs text-red-500" v-if="v$.how_to_apply.$error">{{
               v$.how_to_apply.$errors[0].$message
             }}</span>
-          </div>
+          </div> -->
 
           <div class="py-5">
             <div
@@ -1297,12 +1291,13 @@
                 </div>
                 <div class="pt-2 font-light">
                   <article
+                    id="content"
                     class="py-2"
                     v-if="job.description"
                     v-html="job.description"
                   ></article>
 
-                  <article v-else class="py-2">
+                  <article id="content" v-else class="py-2">
                     The description of the job position will appear here. Write
                     this in the 'Job Description' box above.
                   </article>
@@ -1385,11 +1380,11 @@
                 How do you apply?
               </h3>
               <article
+                id="content"
                 v-if="job.how_to_apply"
-                class="text-center"
                 v-html="job.how_to_apply"
               ></article>
-              <article class="text-center" v-else>
+              <article id="content" class="text-center" v-else>
                 <p class="py-5">
                   Here the instructions go on how to apply for this job. Write
                   them in the "How to Apply?" box
@@ -2128,12 +2123,12 @@ const rules = computed(() => {
       ),
     },
 
-    how_to_apply: {
-      required: helpers.withMessage(
-        'The "How To Apply" field is required',
-        required
-      ),
-    },
+    // how_to_apply: {
+    //   required: helpers.withMessage(
+    //     'The "How To Apply" field is required',
+    //     required
+    //   ),
+    // },
 
     apply_url: {
       requiredIf: helpers.withMessage(
@@ -2376,7 +2371,7 @@ useHead({
 });
 </script>
 
-<style>
+<style scoped>
 label {
   text-transform: uppercase;
 }
@@ -2385,40 +2380,40 @@ a {
   color: brown;
 }
 
-article p {
+article#content p {
   @apply py-3 text-lg;
 }
 
-article h2 {
+article#content h2 {
   @apply py-4 text-2xl;
 }
 
-article h3 {
+article#content h3 {
   @apply py-3 text-xl;
 }
 
-article h4 {
+article#content h4 {
   @apply py-2 text-lg;
 }
 
-article h2,
-article h3,
-article h4,
-article h5,
-article h6 {
+article#content h2,
+article#content h3,
+article#content h4,
+article#content h5,
+article#content h6 {
   @apply font-bold;
 }
 
-article ul,
-article ol {
+article#content ul,
+article#content ol {
   @apply list-disc px-5;
 }
 
-article img {
+article#content img {
   @apply py-3;
 }
 
-article li {
+article#content li {
   @apply py-1;
 }
 </style>
