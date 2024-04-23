@@ -2384,4 +2384,41 @@ label {
 a {
   color: brown;
 }
+
+article p {
+  @apply py-3 text-lg;
+}
+
+article h2 {
+  @apply py-4 text-2xl;
+}
+
+article h3 {
+  @apply py-3 text-xl;
+}
+
+article h4 {
+  @apply py-2 text-lg;
+}
+
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  @apply font-bold;
+}
+
+article ul,
+article ol {
+  @apply list-disc px-5;
+}
+
+article img {
+  @apply py-3;
+}
+
+article li {
+  @apply py-1;
+}
 </style>
