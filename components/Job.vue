@@ -16,7 +16,7 @@
             'border-t border-solid border-gray-300': bgColor !== 'white',
           }"
           :style="[...colors]"
-          class="flex group md:my-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
+          class="flex group md:mb-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
         >
           <div class="flex w-full items-center gap-5">
             <div v-if="job?.show_company_logo">

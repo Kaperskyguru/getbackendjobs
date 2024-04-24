@@ -43,7 +43,17 @@
       </section>
 
       <section>
-        <Job :is-full="true" :job="job" />
+        <Job
+          :bg-color="
+            job?.highlight_post_yellow
+              ? 'blue'
+              : job?.show_color
+              ? job?.brand_color
+              : 'white'
+          "
+          :is-full="true"
+          :job="job"
+        />
       </section>
     </div>
   </div>
