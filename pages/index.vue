@@ -235,6 +235,7 @@ const el = ref(null);
 const loading = ref(false);
 const filters = ref({});
 const jobs = ref([]);
+const pinJobs = ref([]);
 const isLast = ref(false);
 const showPaymentSuccess = ref(false);
 const loadJobs = async (queries = {}) => {
@@ -244,6 +245,22 @@ const loadJobs = async (queries = {}) => {
     let url = `/api/jobs`;
 
     if (JSON.stringify(queries) !== "{}") url = `/api/jobs?${queries}`;
+
+    const { data } = await useFetch(url);
+
+    return data.value?.result;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const loadFeaturedJobs = async () => {
+  try {
+    loading.value = true;
+
+    const url = `/api/featured`;
 
     const { data } = await useFetch(url);
 
@@ -275,6 +292,7 @@ function onSearch(search) {
   filters.value.search = search;
 }
 
+pinJobs.value = await loadFeaturedJobs();
 jobs.value = await loadJobs();
 
 function generateQuery(filters) {
@@ -319,26 +337,26 @@ function generateQuery(filters) {
   }
 }
 
-useInfiniteScroll(
-  el,
-  async () => {
-    // load more
+// useInfiniteScroll(
+//   el,
+//   async () => {
+//     // load more
 
-    if (isLast.value) return;
+//     if (isLast.value) return;
 
-    const lastJobTimestamp = jobs.value[jobs.value.length - 1].timestamp;
-    filters.value.seconds = lastJobTimestamp.seconds;
-    filters.value.nanoseconds = lastJobTimestamp.nanoseconds;
-    const queries = generateQuery(filters.value);
+//     const lastJobTimestamp = jobs.value[jobs.value.length - 1].timestamp;
+//     filters.value.seconds = lastJobTimestamp.seconds;
+//     filters.value.nanoseconds = lastJobTimestamp.nanoseconds;
+//     const queries = generateQuery(filters.value);
 
-    const moreData = await loadJobs(queries);
+//     const moreData = await loadJobs(queries);
 
-    if (!moreData?.length) isLast.value = true;
+//     if (!moreData?.length) isLast.value = true;
 
-    jobs.value.push(...moreData);
-  },
-  { distance: 10 }
-);
+//     jobs.value.push(...moreData);
+//   },
+//   { distance: 10 }
+// );
 
 watch(
   () => filters.value,
@@ -360,14 +378,20 @@ function isStickyExpired(date) {
   return new Date(date).getTime() < Date.now();
 }
 
-const pinJobs = computed(() => {
-  if (!jobs.value.length) return [];
-  return jobs.value.filter((job) => {
-    return (
-      job?.stick_for_1_month || job?.stick_for_1_week || job?.stick_for_24_hours
-    );
-  });
-});
+// const pinJobs = computed(async () => {
+
+//   if (!jobs?.length) return [];
+
+//   console.log(jobs);
+//   return jobs;
+
+//   // filter((job) => {
+//   //   if (job.slug === "senior-golang-engineer-remote-emea-wOjwuv")
+//   //     // console.log(job);
+
+//   //     return job?.stick_for_1_month;
+//   // });
+// });
 
 const unPinJobs = computed(() => {
   if (!jobs.value.length) return [];

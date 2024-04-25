@@ -3,6 +3,8 @@ import { addJob, addJobs, getJob, getJobs, dispatchJob } from "./services";
 export default defineEventHandler(async (event) => {
   const COL = "jobs";
 
+  console.log(event.path);
+
   try {
     if (
       event.method === "GET" &&

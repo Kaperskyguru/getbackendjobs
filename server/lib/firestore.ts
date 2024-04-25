@@ -15,8 +15,46 @@ import {
   startAfter,
   orderBy,
   documentId,
+  or,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebase";
+
+export const featuredJobs = async (col: string) => {
+  // @ts-ignore
+  try {
+    const colRef = collection(firestoreDb, col);
+
+    let sortBy = orderBy("created_at", "desc");
+    let _limit = 20;
+
+    const snapshot = await getDocs(
+      query(
+        colRef,
+        sortBy,
+        or(
+          where("stick_for_1_week", "==", true),
+          where("stick_for_1_month", "==", true),
+          where("stick_for_24_hours", "==", true)
+        ),
+        limit(_limit)
+      )
+    );
+
+    const docs = Array.from(snapshot.docs).map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+        created_at: doc.data()?.created_at?.toDate(),
+        updated_at: doc.data()?.updated_at?.toDate(),
+        timestamp: doc.data()?.created_at,
+      };
+    });
+
+    return docs;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const queryByCollection = async (
   col: string,
