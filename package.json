@@ -26,7 +26,7 @@
     "canvas": "2.11.0",
     "cloudinary": "^2.0.3",
     "firebase": "^10.9.0",
-    "nuxt": "^3.10.3",
+    "nuxt": "^3.11.2",
     "nuxt-vuefire": "^1.0.2",
     "puppeteer": "^22.5.0",
     "rss": "^1.2.2",
@@ -35,7 +35,7 @@
     "text-to-image": "^6.0.0",
     "timeago.js": "^4.0.2",
     "vite-svg-loader": "^5.1.0",
-    "vue": "^3.4.19",
+    "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

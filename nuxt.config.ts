@@ -147,6 +147,8 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/cloudinary", "@vueuse/nuxt", "@nuxt/content"],
 
+  content: {},
+
   nitro: {
     prerender: {
       routes: ["/feeds.xml"],
