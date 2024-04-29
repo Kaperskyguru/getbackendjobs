@@ -171,7 +171,7 @@
                   v-html="
                     job?.description
                       ? job?.description
-                      : 'Click on APPLY to view more imformation'
+                      : 'Click on APPLY to view more information'
                   "
                 ></article>
               </div>
@@ -239,7 +239,7 @@
               v-html="
                 job?.how_to_apply
                   ? job?.how_to_apply
-                  : 'Click on APPLY to view more imformation on how to apply'
+                  : 'Click on APPLY to view more information on how to apply'
               "
             ></article>
 
