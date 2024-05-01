@@ -337,26 +337,26 @@ function generateQuery(filters) {
   }
 }
 
-// useInfiniteScroll(
-//   el,
-//   async () => {
-//     // load more
+useInfiniteScroll(
+  el,
+  async () => {
+    // load more
 
-//     if (isLast.value) return;
+    if (isLast.value) return;
 
-//     const lastJobTimestamp = jobs.value[jobs.value.length - 1].timestamp;
-//     filters.value.seconds = lastJobTimestamp.seconds;
-//     filters.value.nanoseconds = lastJobTimestamp.nanoseconds;
-//     const queries = generateQuery(filters.value);
+    const lastJobTimestamp = jobs.value[jobs.value.length - 1].timestamp;
+    filters.value.seconds = lastJobTimestamp.seconds;
+    filters.value.nanoseconds = lastJobTimestamp.nanoseconds;
+    const queries = generateQuery(filters.value);
 
-//     const moreData = await loadJobs(queries);
+    const moreData = await loadJobs(queries);
 
-//     if (!moreData?.length) isLast.value = true;
+    if (!moreData?.length) isLast.value = true;
 
-//     jobs.value.push(...moreData);
-//   },
-//   { distance: 10 }
-// );
+    jobs.value.push(...moreData);
+  },
+  { distance: 10 }
+);
 
 watch(
   () => filters.value,
