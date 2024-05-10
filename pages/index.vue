@@ -16,18 +16,34 @@
           >
             <p class="text-gray-500 text-sm">trusted by</p>
             <div class="flex items-center gap-5">
+              <div class="w-40 flex gap-2 items-center">
+                <Avatar src="/mb-logo.png" /> Mastering Backend
+              </div>
+
+              <div class="w-40 flex">
+                <Pressone />
+              </div>
+
               <div class="w-40">
                 <img
-                  src="~/assets/masteringlogo.png"
+                  src="https://fincra.com/wp-content/uploads/2022/10/fincra-website-logo-colored-retina.png"
                   class="w-full cover"
                   alt="masteringlogo"
                 />
               </div>
-              <div class="w-40">
-                <Pressone />
+
+              <div class="flex items-center gap-2 w-40">
+                <Avatar
+                  src="https://bandlabtechnologies.com/static/bandlabtechnologies-logo-2a66f793177987454243fdef2cc13587.svg"
+                />
+                BandLab Technologies
               </div>
-              <div class="w-40">
-                <Contentre />
+
+              <div class="flex items-center gap-2 w-40">
+                <Avatar
+                  src="https://media.licdn.com/dms/image/D4E0BAQFWGZ6xT4Xsxw/company-logo_200_200/0/1699546938114/wundergraph_logo?e=1721865600&v=beta&t=DrN0eGX8HldDVvtH8NyDLJ4oPoEPTPJndMx3-Og0qzg"
+                />
+                WunderGraph
               </div>
             </div>
           </div>
@@ -186,59 +202,7 @@
         </section>
 
         <section id="vert" class="py-2 md:mt-3">
-          <a
-            @click.prevent="adClickEvent('place', 'https://tally.so/r/wblgQ6')"
-            href="https://tally.so/r/wblgQ6"
-            target="_blank"
-          >
-            <div
-              class="flex md:flex-row flex-col group bg-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto md:w-3/4 w-full px-2 border-t md:border border-dashed border-gray-400 md:pr-20 pr-5"
-            >
-              <div class="flex md:flex-row flex-col items-center gap-3 w-full">
-                <div><Avatar size="normal" src="/yourlogo.png" /></div>
-                <div class="py-4">
-                  <div>
-                    <h2 class="text-2xl text-gray-700">
-                      Your brand seen by (<a
-                        target="_blank"
-                        class="text-red-600 underline"
-                        href="https://plausible.io/getbackendjobs.com?period=30d"
-                        >{{
-                          new Intl.NumberFormat("en", {
-                            notation: "compact",
-                          }).format(pageviews)
-                        }}/mo</a
-                      >) people
-                    </h2>
-                  </div>
-                  <div class="py-1 flex">
-                    <p class="text-lg text-gray-400">
-                      Imagine your business here with over (<a
-                        target="_blank"
-                        href="https://plausible.io/getbackendjobs.com?period=30d"
-                        >{{
-                          new Intl.NumberFormat("en", {
-                            notation: "compact",
-                          }).format(pageviews)
-                        }}/mo </a
-                      >) pageviews
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="relative flex items-center md:w-2/6 w-full justify-center"
-                style="align-content: baseline"
-              >
-                <button
-                  disabled
-                  class="border-dashed text-gray-400 border border-gray-400 px-5 rounded-lg py-1"
-                >
-                  Your call to action
-                </button>
-              </div>
-            </div>
-          </a>
+          <PlaceAds />
         </section>
 
         <section>
@@ -296,12 +260,10 @@ import { computed, onMounted } from "vue";
 const el = ref(null);
 const loading = ref(false);
 const filters = ref({});
-const pageviews = ref(0);
 const jobs = ref([]);
 const pinJobs = ref([]);
 const isLast = ref(false);
 const showPaymentSuccess = ref(false);
-const config = useRuntimeConfig();
 
 const loadJobs = async (queries = {}) => {
   try {
@@ -471,30 +433,6 @@ const unPinJobs = computed(() => {
       return job;
   });
 });
-
-async function getPlausableStat() {
-  try {
-    const res = await useFetch(
-      "https://plausible.io/api/v1/stats/aggregate?site_id=getbackendjobs.com&period=30d&metrics=pageviews",
-      {
-        onRequest({ request, options }) {
-          // Set the request headers
-          options.headers = options?.headers || {};
-          options.headers.authorization =
-            "Bearer " + config.public?.plausibleKey;
-        },
-      }
-    );
-    const results = res.data.value?.results;
-
-    pageviews.value = results?.pageviews?.value ?? 0;
-  } catch (error) {
-    console.log(error);
-  } finally {
-  }
-}
-
-await getPlausableStat();
 
 function adClickEvent(brand, url, location = "homepage_ad") {
   useTrackEvent(brand + "_ad", { props: { from: location, action: "click" } });

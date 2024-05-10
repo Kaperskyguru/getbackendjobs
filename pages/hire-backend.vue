@@ -1457,20 +1457,36 @@
           </p>
 
           <div
-            class="flex gap-2 py-5 w-ful items-center justify-center grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
+            class="flex gap-2 py-5 w-full items-center justify-center grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
           >
-            <div class="w-">
+            <div class="w-40 flex gap-2 items-center">
+              <Avatar src="/mb-logo.png" /> Mastering Backend
+            </div>
+
+            <div class="w-40 flex">
+              <Pressone />
+            </div>
+
+            <div class="w-40">
               <img
-                src="~/assets/masteringlogo.png"
+                src="https://fincra.com/wp-content/uploads/2022/10/fincra-website-logo-colored-retina.png"
                 class="w-full cover"
                 alt="masteringlogo"
               />
             </div>
-            <div class="w-">
-              <Pressone />
+
+            <div class="flex items-center gap-2 w-40">
+              <Avatar
+                src="https://bandlabtechnologies.com/static/bandlabtechnologies-logo-2a66f793177987454243fdef2cc13587.svg"
+              />
+              BandLab Technologies
             </div>
-            <div class="w-">
-              <Contentre />
+
+            <div class="flex items-center gap-2 w-40">
+              <Avatar
+                src="https://media.licdn.com/dms/image/D4E0BAQFWGZ6xT4Xsxw/company-logo_200_200/0/1699546938114/wundergraph_logo?e=1721865600&v=beta&t=DrN0eGX8HldDVvtH8NyDLJ4oPoEPTPJndMx3-Og0qzg"
+              />
+              WunderGraph
             </div>
           </div>
         </div>
