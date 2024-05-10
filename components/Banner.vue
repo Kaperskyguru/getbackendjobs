@@ -42,6 +42,7 @@
             Live Analytics
           </a>
           <a
+            @click.prevent="openHiring"
             href="/hire-backend"
             class="px-3 py-2 text-white bg-red-500 rounded-lg text-lg font-bold"
           >
@@ -158,6 +159,11 @@ const props = defineProps({
 function onSearch(e) {
   console.log(e);
   emit("search", e?.target?.value);
+}
+
+function openHiring() {
+  useTrackEvent("hireBackend", { props: { from: "homepage_ad" } });
+  navigateTo("/hire-backend");
 }
 </script>
 

@@ -17,7 +17,9 @@
         <button
           class="bg-red-600 w-ful px-2 py-3 rounded-xl text-sm text-white"
         >
-          <a href="/hire-backend"><p class="w-full">Post a Backend Job</p></a>
+          <a @click.prevent="openHiring" href="#"
+            ><p class="w-full">Post a Backend Job</p></a
+          >
         </button>
         <button
           @click.prevent="show = !show"
@@ -32,6 +34,11 @@
 
 <script setup>
 const show = ref(true);
+
+function openHiring() {
+  useTrackEvent("hireBackend", { props: { from: "homepage_ad" } });
+  navigateTo("/hire-backend");
+}
 </script>
 
 <style>

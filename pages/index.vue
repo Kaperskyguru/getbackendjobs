@@ -145,12 +145,6 @@
           </div>
         </section>
 
-        <!-- <div class="container relative mx-auto md:w-3/4 w-full">
-          <div class="flex absolute right-0 -top-5 justify-end">
-            <p class="bg-black py-2 px-3 text-white rounded-full"></p>
-          </div>
-        </div> -->
-
         <section id="vert" class="py-2 md:mt-3">
           <div
             class="flex md:flex-row flex-col group bg-gradient-to-r from-purple-600 to-blue-600 text-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto md:w-3/4 w-full px-2 border-t md:border border-solid border-gray-300 md:pr-20 pr-5"
@@ -176,6 +170,12 @@
             >
               <a
                 target="_blank"
+                @click.prevent="
+                  adClickEvent(
+                    'masteringbackend',
+                    'https://app.masteringbackend.com?ref=getbackendjobs'
+                  )
+                "
                 href="https://app.masteringbackend.com?ref=getbackendjobs"
                 class="px-10 flex text-black left-1 py-2 bg-red-600 rounded-full bg-white"
               >
@@ -186,7 +186,11 @@
         </section>
 
         <section id="vert" class="py-2 md:mt-3">
-          <a href="https://tally.so/r/wblgQ6" target="_blank">
+          <a
+            @click.prevent="adClickEvent('place', 'https://tally.so/r/wblgQ6')"
+            href="https://tally.so/r/wblgQ6"
+            target="_blank"
+          >
             <div
               class="flex md:flex-row flex-col group bg-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto md:w-3/4 w-full px-2 border-t md:border border-dashed border-gray-400 md:pr-20 pr-5"
             >
@@ -297,6 +301,8 @@ const jobs = ref([]);
 const pinJobs = ref([]);
 const isLast = ref(false);
 const showPaymentSuccess = ref(false);
+const config = useRuntimeConfig();
+
 const loadJobs = async (queries = {}) => {
   try {
     loading.value = true;
@@ -475,7 +481,7 @@ async function getPlausableStat() {
           // Set the request headers
           options.headers = options?.headers || {};
           options.headers.authorization =
-            "Bearer wwqzv__3pglKkpxVP1onp6XEWV4wtp0U4EczOF-u8xUBTabByzArPi7qK6gOzHcW";
+            "Bearer " + config.public?.plausibleKey;
         },
       }
     );
@@ -489,6 +495,11 @@ async function getPlausableStat() {
 }
 
 await getPlausableStat();
+
+function adClickEvent(brand, url, location = "homepage_ad") {
+  useTrackEvent(brand + "_ad", { props: { from: location, action: "click" } });
+  window.open(url);
+}
 </script>
 
 

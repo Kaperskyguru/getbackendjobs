@@ -19,6 +19,7 @@
             Blog
           </a>
           <button
+            @click.prevent="adClickEvent('buy bundle', '#', 'hire-backend')"
             class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded"
           >
             Buy Job Bundle
@@ -788,7 +789,7 @@
                     :init="{
                       menubar: false,
                       plugins:
-                        'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+                        'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
                       toolbar:
                         'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat',
                     }"
@@ -1429,6 +1430,13 @@
 
               <div class="flex justify-center md:w-60 w-full">
                 <a
+                  @click.prevent="
+                    adClickEvent(
+                      'masteringbackend',
+                      'https://masteringbackend.com?ref=getbackendjobs',
+                      'hiring-backend-page'
+                    )
+                  "
                   href="https://masteringbackend.com?ref=getbackendjobs"
                   class="border-solid flex border text-black bg-white border-white px-6 rounded-lg py-1"
                 >
@@ -1857,6 +1865,7 @@ import {
 import { Timestamp } from "firebase/firestore";
 import { locations, benefits, capitalizeSpecialCharacters } from "~/helpers";
 import { watch } from "vue";
+
 const should_pay_later = ref(false);
 const discount = ref(false);
 const config = useRuntimeConfig();
@@ -2198,6 +2207,11 @@ async function uploadImage(data) {
 }
 async function startHiring() {
   loading.value = true;
+
+  useTrackEvent("Start Hiring", {
+    props: { from: "HiringBackend Page", action: "click" },
+  });
+
   v$.value.$validate();
   if (v$.value.$error) return;
 
@@ -2284,6 +2298,11 @@ async function payment() {
     window.location = checkoutUrl;
     return;
   }
+}
+
+function adClickEvent(brand, url, location = "homepage_ad") {
+  useTrackEvent(brand + "_ad", { props: { from: location, action: "click" } });
+  window.open(url);
 }
 
 function generateString(length) {

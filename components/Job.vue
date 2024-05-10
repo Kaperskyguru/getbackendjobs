@@ -6,7 +6,12 @@
     }"
   >
     <span>
-      <a :href="link">
+      <a
+        @click.prevent="
+          tracking(job.slug, link, isFull ? 'Job Page' : 'homepage')
+        "
+        :href="link"
+      >
         <div
           :class="{
             'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
@@ -126,6 +131,9 @@
                 <p>{{ postedAt }}</p>
               </span>
               <a
+                @click.prevent="
+                  tracking(job.slug, link, isFull ? 'Job Page' : 'homepage')
+                "
                 target="_blank"
                 ref="apply_btn"
                 :href="link"
@@ -354,6 +362,13 @@ const postedAt = computed(() => {
   return format(date, "en_US");
 });
 
+function tracking(slug, link, location) {
+  useTrackEvent("pageview", {
+    props: { from: location, action: "view", slug },
+  });
+  navigateTo(link);
+}
+
 const link = computed(() => {
   if (props.isFull) return "#";
 
@@ -427,6 +442,9 @@ const getSharedLink = computed(() => {
 });
 
 function openLink() {
+  useTrackEvent("Outbound Link: Click", {
+    props: { from: "Job Page", action: "apply", slug: props.job?.slug },
+  });
   // Update Click
   if (props.job?.apply_url) {
     window.open(props.job?.apply_url, "_blank");

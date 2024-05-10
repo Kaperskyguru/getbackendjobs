@@ -145,8 +145,18 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/cloudinary", "@vueuse/nuxt", "@nuxt/content"],
-
+  modules: [
+    "@nuxtjs/cloudinary",
+    "@vueuse/nuxt",
+    "@nuxt/content",
+    "@nuxtjs/plausible",
+  ],
+  plausible: {
+    // Prevent tracking on localhost
+    ignoredHostnames: ["localhost"],
+    autoPageviews: false,
+    autoOutboundTracking: true,
+  },
   content: {},
 
   nitro: {
@@ -180,6 +190,7 @@ export default defineNuxtConfig({
       lemon_variant: process.env.LEMON_VARIANT,
       baseURL: process.env.BASE_URL,
       tinymce: process.env.TINYMCE,
+      plausibleKey: process.env.PLAUSIBLE_KEY,
     },
   },
 
