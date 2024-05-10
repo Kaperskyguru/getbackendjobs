@@ -363,7 +363,7 @@ const postedAt = computed(() => {
 });
 
 function tracking(slug, link, location) {
-  useTrackEvent("pageview", {
+  useTrackEvent("view_job", {
     props: { from: location, action: "view", slug },
   });
   navigateTo(link);
