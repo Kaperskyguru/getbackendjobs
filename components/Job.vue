@@ -442,7 +442,7 @@ const getSharedLink = computed(() => {
 });
 
 function openLink() {
-  useTrackEvent("Outbound Link: Click", {
+  useTrackEvent("apply_to_job", {
     props: { from: "Job Page", action: "apply", slug: props.job?.slug },
   });
   // Update Click
