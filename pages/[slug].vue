@@ -77,7 +77,17 @@ function generateQuery() {
 
   if (slug.includes("backend-jobs-in")) {
     const loc = slug.split("backend-jobs-in-")[1];
-    return `locations=${capitalize(loc.replaceAll("-", " "))}`;
+
+    console.log(loc);
+
+    if (loc.includes("_")) {
+      return `locations=${capitalize(loc.replaceAll("_", " "))}`;
+    }
+
+    return `locations=${capitalize(loc.replaceAll("-", "~")).replaceAll(
+      "~",
+      "-"
+    )}`;
   }
 
   if (slug.includes("remote")) {
@@ -86,6 +96,22 @@ function generateQuery() {
 
   if (slug.includes("worldwide")) {
     return `locations=Worldwide`;
+  }
+
+  if (slug.includes("time")) {
+    const loc = slug.split("-backend-jobs")[0];
+
+    if (loc.includes(",")) {
+      return `locations=${capitalize(loc.replaceAll("-", "~")).replaceAll(
+        "~",
+        "-"
+      )}`;
+    }
+
+    return `locations=${capitalize(loc.replaceAll("-", " ")).replaceAll(
+      " ",
+      "-"
+    )}`;
   }
 
   const tags = slug.split("-");

@@ -426,7 +426,7 @@ function getLocationSlug(location) {
   if (_location.includes("0")) return "";
   if (_location.includes("time")) return `/${_location}-backend-jobs`;
 
-  return `/backend-jobs-in-${_location.replaceAll(" ", "-")}`;
+  return `/backend-jobs-in-${_location.replaceAll(" ", "_")}`;
 }
 
 const getSharedLink = computed(() => {

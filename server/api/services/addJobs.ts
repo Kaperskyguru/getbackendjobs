@@ -3,7 +3,6 @@ import { batch } from "~/server/lib/firestore";
 export const addJobs = async (event: any, col: string) => {
   const body = await readBody(event);
   const docRef = await batch(col, body);
-  console.log(docRef);
   return docRef;
 };
 
