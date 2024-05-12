@@ -85,7 +85,7 @@
           {{ subtitle }}
         </p>
         <p v-else class="text-lg font-black text-white mb-8">
-          Find the Tailored
+          Find Tailored
           <span class="text-2xl font-black">Backend Job</span> or the Perfect
           <span class="text-2xl font-black">Backend Talent</span>.
         </p>

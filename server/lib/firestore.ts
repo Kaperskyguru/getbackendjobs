@@ -61,7 +61,7 @@ export const queryByCollection = async (
   filters: {
     search: String;
     locations: String;
-    keywords: String;
+    tags: String;
     benefits: String;
     sortBy: String;
     nanoseconds?: string;
@@ -76,9 +76,7 @@ export const queryByCollection = async (
       ? [...filters?.locations?.split(";")]
       : [];
 
-    const keywords = filters?.keywords
-      ? [...filters?.keywords?.split(";")]
-      : [];
+    const tags = filters?.tags ? [...filters?.tags?.split(";")] : [];
 
     const benefits = filters?.benefits
       ? [...filters?.benefits?.split(";")]
@@ -95,8 +93,8 @@ export const queryByCollection = async (
       );
     }
 
-    if (keywords.length) {
-      queryConstraints.push(where("keywords", "array-contains-any", keywords));
+    if (tags.length) {
+      queryConstraints.push(where("keywords", "array-contains-any", tags));
     }
 
     if (benefits.length) {

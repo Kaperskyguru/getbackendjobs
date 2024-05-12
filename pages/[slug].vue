@@ -78,8 +78,6 @@ function generateQuery() {
   if (slug.includes("backend-jobs-in")) {
     const loc = slug.split("backend-jobs-in-")[1];
 
-    console.log(loc);
-
     if (loc.includes("_")) {
       return `locations=${capitalize(loc.replaceAll("_", " "))}`;
     }
@@ -115,12 +113,35 @@ function generateQuery() {
   }
 
   const tags = slug.split("-");
+
   if (!tags[0]?.includes("backend")) {
+    if (tags[0]?.includes("_")) {
+      const words = tags[0]?.split("_");
+
+      if (words[1].includes("js"))
+        return `tags=${capitalize(words[0])} ${words[1].toUpperCase()}`;
+
+      if (/[A-Z]/.test(words[1]?.split("")[0])) {
+        return `tags=${capitalize(tags[0]?.replaceAll("_", " "))}`;
+      }
+      return `tags=${capitalize(tags[0]?.replaceAll("_", "~")).replaceAll(
+        "~",
+        " "
+      )}`;
+    }
+
+    if (tags[0]?.includes(".")) {
+      return `tags=${capitalize(tags[0]?.replaceAll(".", "~")).replaceAll(
+        "~",
+        "."
+      )}`;
+    }
     return `tags=${capitalize(tags[0])}`;
   }
 
-  if (tags[0]?.includes("backend") && tags?.length > 2)
+  if (tags[0]?.includes("backend") && tags?.length > 2) {
     return `tags=${capitalize(tags[1])}`;
+  }
 
   return `tags=${capitalize(tags[0])}`;
 }
@@ -145,7 +166,7 @@ loadJobs();
 
 function getPageDetails() {
   const slug = route.params?.slug;
-  const text = slug.toLowerCase().replaceAll("-", " ");
+  const text = slug.toLowerCase().replaceAll("-", " ").replaceAll("_", " ");
 
   if (slug.includes("backend-jobs-in")) {
     title.value = `${text}`;

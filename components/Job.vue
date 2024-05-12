@@ -462,7 +462,11 @@ function getTagSlug(tag) {
   }
 
   if (!_tag.includes("backend")) {
-    return `/${_tag.replaceAll(" ", "-")}-backend-jobs`;
+    const lastWord = tag.split(" ")[1];
+    if (/[A-Z]/.test(lastWord?.split("")[0])) {
+      return `/${tag.replaceAll(" ", "_")}-backend-jobs`;
+    }
+    return `/${_tag.replaceAll(" ", "_")}-backend-jobs`;
   }
 
   return `/${_tag.replaceAll(" ", "-")}-jobs`;
