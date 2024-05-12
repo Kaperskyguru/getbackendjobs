@@ -86,7 +86,7 @@
                 <Dropdown
                   title="Keywords"
                   :items="[
-                    'JavaScript',
+                    'Javascript',
                     'Python',
                     'Rust',
                     'PHP',
@@ -338,7 +338,7 @@ function generateQuery(filters) {
   }
 
   if (filters?.keywords) {
-    return `keywords=${capitalizeSpecialCharacters(
+    return `tags=${capitalizeSpecialCharacters(
       filters?.keywords.join(";"),
       ";"
     )}`;
@@ -378,7 +378,7 @@ useInfiniteScroll(
 
     const moreData = await loadJobs(queries);
 
-    if (!moreData?.length) isLast.value = true;
+    if (moreData?.length < 20) isLast.value = true;
 
     jobs.value.push(...moreData);
   },
@@ -387,9 +387,10 @@ useInfiniteScroll(
 
 watch(
   () => filters.value,
-  () => {
+  async () => {
     const queries = generateQuery(filters.value);
-    loadJobs(queries);
+    jobs.value = await loadJobs(queries);
+    if (moreData?.length < 20) isLast.value = true;
   },
   { deep: true }
 );
@@ -404,21 +405,6 @@ onMounted(() => {
 function isStickyExpired(date) {
   return new Date(date).getTime() < Date.now();
 }
-
-// const pinJobs = computed(async () => {
-
-//   if (!jobs?.length) return [];
-
-//   console.log(jobs);
-//   return jobs;
-
-//   // filter((job) => {
-//   //   if (job.slug === "senior-golang-engineer-remote-emea-wOjwuv")
-//   //     // console.log(job);
-
-//   //     return job?.stick_for_1_month;
-//   // });
-// });
 
 const unPinJobs = computed(() => {
   if (!jobs.value.length) return [];
