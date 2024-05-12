@@ -1,164 +1,160 @@
 <template>
   <div
-    class="container mx-auto md:w-3/4 w-full md:border-x border-solid border-gray-300 md:mt-3 md:rounded-lg"
+    class="container mx-auto lg:w-3/4 w-full md:border-x border-solid border-gray-300 md:mt-3 md:rounded-lg"
     :class="{
       'border-t md:border-b': isFull || bgColor === 'white',
     }"
   >
     <span>
-      <a
+      <!-- <a
+        :href="link"
         @click.prevent="
           tracking(job.slug, link, isFull ? 'Job Page' : 'homepage')
         "
-        :href="link"
+      > -->
+      <div
+        :class="{
+          'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
+            bgColor === 'blue',
+          'md:rounded-t-lg': isFull,
+          'md:rounded-lg': !isFull,
+          'border-t border-solid border-gray-300': bgColor !== 'white',
+        }"
+        :style="[...colors]"
+        class="flex group md:mb-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
       >
-        <div
-          :class="{
-            'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
-              bgColor === 'blue',
-            'md:rounded-t-lg': isFull,
-            'md:rounded-lg': !isFull,
-            'border-t border-solid border-gray-300': bgColor !== 'white',
-          }"
-          :style="[...colors]"
-          class="flex group md:mb-2 py-2 pl-2 md:justify-between md:flex-row flex-col justify-start items-center gap-3 md:pr-32 pr-5"
-        >
-          <div class="flex w-full items-center gap-5">
-            <div v-if="job?.show_company_logo">
-              <Avatar :src="job?.company_logo" :name="job?.company_name" />
-            </div>
-            <div v-else>
-              <Avatar :name="job?.company_name" />
-            </div>
-            <div class="w-full">
-              <div class="flex gap-2">
-                <h2>{{ job?.position }}</h2>
-                <div class="uppercase text-white text-sm" v-if="isSticky(job)">
-                  <span
-                    class="original tooltip-set"
-                    style="vertical-align: middle"
-                    title="This post was bumped by its poster 3 days ago"
-                    >🎈</span
-                  >
-                </div>
-                <div
-                  class="uppercase text-white text-sm"
-                  v-if="isVerified(job)"
+        <div class="flex w-full items-center gap-5">
+          <div v-if="job?.show_company_logo">
+            <Avatar :src="job?.company_logo" :name="job?.company_name" />
+          </div>
+          <div v-else>
+            <Avatar :name="job?.company_name" />
+          </div>
+          <div class="w-full">
+            <div class="flex gap-2">
+              <h2>{{ job?.position }}</h2>
+              <div class="uppercase text-white text-sm" v-if="isSticky(job)">
+                <span
+                  class="original tooltip-set"
+                  style="vertical-align: middle"
+                  title="This post was bumped by its poster 3 days ago"
+                  >🎈</span
                 >
-                  <span class="px-2 py-1 bg-green-600 rounded-full"
-                    >verified</span
-                  >
-                </div>
               </div>
-              <div class="py-1 flex">
-                <h3 class="text-sm">{{ job?.company_name }}</h3>
-                <!-- <span class="w-8 h-8"
+              <div class="uppercase text-white text-sm" v-if="isVerified(job)">
+                <span class="px-2 py-1 bg-green-600 rounded-full"
+                  >verified</span
+                >
+              </div>
+            </div>
+            <div class="py-1 flex">
+              <h3 class="text-sm">{{ job?.company_name }}</h3>
+              <!-- <span class="w-8 h-8"
                 ><img src="~/assets/hot2x.webp" alt="Hot 2x" class="w-full"
               /></span> -->
-                <span class="w-8 h-8" v-if="isNew(job)"
-                  ><img src="~/assets/new2x.webp" alt="New 2x" class="w-full"
-                /></span>
-              </div>
-              <div
-                class="flex gap-2 py-1 w-full items-center"
-                :class="{
-                  'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col':
-                    isFull,
-                }"
-              >
-                <nuxt-link
-                  :to="getLocationSlug(location)"
-                  v-for="(location, i) in displayLocation"
-                  :key="i"
-                  class="rounded-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
-                >
-                  <span v-if="isRemote(location)">🌏</span>
-                  <span class="text-sm">{{ location }}</span>
-                </nuxt-link>
-
-                <div
-                  v-if="hasSalary(job)"
-                  class="rounded-full w-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
-                >
-                  <span>💰</span>
-                  <span class="text-sm w-full"
-                    >${{
-                      Intl.NumberFormat("en", { notation: "compact" }).format(
-                        job?.min_salary ?? 0.0
-                      )
-                    }}-${{
-                      Intl.NumberFormat("en", { notation: "compact" }).format(
-                        job?.max_salary ?? 0.0
-                      )
-                    }}</span
-                  >
-                </div>
-              </div>
+              <span class="w-8 h-8" v-if="isNew(job)"
+                ><img src="~/assets/new2x.webp" alt="New 2x" class="w-full"
+              /></span>
             </div>
-          </div>
-          <div class="flex md:flex-row flex-col justify-around w-full">
             <div
-              class="gap-3 items-center"
+              class="flex gap-2 py-1 w-full items-center"
               :class="{
                 'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col':
                   isFull,
-
-                'md:flex hidden': !isFull,
               }"
             >
               <nuxt-link
-                :to="getTagSlug(skill)"
-                v-for="(skill, i) in displaySkills"
+                :to="getLocationSlug(location)"
+                v-for="(location, i) in displayLocation"
                 :key="i"
-                class="rounded-full bg-white w-full flex items-center gap-3 px-2 py-1"
-                :class="{
-                  'bg-white text-black border-solid border border-gray-800':
-                    bgColor === 'white',
-
-                  'bg-white text-black': bgColor === 'blue',
-                }"
-                :style="[bgColor.includes('#') ? { color: `${bgColor}` } : '']"
+                class="rounded-full z-10 flex items-center gap-1 px-2 py-1 hover:z-20 bg-white text-black border-solid border border-gray-300"
               >
-                <span class="">{{ skill }}</span>
+                <span v-if="isRemote(location)">🌏</span>
+                <span class="text-sm">{{ location }}</span>
               </nuxt-link>
-            </div>
-            <div
-              class="flex relative items-center justify-center gap-5 py-5 lg:py-1"
-              style="align-content: baseline"
-            >
-              <span class="flex items-center gap-1" v-if="job?.posted_at"
-                ><PaperClip class="" />
-                <p>{{ postedAt }}</p>
-              </span>
-              <a
-                @click.prevent="
-                  tracking(job.slug, link, isFull ? 'Job Page' : 'homepage')
-                "
-                target="_blank"
-                ref="apply_btn"
-                :href="link"
-                :style="[
-                  bgColor.includes('#')
-                    ? { color: `${bgColor}`, 'background-color': '#fff' }
-                    : '',
-                ]"
-                :class="{
-                  'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
-                    bgColor === 'white',
 
-                  'hidden group-hover:block': !isFull,
-                  'left-40': job?.posted_at,
-
-                  hidden: isFull,
-                }"
-                class="px-6 text-black absolute left-10 py-2 bg-red-600 rounded-full bg-white"
+              <div
+                v-if="hasSalary(job)"
+                class="rounded-full w-full flex items-center gap-1 px-2 py-1 bg-white text-black border-solid border border-gray-300"
               >
-                Apply
-              </a>
+                <span>💰</span>
+                <span class="text-sm w-full"
+                  >${{
+                    Intl.NumberFormat("en", { notation: "compact" }).format(
+                      job?.min_salary ?? 0.0
+                    )
+                  }}-${{
+                    Intl.NumberFormat("en", { notation: "compact" }).format(
+                      job?.max_salary ?? 0.0
+                    )
+                  }}</span
+                >
+              </div>
             </div>
           </div>
         </div>
-      </a>
+        <div class="flex lg:flex-row flex-col justify-around w-full">
+          <div
+            class="gap-3 items-center"
+            :class="{
+              'grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col': isFull,
+
+              'md:flex hidden': !isFull,
+            }"
+          >
+            <nuxt-link
+              :to="getTagSlug(skill)"
+              v-for="(skill, i) in displaySkills"
+              :key="i"
+              class="rounded-full bg-white w-full flex items-center gap-3 px-2 py-1"
+              :class="{
+                'bg-white text-black border-solid border border-gray-800':
+                  bgColor === 'white',
+
+                'bg-white text-black': bgColor === 'blue',
+              }"
+              :style="[bgColor.includes('#') ? { color: `${bgColor}` } : '']"
+            >
+              <span class="">{{ skill }}</span>
+            </nuxt-link>
+          </div>
+          <div
+            class="flex relative items-center md:justify-between lg:justify-center gap-5 py-5 lg:py-1 md:mt-5 lg:mt-0"
+            style="align-content: baseline"
+          >
+            <span class="flex items-center gap-1" v-if="job?.posted_at"
+              ><PaperClip class="" />
+              <p>{{ postedAt }}</p>
+            </span>
+            <nuxt-link
+              @click.prevent="
+                tracking(job.slug, link, isFull ? 'Job Page' : 'homepage')
+              "
+              target="_blank"
+              ref="apply_btn"
+              :to="link"
+              :style="[
+                bgColor.includes('#')
+                  ? { color: `${bgColor}`, 'background-color': '#fff' }
+                  : '',
+              ]"
+              :class="{
+                'bg-gradient-to-r from-purple-600 to-blue-600  text-white':
+                  bgColor === 'white',
+
+                'lg:hidden group-hover:block': !isFull,
+                'left-40 md:left-40': job?.posted_at,
+
+                hidden: isFull,
+              }"
+              class="px-6 text-black absolute left-40 md:left-10 py-2 bg-red-600 rounded-full bg-white"
+            >
+              Apply
+            </nuxt-link>
+          </div>
+        </div>
+      </div>
+      <!-- </a> -->
     </span>
     <div class="w-full" v-if="isFull">
       <div style="">
@@ -363,6 +359,7 @@ const postedAt = computed(() => {
 });
 
 function tracking(slug, link, location) {
+  console.log("as");
   useTrackEvent("view_job", {
     props: { from: location, action: "view", slug },
   });

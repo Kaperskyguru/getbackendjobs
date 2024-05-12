@@ -5,11 +5,11 @@
         <Banner @search="onSearch" />
       </section>
 
-      <div class="page md:mx-auto md:container">
+      <div class="page lg:mx-auto lg:container">
         <section class="md:my-0 mt-10 px-2">
           <PostJobAd />
         </section>
-        <section class="container mx-auto md:w-3/4 w-full px-2 my-6">
+        <section class="container mx-auto lg:w-3/4 w-full px-2 my-6">
           <div
             class="flex gap-2 overflow-x-auto text-black bg-white"
             style="opacity: 0.5; filter: saturate(0)"
@@ -49,7 +49,7 @@
           </div>
         </section>
 
-        <section class="container mx-auto md:w-3/4 w-full px-2 my-10">
+        <section class="container mx-auto lg:w-3/4 w-full px-2 my-10">
           <div class="flex flex-row justify-around gap-2 my-5 overflow-x-auto">
             <div class="flex w-full gap-5">
               <div>
@@ -161,9 +161,9 @@
           </div>
         </section>
 
-        <section id="vert" class="py-2 md:mt-3">
+        <section id="vert" class="p-2 md:mt-3">
           <div
-            class="flex md:flex-row flex-col group bg-gradient-to-r from-purple-600 to-blue-600 text-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto md:w-3/4 w-full px-2 border-t md:border border-solid border-gray-300 md:pr-20 pr-5"
+            class="flex md:flex-row flex-col group bg-gradient-to-r from-purple-600 to-blue-600 text-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto lg:w-3/4 w-full px-2 border-t md:border border-solid border-gray-300 md:pr-20 pr-5"
           >
             <div class="flex md:flex-row flex-col items-center gap-3 w-full">
               <div><Avatar size="normal" name="Mastering Backend" /></div>
@@ -201,11 +201,11 @@
           </div>
         </section>
 
-        <section id="vert" class="py-2 md:mt-3">
+        <section id="vert" class="p-2 md:mt-3">
           <PlaceAds />
         </section>
 
-        <section>
+        <section class="px-2">
           <!-- Pin Jobs -->
           <span v-for="(job, i) in pinJobs" :key="i">
             <Job

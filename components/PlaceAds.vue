@@ -1,18 +1,13 @@
 <template>
   <div
-    class="flex md:flex-row flex-col group bg-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto md:w-3/4 w-full px-2 border-t md:border border-dashed border-gray-400 md:pr-20 pr-5"
+    class="flex md:flex-row flex-col group bg-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto lg:w-3/4 w-full px-2 border-t md:border border-dashed border-gray-400 md:pr-20 pr-5"
   >
-    <a
-      @click.prevent="adClickEvent('pages_ad')"
-      href="https://tally.so/r/wblgQ6"
-      target="_blank"
-      class="flex justify-between w-full"
-    >
+    <span class="flex justify-between w-full">
       <div class="flex md:flex-row flex-col items-center gap-3 w-full">
         <div><Avatar size="normal" src="/yourlogo.png" /></div>
         <div class="py-4">
           <div>
-            <h2 class="text-2xl text-gray-700">
+            <h2 class="text-2xl z-20 text-gray-700">
               Your brand seen by (<a
                 target="_blank"
                 class="text-red-600 underline"
@@ -46,12 +41,21 @@
       >
         <button
           disabled
-          class="border-dashed text-gray-400 border border-gray-400 px-5 rounded-lg py-1"
+          class="border-dashed group-hover:hidden text-gray-400 border border-gray-400 px-5 rounded-lg py-1"
         >
           Your call to action
         </button>
+
+        <a
+          @click.prevent="adClickEvent('pages_ad')"
+          href="https://tally.so/r/wblgQ6"
+          target="_blank"
+          class="border-dashed bg-gradient-to-r from-purple-600 to-blue-600 text-white hidden group-hover:block text-white border border-gray-400 px-5 rounded-lg py-1"
+        >
+          Click here to advertize
+        </a>
       </div>
-    </a>
+    </span>
   </div>
 </template>
 
