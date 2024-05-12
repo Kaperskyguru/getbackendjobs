@@ -154,7 +154,7 @@ useHead({
     {
       hid: "og:url",
       property: "og:url",
-      content: `/${useRoute().params?.slug}`,
+      content: `/jobs/${useRoute().params?.slug}`,
     },
     {
       hid: "og:image:width",
@@ -175,6 +175,13 @@ useHead({
       hid: "twitter:card",
       name: "twitter:card",
       content: "summary_large_image",
+    },
+  ],
+
+  link: [
+    {
+      rel: "canonical",
+      href: `${config.public.baseURL}/jobs/${useRoute().params?.slug}`,
     },
   ],
 });
