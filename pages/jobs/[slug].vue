@@ -77,6 +77,11 @@ const query = computed(() => {
   return `?slug=${id}&id=${id}`;
 });
 
+const link = computed(() => {
+  if (!job.value?.slug) return `/jobs/${job.value?.id}?id=${job.value?.id}`;
+  return `/jobs/${job.value?.slug}`;
+});
+
 async function getJob() {
   try {
     loading.value = true;
@@ -181,7 +186,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: `${config.public.baseURL}/jobs/${useRoute().params?.slug}`,
+      href: `${config.public.baseURL}${link.value}`,
     },
   ],
 });
