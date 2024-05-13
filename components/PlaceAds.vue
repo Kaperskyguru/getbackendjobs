@@ -2,9 +2,9 @@
   <div
     class="flex md:flex-row flex-col group bg-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto lg:w-3/4 w-full px-2 border-t md:border border-dashed border-gray-400 md:pr-20 pr-5"
   >
-    <span class="flex justify-between w-full">
+    <span class="flex md:flex-row flex-col py-3 md:py-0 justify-between w-full">
       <div class="flex md:flex-row flex-col items-center gap-3 w-full">
-        <div><Avatar size="normal" src="/yourlogo.png" /></div>
+        <div><Avatar size="normal" src="/yourlogo.png" name="Your Logo" /></div>
         <div class="py-4">
           <div>
             <h2 class="text-2xl z-20 text-gray-700">
