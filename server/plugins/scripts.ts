@@ -20,6 +20,10 @@ export default defineNitroPlugin((nitroApp: any) => {
 <script defer data-domain="getbackendjobs.com" src="https://plausible.io/js/script.js"></script>
 
 
+<!-- Fathom - beautiful, simple website analytics -->
+  <script src="https://cdn.usefathom.com/script.js" data-site="HTSWREGQ" defer></script>
+<!-- / Fathom -->
+
     `);
   });
 });
