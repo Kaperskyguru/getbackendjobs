@@ -1460,7 +1460,7 @@
             class="flex gap-2 py-5 w-full items-center justify-center grid grid-cols-2 lg:grid-cols-3 md:grid-cols-1 flex-col"
           >
             <div class="w-40 flex gap-2 items-center">
-              <Avatar src="/mb-logo.png" /> Mastering Backend
+              <Avatar src="/logo-icon.png" /> Mastering Backend
             </div>
 
             <div class="w-40 flex">

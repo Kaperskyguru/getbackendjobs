@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <section>
-      <Banner :is-full="true" />
+      <Banner @openMenu="showFloatingPanel = true" :is-full="true" />
     </section>
 
     <div class="page md:mx-auto md:container">
@@ -60,6 +60,12 @@
         />
       </section>
     </div>
+
+    <FloatingPanel
+      :visible="showFloatingPanel"
+      @closed="showFloatingPanel = false"
+    >
+    </FloatingPanel>
   </div>
 </template>
 
@@ -67,6 +73,7 @@
 import { generate } from "text-to-image";
 const job = ref({});
 const loading = ref(false);
+const showFloatingPanel = ref(false);
 const config = useRuntimeConfig();
 
 const query = computed(() => {

@@ -2,14 +2,16 @@
   <div ref="el" class="max-h-screen overflow-auto">
     <div class="relaive">
       <section>
-        <Banner @search="onSearch" />
+        <Banner @search="onSearch" @openMenu="showFloatingPanel = true" />
       </section>
 
       <div class="page lg:mx-auto lg:container">
         <section class="md:my-0 mt-10 px-2">
           <PostJobAd />
         </section>
-        <section class="container mx-auto lg:w-3/4 w-full px-2 my-6">
+        <section
+          class="container mx-auto lg:w-3/4 w-full lg:pt-0 pt-10 px-2 my-6"
+        >
           <div
             class="flex gap-2 overflow-x-auto text-black bg-white"
             style="opacity: 0.5; filter: saturate(0)"
@@ -17,7 +19,7 @@
             <p class="text-gray-500 text-sm">trusted by</p>
             <div class="flex items-center gap-5">
               <div class="w-40 flex gap-2 items-center">
-                <Avatar src="/mb-logo.png" /> Mastering Backend
+                <Avatar src="/logo-icon.png" /> Mastering Backend
               </div>
 
               <div class="w-40 flex">
@@ -50,8 +52,42 @@
         </section>
 
         <section class="container mx-auto lg:w-3/4 w-full px-2 my-10">
-          <div class="flex flex-row justify-around gap-2 my-5 overflow-x-auto">
-            <div class="flex w-full gap-5">
+          <div
+            class="flex flex-row w-full justify-around gap-2 my-5 overflow-x-auto"
+          >
+            <div class="flex items-center w-full gap-5">
+              <div>
+                <button
+                  @click.prevent="showFloatingPanel = true"
+                  class="flex items-center w-20"
+                >
+                  <span>
+                    <img
+                      src="~/assets/logo.png"
+                      class="w-full"
+                      alt="GetbackendJob logo"
+                    />
+                  </span>
+                  <span>
+                    <svg
+                      class="w-2.5 h-2.5"
+                      fill="none"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 1 4 4 4-4"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+
               <div>
                 <Dropdown
                   title="Filter"
@@ -243,13 +279,18 @@
         You payment was successfully and your job will be posted ASAP.
       </p></Dialog
     >
+
+    <FloatingPanel
+      :visible="showFloatingPanel"
+      @closed="showFloatingPanel = false"
+    >
+    </FloatingPanel>
   </div>
 </template>
 
 <script setup>
 import { useInfiniteScroll } from "@vueuse/core";
 import Pressone from "~/assets/pressone-fulltext-logo.svg";
-import Contentre from "~/assets/contentre.svg";
 import {
   locations,
   benefits,
@@ -264,7 +305,7 @@ const jobs = ref([]);
 const pinJobs = ref([]);
 const isLast = ref(false);
 const showPaymentSuccess = ref(false);
-
+const showFloatingPanel = ref(false);
 const loadJobs = async (queries = {}) => {
   try {
     loading.value = true;

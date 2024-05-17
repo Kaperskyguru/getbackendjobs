@@ -17,7 +17,9 @@
       <div
         class="relative flex flex-col justify-center items-center h-full text-center"
       >
-        <div class="absolute left-0 top-0 mt-5 lg:flex gap-3 w-20 h-auto">
+        <div
+          class="absolute left-0 top-0 mt-5 lg:flex gap-3 w-20 h-auto hidden md:block"
+        >
           <nuxt-link href="/">
             <img
               src="~/assets/logo.png"
@@ -27,7 +29,9 @@
           </nuxt-link>
         </div>
 
-        <div class="absolute right-0 top-0 mt-5 lg:flex gap-3 hidden">
+        <div
+          class="absolute items-center right-0 top-0 mt-5 lg:flex gap-3 hidden"
+        >
           <!-- <a
             href="/blog"
             class="px-4 py-2 text-black text-xl rounded border text-white"
@@ -48,7 +52,53 @@
           >
             Post a Backend Job
           </a>
+          <div
+            @click.prevent="$emit('openMenu')"
+            class="burger"
+            style="
+              position: relative;
+              display: block;
+              cursor: pointer;
+              order: 0;
+              width: 1.75rem;
+              height: 32px;
+              border: none;
+              outline: none;
+              visibility: visible;
+              margin-right: 10px;
+            "
+            id="burger"
+          >
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+          </div>
         </div>
+
+        <!-- <div
+          class="absolute items-center right-0 top-0 mt-5 flex gap-3 lg:hidden"
+        >
+          <div
+            class="burger"
+            style="
+              position: relative;
+              display: block;
+              cursor: pointer;
+              order: 0;
+              width: 1.75rem;
+              height: 32px;
+              border: none;
+              outline: none;
+              visibility: visible;
+              margin-right: 10px;
+            "
+            id="burger"
+          >
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+          </div>
+        </div> -->
 
         <span v-if="isFull">
           <h2
@@ -136,7 +186,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["search"]);
+const emit = defineEmits(["search", "openMenu"]);
 const props = defineProps({
   title: {
     type: String,
@@ -167,5 +217,15 @@ function openHiring() {
 }
 </script>
 
-<style>
+<style scoped>
+.burger-line {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: 2px;
+  margin: 6px auto;
+  transform: rotate(0deg);
+  background-color: white;
+  transition: all 0.3s ease-in-out;
+}
 </style>
