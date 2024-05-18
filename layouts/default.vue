@@ -38,6 +38,15 @@
 </template>
 
 <script setup>
+const baseURL = ref("https://getbackendjobs.com");
+useHead({
+  link: [
+    {
+      rel: "canonical",
+      href: baseURL + useRoute().path,
+    },
+  ],
+});
 </script>
 
 <style>
