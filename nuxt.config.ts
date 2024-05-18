@@ -150,7 +150,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/content",
     "@nuxtjs/plausible",
-    // "nuxt-security",
+    "nuxt-security",
   ],
   plausible: {
     // Prevent tracking on localhost
@@ -205,18 +205,26 @@ export default defineNuxtConfig({
     ],
   },
 
-  // routeRules: {
-  //   "/api/jobs": {
-  //     security: {
-  //       allowedMethodsRestricter: {
-  //         methods: ["GET"],
-  //       },
-  //       corsHandler: {
-  //         origin: "*",
-  //       },
-  //     },
-  //   },
-  // },
+  routeRules: {
+    "/": {
+      security: {
+        enabled: false,
+        headers: {
+          contentSecurityPolicy: false,
+        },
+      },
+    },
+    "/api/jobs": {
+      security: {
+        allowedMethodsRestricter: {
+          methods: ["GET"],
+        },
+        corsHandler: {
+          origin: "*",
+        },
+      },
+    },
+  },
 
   postcss: {
     plugins: {
