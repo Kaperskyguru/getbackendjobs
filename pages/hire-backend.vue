@@ -2222,60 +2222,66 @@ async function uploadImage(data) {
   job.company_logo = result?.info?.secure_url;
 }
 async function startHiring() {
-  loading.value = true;
+  try {
+    loading.value = true;
 
-  useTrackEvent("Start Hiring", {
-    props: { from: "HiringBackend Page", action: "click" },
-  });
+    useTrackEvent("Start Hiring", {
+      props: { from: "HiringBackend Page", action: "click" },
+    });
 
-  v$.value.$validate();
-  if (v$.value.$error) return;
+    v$.value.$validate();
+    if (v$.value.$error) {
+      loading.value = false;
+      return;
+    }
 
-  const slug = `${slugify(job.position, {
-    trim: true,
-    lower: true,
-    strict: true,
-  })}-${generateString(6)}`;
+    const slug = `${slugify(job.position, {
+      trim: true,
+      lower: true,
+      strict: true,
+    })}-${generateString(6)}`;
 
-  job.posted_at = Timestamp.now();
-  job.slug = slug;
+    job.posted_at = Timestamp.now();
+    job.slug = slug;
 
-  // Calculate sticky_expired_date
-  job.sticky_expired_date = calculateStickyDate(job);
+    // Calculate sticky_expired_date
+    job.sticky_expired_date = calculateStickyDate(job);
 
-  if (
-    (job.should_pay_later && job.pay_later_email) ||
-    calculatedPrice.value < 1
-  ) {
+    if (
+      (job.should_pay_later && job.pay_later_email) ||
+      calculatedPrice.value < 1
+    ) {
+      const res = await $fetch("/api/jobs", {
+        method: "POST",
+        body: job,
+      });
+
+      // Email Draft link
+      // Email Sequence
+      // Notify Me
+      showJobPostedSuccess.value = true;
+      loading.value = false;
+      return;
+    }
+
+    // Make Payment
+
+    // Create job
+
+    await payment();
+    job.isLive = true;
     const res = await $fetch("/api/jobs", {
       method: "POST",
       body: job,
     });
 
-    // Email Draft link
+    // Email link
     // Email Sequence
-    // Notify Me
-    showJobPostedSuccess.value = true;
     loading.value = false;
-    return;
+  } catch (error) {
+    loading.value = false;
+    console.log(error?.message);
   }
-
-  // Make Payment
-
-  // Create job
-
-  await payment();
-  job.isLive = true;
-  const res = await $fetch("/api/jobs", {
-    method: "POST",
-    body: job,
-  });
-
-  console.log(res);
-
-  // Email link
-  // Email Sequence
-  loading.value = false;
 }
 
 async function payment() {
