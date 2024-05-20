@@ -214,10 +214,20 @@ export default defineNuxtConfig({
         },
       },
     },
+
+    "/hire-backend": {
+      security: {
+        enabled: false,
+        headers: {
+          contentSecurityPolicy: false,
+        },
+      },
+    },
+
     "/api/jobs": {
       security: {
         allowedMethodsRestricter: {
-          methods: ["GET"],
+          methods: ["GET", "POST"],
         },
         corsHandler: {
           origin: "*",
