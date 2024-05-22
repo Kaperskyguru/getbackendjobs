@@ -280,7 +280,7 @@
                 :href="job?.apply_url"
                 class="px-3 flex justify-center py-3 bg-red-600 text-white w-full rounded-lg"
                 ><span v-if="job?.apply_url">Apply for this job</span>
-                <span v-else>Click here to apply vial email</span></a
+                <span v-else>Click here to apply via email</span></a
               >
             </div>
             <p class="font-bold text-center text-sm py-4">

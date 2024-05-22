@@ -218,6 +218,61 @@ export const get = async (
   }
 };
 
+export const getWebhooks = async () => {
+  const colRef = collection(firestoreDb, "webhooks");
+
+  const q = query(colRef, orderBy("created_at", "desc"));
+
+  const snapshot = await getDocs(q);
+
+  const docs = Array.from(snapshot.docs).map((doc) => {
+    return {
+      ...doc.data(),
+      id: doc.id,
+      webhook: doc.data()?.webhook,
+      created_at: doc.data()?.created_at?.toDate(),
+      updated_at: doc.data()?.updated_at?.toDate(),
+    };
+  });
+
+  return docs;
+};
+
+export const getWebhook = async (
+  params: { channel?: string; team?: string },
+  col: string
+) => {
+  // @ts-ignore
+  try {
+    let queryConstraints = [];
+
+    if (params?.channel) {
+      queryConstraints.push(where("channel", "==", params?.channel));
+    }
+
+    if (params?.team) {
+      queryConstraints.push(where("team", "==", params?.team));
+    }
+
+    const colRef = collection(firestoreDb, col);
+    const webhookQuery = query(colRef, ...queryConstraints, limit(1));
+
+    const snapshot: any = await getDocs(webhookQuery);
+
+    const docs = Array.from(snapshot.docs).map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+        created_at: doc?.data().created_at?.toDate(),
+        updated_at: doc?.data().updated_at?.toDate(),
+      };
+    });
+    return docs;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const set = async (col: string, document: Object) => {
   await setDoc(doc(collection(firestoreDb, col)), document, { merge: true });
 };
@@ -231,6 +286,16 @@ export const add = async (col: string, document: Object) => {
 
   return docRef;
 };
+
+// export const addWebhook = async (col: string, document: Object) => {
+//   // @ts-ignore
+//   const colRef = collection(firestoreDb, col);
+//   document.created_at = Timestamp.now();
+//   document.updated_at = Timestamp.now();
+//   const docRef = await addDoc(colRef, document);
+
+//   return docRef;
+// };
 
 export const batch = async (col: string, documents: Array<Object>) => {
   // @ts-ignore

@@ -1,7 +1,7 @@
 import axios from "axios";
-// import moment from '@nuxtjs/moment'
 import { getRandomJob, link } from "../helpers";
-import { getJobs } from "../api/services";
+import { addSlackWebhook as addWebhook, getJobs } from "../api/services";
+import { getWebhook, getWebhooks } from "./firestore";
 
 class Slack {
   static async dispatchJob(event: any, col: string) {
@@ -16,105 +16,14 @@ class Slack {
     // Send to Slack
     if (job) {
       const result = await this.sendJobSlack(job);
-      // console.log(result)
-      if (result === "ok") {
-        // Update Job status
-        // if (await DB.updateJob(res.jobs)) {
-        return {
-          message: "updated successfully",
-          job: job,
-        };
-        // }
-      }
-      return {
-        message: "Slack Job failed",
-        job,
-      };
+      return result;
     }
     return {
       message: "Could not retrieve job",
     };
   }
 
-  // static async dispatchPost() {
-  //   // Get Job and update
-  //   const res = await DB.getRandomPost();
-  //   // Send to Slack
-  //   if (res.posts) {
-  //     const result = await this.sendPostSlack(res.posts[0]);
-  //     if (result === "ok") {
-  //       return {
-  //         message: "Updated successfully",
-  //       };
-  //     }
-  //     return {
-  //       message: "Slack Post failed",
-  //     };
-  //   }
-  //   return {
-  //     message: "Could not retrieve post",
-  //   };
-  // }
-
-  // static sendPostSlack(post) {
-  //   // console.log(
-  //   //   // new Date(post.modified) < new Date(),
-  //   //   moment(post.modified),
-  //   //   new Date()
-  //   // )
-
-  //   const inputDate = new Date(post.modified);
-  //   const today = new Date();
-  //   const content =
-  //     inputDate.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0)
-  //       ? "@here \n\n" + this.stripTags(post)
-  //       : this.stripTags(post);
-
-  //   const block = {
-  //     blocks: [
-  //       {
-  //         type: "section",
-  //         text: {
-  //           type: "mrkdwn",
-  //           text: `<${process.env.BASE_URL}/posts/${post.slug} |* ${post.title}*>`,
-  //         },
-  //       },
-  //       {
-  //         type: "section",
-  //         text: {
-  //           type: "mrkdwn",
-  //           text: content,
-  //         },
-  //         accessory: {
-  //           type: "image",
-  //           image_url: this.image(post),
-  //           alt_text: post.title,
-  //         },
-  //       },
-  //       {
-  //         type: "actions",
-  //         elements: [
-  //           {
-  //             type: "button",
-  //             text: {
-  //               type: "plain_text",
-  //               text: "Read More",
-  //               emoji: true,
-  //             },
-  //             url: `${process.env.BASE_URL}/posts/${post.slug}`,
-  //             style: "danger",
-  //             value: "click_me_123",
-  //             action_id: "actionId-0",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   };
-  //   const url = process.env.SLACK_POST_WEBHOOK;
-  //   return this.postToSlack(url, block);
-  // }
-
-  static sendJobSlack(job: any) {
+  static async sendJobSlack(job: any) {
     const block = {
       blocks: [
         {
@@ -168,8 +77,14 @@ class Slack {
         },
       ],
     };
-    const url = process.env.SLACK_JOB_WEBHOOK;
-    return this.postToSlack(url!, block);
+    // const url = process.env.SLACK_JOB_WEBHOOK;
+    // Get all Slack Webhook
+    const communities = await getWebhooks();
+    return Promise.all(
+      communities.map(
+        async (community) => await this.postToSlack(community?.webhook!, block)
+      )
+    );
   }
 
   static image(post: any) {
@@ -188,22 +103,63 @@ class Slack {
     }
   }
 
-  static postToSlack(url: string, message: any) {
-    return axios
-      .post(url, JSON.stringify(message))
-      .then((result) => result.data)
-      .catch((error) => {
-        // console.log(error);
-      });
+  static async postToSlack(url: string, message: any) {
+    try {
+      const result = await axios.post(url, JSON.stringify(message));
+      return result.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async oAuthResponse(req: any) {
+    const query = getQuery(req);
+    const url = `https://slack.com/api/oauth.v2.access?code=${query.code}&client_id=${process.env.SLACK_CLIENT_ID}&client_secret=${process.env.SLACK_CLIENT_SECRET}`;
+
+    try {
+      const res = await axios.get(url);
+
+      if (!res?.data.ok) {
+        return { error: true }; // error
+      }
+
+      const data = res?.data;
+      const webhook = data?.incoming_webhook?.url;
+      const redirect = data?.incoming_webhook?.configuration_url;
+
+      await this.addToSlackList(data);
+
+      return { error: false, webhook, redirect };
+    } catch (err) {
+      console.log(err);
+      return { error: true };
+    }
+  }
+
+  static async addToSlackList(data: any) {
+    const body = {
+      webhook: data?.incoming_webhook?.url,
+      channel: data?.incoming_webhook?.channel,
+      community: data?.team?.name,
+      team: data?.team?.id,
+      configuration_url: data?.incoming_webhook?.configuration_url,
+      access_token: data?.access_token,
+    };
+
+    const isWebhookFound = await getWebhook(
+      {
+        channel: body.channel,
+        team: body.team,
+      },
+      "webhooks"
+    );
+
+    if (isWebhookFound?.length) {
+      return;
+    }
+
+    return await addWebhook(body, "webhooks");
   }
 }
 
-// function link(job: any) {
-//   if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}&ref=slack`;
-//   return `/jobs/${job?.slug}?ref=slack`;
-// }
-
-// function getRandomJob(jobs: Array<any>) {
-//   return jobs[Math.floor(Math.random() * jobs?.length)];
-// }
 export default Slack;
