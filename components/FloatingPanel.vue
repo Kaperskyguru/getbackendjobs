@@ -619,12 +619,21 @@
                         >
                       </div>
 
-                      <div>
+                      <div class="relative">
                         <a
                           href="https://masteringbackend.com/community"
                           class="text-xs"
                           >👫 Slack (3000)</a
                         >
+
+                        <a
+                          class="absolute w-28 hover:!bg-white"
+                          href="https://slack.com/oauth/v2/authorize?client_id=1250072469155.1525140970550&scope=incoming-webhook,channels:join&user_scope="
+                          ><img
+                            alt="Add to Slack"
+                            src="https://platform.slack-edge.com/img/add_to_slack.png"
+                            srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+                        /></a>
                       </div>
                       <div>
                         <a
