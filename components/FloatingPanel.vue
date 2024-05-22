@@ -606,6 +606,7 @@
                     >
                       <div>
                         <a
+                          target="_blank"
                           href="https://twitter.com/getbackendjobs"
                           class="text-xs"
                           >🥰 Twitter (464)</a
@@ -613,6 +614,7 @@
                       </div>
                       <div>
                         <a
+                          target="_blank"
                           href="https://www.linkedin.com/company/getbackendjobs"
                           class="text-xs"
                           >🤓Linkedin (57)</a
@@ -621,12 +623,14 @@
 
                       <div class="relative">
                         <a
+                          target="_blank"
                           href="https://masteringbackend.com/community"
                           class="text-xs"
                           >👫 Slack (3000)</a
                         >
 
                         <a
+                          target="_blank"
                           class="absolute w-28 hover:!bg-white"
                           href="https://slack.com/oauth/v2/authorize?client_id=1250072469155.1525140970550&scope=incoming-webhook,channels:join&user_scope="
                           ><img
@@ -637,6 +641,7 @@
                       </div>
                       <div>
                         <a
+                          target="_blank"
                           href="https://vec.emlsend.com/newform/web/DoixZVisDzRq7oT8Lm6XDd58KAsOe1r6rUma6zaBBW0w4/46624/"
                           class="text-xs"
                           >📧 Email Newsletter (520)</a
