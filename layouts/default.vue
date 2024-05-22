@@ -43,7 +43,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: baseURL + useRoute().path,
+      href: `${baseURL.value}${useRoute().path}`,
     },
   ],
 });
