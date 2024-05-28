@@ -424,12 +424,12 @@
                         >
                       </div>
 
-                      <div class="text-center pt-3 font-bold col-span-2">
+                      <!-- <div class="text-center pt-3 font-bold col-span-2">
                         <nuxt-link to="#" class="text-xs">
                           Can't find your country? Use Location
                           filter</nuxt-link
                         >
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="border-t relative">
@@ -449,7 +449,10 @@
                       class="flex md:justify-between flex-col justify-center md:grid-cols-2 md:grid gap-2 pb-10"
                     >
                       <div v-for="(language, index) in languages" :key="index">
-                        <nuxt-link to="#" class="text-xs">
+                        <nuxt-link
+                          :to="`/${language.value}-backend-jobs`"
+                          class="text-xs"
+                        >
                           {{ language?.title.split(" ")[0] }}
                           {{ language?.title?.split(" ")?.slice(1)?.join(" ") }}
                           Backend Jobs</nuxt-link
@@ -756,7 +759,7 @@
 
                       <div>
                         <a
-                          to="https://newsletter.masteringbackend.com/p/becoming-a-great-backend-engineer?ref=getbackendjobs&utm_source=getbackendjobs"
+                          href="https://newsletter.masteringbackend.com/p/becoming-a-great-backend-engineer?ref=getbackendjobs&utm_source=getbackendjobs"
                           class="text-xs"
                           >😇 Become a Great Backend Engineer</a
                         >
