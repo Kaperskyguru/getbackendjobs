@@ -206,7 +206,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/": {
+    "/*": {
       security: {
         enabled: false,
         headers: {
