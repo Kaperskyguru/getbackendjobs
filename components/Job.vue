@@ -122,7 +122,7 @@
             class="flex relative items-center md:justify-between lg:justify-center gap-5 py-5 lg:py-1 md:mt-5 lg:mt-0"
             style="align-content: baseline"
           >
-            <span class="flex items-center gap-1" v-if="job?.posted_at"
+            <span class="flex items-center gap-1" v-if="postedAt"
               ><PaperClip class="" />
               <p>{{ postedAt }}</p>
             </span>
@@ -143,7 +143,7 @@
                   bgColor === 'white',
 
                 'lg:hidden group-hover:block': !isFull,
-                'left-40 md:left-40': job?.posted_at,
+                'left-40 md:left-40': postedAt,
 
                 hidden: isFull,
               }"
@@ -354,7 +354,12 @@ function isNew(job) {
 }
 
 const postedAt = computed(() => {
-  const date = new Date(props.job?.posted_at?.seconds * 1000);
+  if (props.job?.posted_at) {
+    const date = new Date(props.job?.posted_at?.seconds * 1000);
+    return format(date, "en_US");
+  }
+
+  const date = new Date(props.job?.timestamp?.seconds * 1000);
   return format(date, "en_US");
 });
 

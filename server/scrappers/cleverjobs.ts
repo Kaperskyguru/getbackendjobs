@@ -1,6 +1,6 @@
 import { dbJobResolver, filterJobs } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
-// import chrome from "selenium-webdriver/chrome";
+import chrome from "selenium-webdriver/chrome";
 import { addJobs, addJobsHelper } from "../api/services";
 const jobUrl = `https://cleverjobs.net/remote?category_id=1&type_id=all&level_id=all&search=back-end%2Cbackend`;
 
@@ -11,19 +11,19 @@ let levels = ["Intern", "Junior", "Middle", "Senior", "Lead"];
 class Startup {
   static async init() {
     try {
-      // const options = new chrome.Options();
-      // options.addArguments("--headless");
-      // options.addArguments("--disable-gpu");
-      // options.addArguments("--no-sandbox");
-      // options.addArguments("--lang=en_US");
-      // options.addArguments("--window-size=1920,1080");
-      // options.addArguments(
-      //   "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
-      // );
+      const options = new chrome.Options();
+      options.addArguments("--headless");
+      options.addArguments("--disable-gpu");
+      options.addArguments("--no-sandbox");
+      options.addArguments("--lang=en_US");
+      options.addArguments("--window-size=1920,1080");
+      options.addArguments(
+        "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
+      );
 
       driver = await new Builder()
         .forBrowser("chrome")
-        // .setChromeOptions(options)
+        .setChromeOptions(options)
         .build();
 
       await driver.get(jobUrl);
@@ -104,7 +104,7 @@ class Startup {
     } catch (err) {
       console.log(err);
     } finally {
-      await driver.quit();
+      await driver?.quit();
     }
   }
 

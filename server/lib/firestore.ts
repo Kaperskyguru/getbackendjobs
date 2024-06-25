@@ -18,6 +18,7 @@ import {
   or,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebase";
+import { months } from "~/helpers";
 
 export const featuredJobs = async (col: string) => {
   // @ts-ignore
@@ -66,6 +67,8 @@ export const queryByCollection = async (
     sortBy: String;
     nanoseconds?: string;
     seconds?: string;
+    date?: string;
+    year?: string;
   }
 ) => {
   // @ts-ignore
@@ -99,6 +102,27 @@ export const queryByCollection = async (
 
     if (benefits.length) {
       queryConstraints.push(where("benefits", "array-contains-any", benefits));
+    }
+
+    if (filters?.date || filters?.year) {
+      const date = new Date();
+      const year = parseInt(filters?.year!) ?? date.getFullYear();
+
+      // Start
+      date.setFullYear(year);
+      date.setDate(1);
+      date.setMonth(months.indexOf(filters?.date!));
+      const startDate = Timestamp.fromDate(date);
+      queryConstraints.push(where("created_at", ">=", startDate));
+
+      // End
+      date.setDate(0);
+      date.setDate(date.getDate());
+      date.setMonth(months.indexOf(filters?.date!));
+      const endDate = Timestamp.fromDate(date);
+
+      queryConstraints.push(where("created_at", ">=", startDate));
+      queryConstraints.push(where("created_at", "<=", endDate));
     }
 
     if (filters?.sortBy?.includes("latest")) {

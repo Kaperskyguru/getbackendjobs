@@ -521,6 +521,33 @@
                         "
                         class="border bg-white relative p-1.5 text-xs font-bold text-center flex justify-center rounded-full"
                       >
+                        Backend Jobs (Months)
+                      </div>
+                    </div>
+
+                    <div
+                      class="flex md:justify-between flex-col justify-center md:grid-cols-2 md:grid gap-2 pb-10"
+                    >
+                      <div v-for="(month, i) in months" :key="i">
+                        <nuxt-link
+                          :to="`/backend-jobs-in-${month}`"
+                          class="text-xs"
+                        >
+                          👩‍💻 Backend Jobs in
+                          <span class="capitalize">{{ month }}</span>
+                        </nuxt-link>
+                      </div>
+                    </div>
+
+                    <div class="border-t relative">
+                      <div
+                        style="
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          width: 50%;
+                        "
+                        class="border bg-white relative p-1.5 text-xs font-bold text-center flex justify-center rounded-full"
+                      >
                         Hire Backend Talents
                       </div>
                     </div>
@@ -843,7 +870,7 @@
 </template>
 
 <script setup>
-import { locations, languages } from "~/helpers";
+import { locations, languages, months } from "~/helpers";
 const config = useRuntimeConfig();
 const pageviews = ref(0);
 async function getPlausableStat() {

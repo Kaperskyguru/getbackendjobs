@@ -180,3 +180,18 @@ export function capitalizeSpecialCharacters(str: string, sc: string) {
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
     .join(sc);
 }
+
+export const months = [
+  "january",
+  "febuary",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];

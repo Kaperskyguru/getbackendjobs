@@ -74,9 +74,9 @@
     </FloatingPanel>
   </div>
 </template>
-  
-  <script setup>
-import { capitalize, months } from "~/helpers";
+    
+    <script setup>
+import { capitalize } from "~/helpers";
 const showFloatingPanel = ref(false);
 const loading = ref(false);
 const route = useRoute();
@@ -87,82 +87,7 @@ const subtitle = ref("");
 
 function generateQuery() {
   const slug = route.params?.slug;
-
-  if (slug.includes("backend-jobs-in")) {
-    const loc = slug.split("backend-jobs-in-")[1];
-
-    if (loc.includes(months.find((i) => i == loc.toLowerCase()))) {
-      return `date=${months.find(
-        (i) => i == loc.toLowerCase()
-      )}&year=${new Date().getFullYear()}`;
-    }
-
-    if (loc.includes("_")) {
-      return `locations=${capitalize(loc.replaceAll("_", " "))}`;
-    }
-
-    return `locations=${capitalize(loc.replaceAll("-", "~")).replaceAll(
-      "~",
-      "-"
-    )}`;
-  }
-
-  if (slug.includes("remote")) {
-    return `locations=Remote`;
-  }
-
-  if (slug.includes("worldwide")) {
-    return `locations=Worldwide`;
-  }
-
-  if (slug.includes("time")) {
-    const loc = slug.split("-backend-jobs")[0];
-
-    if (loc.includes(",")) {
-      return `locations=${capitalize(loc.replaceAll("-", "~")).replaceAll(
-        "~",
-        "-"
-      )}`;
-    }
-
-    return `locations=${capitalize(loc.replaceAll("-", " ")).replaceAll(
-      " ",
-      "-"
-    )}`;
-  }
-
-  const tags = slug.split("-");
-
-  if (!tags[0]?.includes("backend")) {
-    if (tags[0]?.includes("_")) {
-      const words = tags[0]?.split("_");
-
-      if (words[1].includes("js"))
-        return `tags=${capitalize(words[0])} ${words[1].toUpperCase()}`;
-
-      if (/[A-Z]/.test(words[1]?.split("")[0])) {
-        return `tags=${capitalize(tags[0]?.replaceAll("_", " "))}`;
-      }
-      return `tags=${capitalize(tags[0]?.replaceAll("_", "~")).replaceAll(
-        "~",
-        " "
-      )}`;
-    }
-
-    if (tags[0]?.includes(".")) {
-      return `tags=${capitalize(tags[0]?.replaceAll(".", "~")).replaceAll(
-        "~",
-        "."
-      )}`;
-    }
-    return `tags=${capitalize(tags[0])}`;
-  }
-
-  if (tags[0]?.includes("backend") && tags?.length > 2) {
-    return `tags=${capitalize(tags[1])}`;
-  }
-
-  return `tags=${capitalize(tags[0])}`;
+  return `date=${slug}&year=${new Date().getFullYear()}`;
 }
 
 const loadJobs = async () => {
@@ -174,6 +99,7 @@ const loadJobs = async () => {
     const { data } = await useFetch(`/api/jobs?${query}`);
 
     jobs.value = data.value?.result;
+    console.log(jobs.value);
   } catch (error) {
     console.log(error);
   } finally {
@@ -188,22 +114,13 @@ function getPageDetails() {
   const text = slug.toLowerCase().replaceAll("-", " ").replaceAll("_", " ");
 
   if (slug.includes("backend-jobs-in")) {
-    const loc = slug.split("backend-jobs-in-")[1];
-
-    if (loc.includes(months.find((i) => i == loc.toLowerCase()))) {
-      title.value = `Backend Jobs ${loc} ${new Date().getFullYear()} (${
-        jobs.value?.length
-      } new)`;
-      subtitle.value = `Browse ${jobs.value?.length}+ new backend jobs`;
-
-      return;
-    }
-
     title.value = `${text}`;
     subtitle.value = `Find tailored ${text}`;
   }
 
-  title.value = `Latest ${text}`;
+  title.value = `Backend Jobs (${text} ${new Date().getFullYear()}) (${
+    jobs.value?.length
+  } new)`;
   subtitle.value = `Find tailored ${text}`;
 }
 getPageDetails();
@@ -228,10 +145,7 @@ useHead({
     {
       hid: "og:description",
       property: "og:description",
-      content: `${subtitle.value} in ${new Date().toLocaleString("en-us", {
-        month: "long",
-        year: "numeric",
-      })} at companies like Alqen, Rebilly and Coconut Software with salaries from $40,000/year to $130,000/year working as a Senior Backend Developer or Senior Backend Engineer. Last post 15 days,`,
+      content: subtitle.value,
     },
     {
       hid: "og:image",
@@ -266,6 +180,6 @@ useHead({
   ],
 });
 </script>
-  
-  
-  <style></style>
+    
+    
+    <style></style>
