@@ -304,6 +304,7 @@ const filters = ref({});
 const jobs = ref([]);
 const pinJobs = ref([]);
 const isLast = ref(false);
+const moreData = ref([]);
 const showPaymentSuccess = ref(false);
 const showFloatingPanel = ref(false);
 const loadJobs = async (queries = {}) => {
@@ -341,19 +342,73 @@ const loadFeaturedJobs = async () => {
 };
 
 function onLocationSelected(locations) {
-  filters.value.locations = [...(filters.value?.locations ?? []), ...locations];
+  filters.value.locations = locations;
+
+  const queries = {};
+  if (locations.length) {
+    queries.locations = `backend-jobs-in-${filters.value.locations.join("+")}`;
+  } else delete queries.locations;
+
+  useRouter().push({
+    slug: "/",
+    query: {
+      ...useRoute().query,
+      ...queries,
+    },
+  });
 }
 function onKeywordSelected(keywords) {
   filters.value.keywords = keywords;
+
+  const queries = {};
+  if (keywords.length) {
+    queries.keywords = `${filters.value.keywords.join("+")}-backend-jobs`;
+  } else delete queries.keywords;
+
+  useRouter().push({
+    slug: "/",
+    query: {
+      ...useRoute().query,
+      ...queries,
+    },
+  });
 }
 function onBenefitSelected(benefits) {
   filters.value.benefits = benefits;
+
+  const queries = {};
+  if (benefits.length) {
+    queries.benefits = `backend-jobs-with-${filters.value.benefits.join("+")}`;
+  } else delete queries.benefits;
+
+  console.log(queries);
+
+  useRouter().push({
+    path: "/",
+    query: {
+      ...useRoute().query,
+      ...queries,
+    },
+  });
 }
 function onSortBySelected(sortBy) {
   filters.value.sortBy = sortBy;
 }
 function onFilterSelected(filter) {
-  filters.value.locations = [...(filters.value?.locations ?? []), ...filter];
+  filters.value.locations = filter;
+
+  const queries = {};
+  if (filter.length) {
+    queries.type = `${filters.value.locations.join("+")}-backend-jobs`;
+  } else delete queries.type;
+
+  useRouter().push({
+    path: "/",
+    query: {
+      ...useRoute().query,
+      ...queries,
+    },
+  });
 }
 
 function onSearch(search) {
@@ -417,11 +472,11 @@ useInfiniteScroll(
     filters.value.nanoseconds = lastJobTimestamp.nanoseconds;
     const queries = generateQuery(filters.value);
 
-    const moreData = await loadJobs(queries);
+    moreData.value = await loadJobs(queries);
 
-    if (moreData?.length < 20) isLast.value = true;
+    if (moreData.value?.length < 20) isLast.value = true;
 
-    jobs.value.push(...moreData);
+    jobs.value.push(...moreData.value);
   },
   { distance: 10 }
 );
@@ -431,7 +486,7 @@ watch(
   async () => {
     const queries = generateQuery(filters.value);
     jobs.value = await loadJobs(queries);
-    if (moreData?.length < 20) isLast.value = true;
+    if (moreData.value?.length < 20) isLast.value = true;
   },
   { deep: true }
 );

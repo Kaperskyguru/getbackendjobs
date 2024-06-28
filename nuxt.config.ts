@@ -151,6 +151,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/plausible",
     "nuxt-security",
+    "@nuxtjs/sitemap",
   ],
   plausible: {
     // Prevent tracking on localhost
@@ -160,9 +161,14 @@ export default defineNuxtConfig({
   },
   content: {},
 
+  sitemap: {
+    sources: ["/sitemaps"],
+  },
+
   nitro: {
     prerender: {
-      routes: ["/feeds.xml"],
+      crawlLinks: true,
+      routes: ["/", "/feeds.xml", "sitemap.xml"],
     },
   },
 

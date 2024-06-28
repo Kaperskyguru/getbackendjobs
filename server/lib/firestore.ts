@@ -69,7 +69,8 @@ export const queryByCollection = async (
     seconds?: string;
     date?: string;
     year?: string;
-  }
+  },
+  _limit: number = 20
 ) => {
   // @ts-ignore
   try {
@@ -86,8 +87,11 @@ export const queryByCollection = async (
       : [];
 
     const queryConstraints = [];
+    const limitConstraints = [];
     let sortBy = orderBy("created_at", "desc");
-    let _limit = 20;
+    // let _limit = 20;
+
+    console.log(_limit);
 
     let jobSearchQuery: any = null;
     if (locations.length) {
@@ -141,6 +145,10 @@ export const queryByCollection = async (
       sortBy = orderBy("total_click", "desc");
     }
 
+    if (_limit) {
+      limitConstraints.push(limit(_limit));
+    }
+
     // Calculate and store "hottest" by total views * total clicks / 100
     // if (filters?.sortBy?.includes("hottest")) {
     //   sortBy = orderBy("max_salary", "desc");
@@ -156,7 +164,7 @@ export const queryByCollection = async (
         orderBy("position"),
         startAt(filters?.search),
         endAt(filters?.search + "\uf8ff"),
-        limit(_limit)
+        ...limitConstraints
         // ...queryConstraints
       );
     }
@@ -166,7 +174,7 @@ export const queryByCollection = async (
       const q = query(
         colRef,
         orderBy("created_at", "desc"),
-        limit(_limit),
+        ...limitConstraints,
         startAfter(timestamp)
       );
 
@@ -188,7 +196,7 @@ export const queryByCollection = async (
     const snapshot = await getDocs(
       filters?.search
         ? jobSearchQuery
-        : query(colRef, sortBy, limit(_limit), ...queryConstraints)
+        : query(colRef, sortBy, ...limitConstraints, ...queryConstraints)
     );
 
     const docs = Array.from(snapshot.docs).map((doc) => {
