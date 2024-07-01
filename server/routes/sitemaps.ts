@@ -7,7 +7,7 @@ export default defineSitemapEventHandler(async (event) => {
 
   return jobs.map((job) => {
     return {
-      loc: `${process.env.BASE_URL}${link(job, "sitemap")}`,
+      loc: `${process.env.BASE_URL}${link(job, "sitemap", false)}`,
       lastmod: job?.updated_at,
     };
   });

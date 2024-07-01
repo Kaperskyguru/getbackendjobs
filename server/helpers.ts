@@ -125,8 +125,13 @@ export function getRandomJob(jobs: Array<any>) {
   return jobs[Math.floor(Math.random() * jobs?.length)];
 }
 
-export function link(job: any, ref?: string) {
-  if (!job?.slug)
-    return `/jobs/${job?.id}?id=${job?.id}&utm_source=${ref}&ref=${ref}`;
-  return `/jobs/${job?.slug}?utm_source=${ref}&ref=${ref}`;
+export function link(job: any, ref?: string, addRef: boolean = true) {
+  if (addRef) {
+    if (!job?.slug)
+      return `/jobs/${job?.id}?id=${job?.id}&utm_source=${ref}&ref=${ref}`;
+    return `/jobs/${job?.slug}?utm_source=${ref}&ref=${ref}`;
+  } else {
+    if (!job?.slug) return `/jobs/${job?.id}?id=${job?.id}`;
+    return `/jobs/${job?.slug}`;
+  }
 }
