@@ -418,6 +418,8 @@ function onSearch(search) {
 pinJobs.value = await loadFeaturedJobs();
 jobs.value = await loadJobs();
 
+console.log(jobs.value);
+
 function generateQuery(filters) {
   if (filters?.locations) {
     return `locations=${capitalizeSpecialCharacters(
