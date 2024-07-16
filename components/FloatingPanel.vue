@@ -739,11 +739,13 @@
                           href="https://plausible.io/getbackendjobs.com?period=30d"
                           class="text-xs"
                           target="_blank"
-                          >📈 Pageviews ({{
+                          >📈 Pageviews (10k
+                          <!-- {{
                             new Intl.NumberFormat("en", {
                               notation: "compact",
                             }).format(pageviews)
-                          }}/mo)</a
+                          }} -->
+                          /mo)</a
                         >
                       </div>
                       <div>
@@ -874,7 +876,6 @@ import { locations, languages, months } from "~/helpers";
 const config = useRuntimeConfig();
 const pageviews = ref(0);
 async function getPlausableStat() {
-  console.log("asas");
   try {
     const res = await useFetch(
       "https://plausible.io/api/v1/stats/aggregate?site_id=getbackendjobs.com&period=30d&metrics=pageviews",
@@ -895,7 +896,7 @@ async function getPlausableStat() {
   } finally {
   }
 }
-await getPlausableStat();
+// await getPlausableStat();
 </script>
 <script>
 export default {

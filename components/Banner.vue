@@ -32,19 +32,19 @@
         <div
           class="absolute items-center right-0 top-0 mt-5 lg:flex gap-3 hidden"
         >
-          <!-- <a
+          <a
             href="/blog"
             class="px-4 py-2 text-black text-xl rounded border text-white"
           >
             Blog
-          </a> -->
-          <a
+          </a>
+          <!-- <a
             target="_blank"
             href="https://plausible.io/getbackendjobs.com/"
             class="px-3 py-2 text-white rounded-lg text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600"
           >
             Live Analytics
-          </a>
+          </a> -->
           <a
             @click.prevent="openHiring"
             href="/hire-backend"

@@ -8,7 +8,9 @@
         <div class="py-4">
           <div>
             <h2 class="text-2xl z-20 text-gray-700">
-              Your brand seen by (<a
+              Your brand here
+
+              <!-- seen by (<a
                 target="_blank"
                 class="text-red-600 underline"
                 href="https://plausible.io/getbackendjobs.com?period=30d"
@@ -17,12 +19,14 @@
                     notation: "compact",
                   }).format(pageviews)
                 }}/mo</a
-              >) people
+              >) people -->
             </h2>
           </div>
           <div class="py-1 flex">
             <p class="text-lg text-gray-400">
-              Imagine your business here with over (<a
+              Imagine your business here
+
+              <!-- with over (<a
                 target="_blank"
                 href="https://plausible.io/getbackendjobs.com?period=30d"
                 >{{
@@ -30,7 +34,7 @@
                     notation: "compact",
                   }).format(pageviews)
                 }}/mo </a
-              >) pageviews
+              >) pageviews -->
             </p>
           </div>
         </div>
