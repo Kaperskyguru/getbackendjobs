@@ -850,7 +850,7 @@
                       <div>
                         <a
                           target="_blank"
-                          href="https://backendweekly.dev/podcasts?ref=masteringbackend&utm_source=masteringbackend&utm_medium=blog&utm_campaign=footer"
+                          href="https://backendweekly.dev/podcasts?ref=getbackendjobs&utm_source=getbackendjobs&utm_medium=blog&utm_campaign=footer"
                           >😍 Listen to GBE Podcast
                         </a>
                       </div>
