@@ -734,11 +734,9 @@
                     <div
                       class="flex md:justify-between flex-col justify-center md:grid-cols-2 md:grid gap-2 pb-10"
                     >
+                      <!-- https://plausible.io/getbackendjobs.com?period=30d -->
                       <div>
-                        <a
-                          href="https://plausible.io/getbackendjobs.com?period=30d"
-                          class="text-xs"
-                          target="_blank"
+                        <a href="#" class="text-xs" target="_blank"
                           >📈 Pageviews (10k
                           <!-- {{
                             new Intl.NumberFormat("en", {
@@ -761,7 +759,7 @@
                       </div>
                       <div>
                         <nuxt-link to="#" class="text-xs"
-                          >Companies Hiring Backend Engineers</nuxt-link
+                          >😍 Companies Hiring Backend Engineers</nuxt-link
                         >
                       </div>
 
@@ -847,6 +845,14 @@
                           class="text-xs"
                           >🫵 Recieve Weekly Backend Tips/Tricks</a
                         >
+                      </div>
+
+                      <div>
+                        <a
+                          target="_blank"
+                          href="https://backendweekly.dev/podcasts?ref=masteringbackend&utm_source=masteringbackend&utm_medium=blog&utm_campaign=footer"
+                          >😍 Listen to GBE Podcast
+                        </a>
                       </div>
                     </div>
                   </div>
