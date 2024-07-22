@@ -12,14 +12,11 @@ class Startup {
   static async init() {
     try {
       const options = new chrome.Options();
-      options.addArguments("--headless");
+      // options.addArguments("--headless");
       options.addArguments("--disable-gpu");
       options.addArguments("--no-sandbox");
       options.addArguments("--lang=en_US");
       options.addArguments("--window-size=1920,1080");
-      options.setChromeBinaryPath(
-        "/app/.chrome-for-testing/chrome-linux64/chrome"
-      );
       options.addArguments(
         "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
       );
@@ -55,7 +52,7 @@ class Startup {
         .findElement(By.tagName("img"))
         ?.getAttribute("src");
       const company = await element
-        .findElement(By.css(`div > div > a.py-1`))
+        .findElement(By.css(`div > div > a.z-10`))
         .getText();
       const tags = [];
       const tagsElement = await element.findElements(
