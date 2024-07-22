@@ -1,6 +1,7 @@
 import { dbJobResolver } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
-import chrome from "selenium-webdriver/chrome";
+
+// import chrome from ;
 import { addJobs, addJobsHelper } from "../api/services";
 const jobUrl = `https://startup.jobs/?q=backend`;
 
@@ -11,7 +12,14 @@ let cardArr = [];
 class Startup {
   static async init() {
     try {
-      const options = new chrome.Options();
+      const chrome = () =>
+        import(
+          process.env.NODE_ENV === "development"
+            ? "selenium-webdriver/chrome"
+            : "/app/.chrome-for-testing/chrome-linux64/chrome"
+        );
+      const o = await chrome();
+      const options = new o.Options();
       options.addArguments("--headless");
       options.addArguments("--disable-gpu");
       options.addArguments("--no-sandbox");
