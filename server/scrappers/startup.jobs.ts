@@ -52,7 +52,11 @@ class Startup {
         .findElement(By.tagName("img"))
         ?.getAttribute("src");
       const company = await element
-        .findElement(By.css(`div > div > a.z-10`))
+        .findElement(
+          By.xpath(
+            `//*[@id="posts-index"]/div[2]/section[2]/div/div/div[2]/div[2]/div[1]/div/div/div/a`
+          )
+        )
         .getText();
       const tags = [];
       const tagsElement = await element.findElements(
