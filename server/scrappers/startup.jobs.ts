@@ -12,7 +12,7 @@ class Startup {
   static async init() {
     try {
       const options = new chrome.Options();
-      // options.addArguments("--headless");
+      options.addArguments("--headless");
       options.addArguments("--disable-gpu");
       options.addArguments("--no-sandbox");
       options.addArguments("--lang=en_US");
