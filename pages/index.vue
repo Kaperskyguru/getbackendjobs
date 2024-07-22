@@ -383,7 +383,7 @@ function onBenefitSelected(benefits) {
     queries.benefits = `backend-jobs-with-${filters.value.benefits.join("+")}`;
   } else delete queries.benefits;
 
-  console.log(queries);
+  // console.log(queries);
 
   useRouter().push({
     path: "/",
@@ -393,7 +393,7 @@ function onBenefitSelected(benefits) {
     },
   });
 }
-function onSortBySelected(sortBy) {
+function onSortBySelected(sortBy = "latest") {
   filters.value.sortBy = sortBy;
 }
 function onFilterSelected(filter) {
@@ -420,7 +420,7 @@ function onSearch(search) {
 pinJobs.value = await loadFeaturedJobs();
 jobs.value = await loadJobs();
 
-console.log(jobs.value);
+// console.log(jobs.value);
 
 function generateQuery(filters) {
   if (filters?.locations) {
@@ -472,17 +472,21 @@ useInfiniteScroll(
     if (isLast.value) return;
 
     const lastJobTimestamp = jobs.value[jobs.value.length - 1].timestamp;
-    filters.value.seconds = lastJobTimestamp.seconds;
-    filters.value.nanoseconds = lastJobTimestamp.nanoseconds;
-    const queries = generateQuery(filters.value);
+    filters.seconds = lastJobTimestamp.seconds;
+    filters.nanoseconds = lastJobTimestamp.nanoseconds;
+    const queries = generateQuery(filters);
 
-    moreData.value = await loadJobs(queries);
+    const moreData = await loadJobs(queries);
 
-    if (moreData.value?.length < 20) isLast.value = true;
+    if (moreData?.length < 20) isLast.value = true;
 
-    jobs.value.push(...moreData.value);
-  },
-  { distance: 10 }
+    moreData.forEach((element) => {
+      console.log(element.position);
+    });
+
+    jobs.value.push(...moreData);
+  }
+  // { distance: 10 }
 );
 
 watch(
@@ -490,7 +494,7 @@ watch(
   async () => {
     const queries = generateQuery(filters.value);
     jobs.value = await loadJobs(queries);
-    if (moreData.value?.length < 20) isLast.value = true;
+    if (jobs.value?.length < 20) isLast.value = true;
   },
   { deep: true }
 );

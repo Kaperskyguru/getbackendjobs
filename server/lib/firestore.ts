@@ -91,8 +91,6 @@ export const queryByCollection = async (
     let sortBy = orderBy("created_at", "desc");
     // let _limit = 20;
 
-    console.log(_limit);
-
     let jobSearchQuery: any = null;
     if (locations.length) {
       queryConstraints.push(
@@ -170,7 +168,11 @@ export const queryByCollection = async (
     }
 
     if (filters?.seconds && filters?.nanoseconds) {
-      const timestamp = new Timestamp(filters?.seconds, filters?.nanoseconds);
+      const timestamp = new Timestamp(
+        parseInt(filters?.seconds),
+        parseInt(filters?.nanoseconds)
+      );
+
       const q = query(
         colRef,
         orderBy("created_at", "desc"),
