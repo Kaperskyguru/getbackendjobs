@@ -1,6 +1,6 @@
 import { dbJobResolver } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
-import chrome from "selenium-webdriver/chrome";
+import chrome from "selenium-webdriver/chrome.js";
 import { addJobsHelper } from "../api/services";
 const jobUrl = `https://www.startupjobs.com/jobs/development/back-end`;
 
@@ -80,7 +80,7 @@ class StartupJobs {
       return {
         message: "Scraped successfully",
         status: 200,
-        total_jobs: jobs.length,
+        total_jobs: jobs?.length,
         data,
       };
     } catch (err) {
@@ -95,7 +95,7 @@ class StartupJobs {
     // console.log(jobs)
     const data: any = {};
     data.jobs = jobs;
-    data.total_jobs = jobs.length;
+    data.total_jobs = jobs?.length;
     // DB.store(dbJobResolver(jobs));
     return data;
   }

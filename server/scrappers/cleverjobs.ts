@@ -1,6 +1,6 @@
 import { dbJobResolver, filterJobs } from "../helpers";
 import { Builder, By } from "selenium-webdriver";
-import chrome from "selenium-webdriver/chrome";
+import chrome from "selenium-webdriver/chrome.js";
 import { addJobs, addJobsHelper } from "../api/services";
 const jobUrl = `https://cleverjobs.net/remote?category_id=1&type_id=all&level_id=all&search=back-end%2Cbackend`;
 
