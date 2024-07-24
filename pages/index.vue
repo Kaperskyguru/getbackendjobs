@@ -300,9 +300,7 @@ import {
 import { computed, onMounted } from "vue";
 const el = ref(null);
 const loading = ref(false);
-const filters = ref({
-  sortBy: "latest",
-});
+const filters = ref({});
 const jobs = ref([]);
 const pinJobs = ref([]);
 const isLast = ref(false);
