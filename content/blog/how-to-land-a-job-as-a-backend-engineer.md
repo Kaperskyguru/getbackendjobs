@@ -1,5 +1,5 @@
 ---
-title: "How to Land a Job as a Backend Engineer: A Step-by-Step Guide"
+title: "How to Land a Job as a Backend Engineer (2024): A Step-by-Step Guide"
 published: true
 date: 2024-08-15 13:49:53 UTC
 tags: backend,career,hiring,webdev
