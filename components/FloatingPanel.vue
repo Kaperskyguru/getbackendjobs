@@ -753,7 +753,9 @@
                       </div>
 
                       <div>
-                        <nuxt-link to="#" class="text-xs"
+                        <nuxt-link
+                          to="/blog/backend-engineering-job-market-size"
+                          class="text-xs"
                           >🙃 Backend Job Market size</nuxt-link
                         >
                       </div>
@@ -764,7 +766,9 @@
                       </div>
 
                       <div>
-                        <nuxt-link to="#" class="text-xs"
+                        <nuxt-link
+                          to="/blog/what-is-the-highest-paid-backend"
+                          class="text-xs"
                           >💰 Highest Paying Backend Jobs</nuxt-link
                         >
                       </div>
@@ -850,6 +854,7 @@
                       <div>
                         <a
                           target="_blank"
+                          class="text-xs"
                           href="https://backendweekly.dev/podcasts?ref=getbackendjobs&utm_source=getbackendjobs&utm_medium=blog&utm_campaign=footer"
                           >😍 Listen to GBE Podcast
                         </a>
