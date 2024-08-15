@@ -31,7 +31,7 @@
 
     <div class="container mx-auto max-w-3xl p-8 grow mt-10">
       <div>
-        <ContentList path="/blog" v-slot="{ list }">
+        <ContentList :query="query" v-slot="{ list }">
           <div
             class="mb-8 border-dotted border-b pb-8 border-gray-300"
             v-for="article in list"
@@ -77,6 +77,7 @@
 </template>
 
 <script setup>
+const query = { path: "/blog", sort: [{ date: -1 }] };
 </script>
 
 <style>
