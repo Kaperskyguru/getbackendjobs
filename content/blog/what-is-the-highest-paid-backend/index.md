@@ -23,7 +23,7 @@ According to [Glassdoor.com](http://Glassdoor.com) below are the salary ranges f
 
 Senior backend developers in the United States can earn anywhere from $126,000 to $203,000 per year, based on their experience and the company they work for.
 
-![Annual Salary Range for Senior Backend Developers.png](assets/Annual_Salary_Range_for_Senior_Backend_Developers.png)
+![Annual Salary Range for Senior Backend Developers.png](/assets/Annual_Salary_Range_for_Senior_Backend_Developers.png)
 
 ## **Backend Architect**
 
@@ -35,7 +35,7 @@ The demand for backend architects is on the rise, fueled by the increasing compl
 
 Backend architects with several years of experience can expect to earn between $134,000 and $218,000 per year. As you gain experience working on more complex projects and showing proficiency in backend design, your salary is likely to increase.
 
-![Annual Salary Range for Backend Architects.png](assets/Annual_Salary_Range_for_Backend_Architects.png)
+![Annual Salary Range for Backend Architects.png](/assets/Annual_Salary_Range_for_Backend_Architects.png)
 
 ## **Cloud Engineer**
 
@@ -49,7 +49,7 @@ For a company, their data can be stored and backed up more easily, their softwar
 
 A cloud engineer who specializes in backend services makes an average annual salary of $119,000 to $188,000. The ability to work with cloud technology is one of the most in-demand abilities.
 
-![Annual Salary Range for Cloud Engineers (1).png](<assets/Annual_Salary_Range_for_Cloud_Engineers_(1).png>)
+![Annual Salary Range for Cloud Engineers (1).png](</assets/Annual_Salary_Range_for_Cloud_Engineers_(1).png>)
 
 ## **DevOps Engineer**
 
@@ -61,7 +61,7 @@ As a DevOps engineer, you need to know how developers work. This includes using 
 
 DevOps engineers often earn between $116,000 and $172,000 per year.
 
-![Annual Salary Range for DevOps Engineers (1).png](<assets/Annual_Salary_Range_for_DevOps_Engineers_(1).png>)
+![Annual Salary Range for DevOps Engineers (1).png](</assets/Annual_Salary_Range_for_DevOps_Engineers_(1).png>)
 
 ## **Data Engineer**
 
@@ -71,7 +71,7 @@ Data engineering is designing and building systems for collecting, storing, and 
 
 Data engineering is also a well-paying career, with annual salaries ranging from $109,000 to $161,000.
 
-![Annual Salary Range for Data Engineers .png](assets/Annual_Salary_Range_for_Data_Engineers_.png)
+![Annual Salary Range for Data Engineers .png](/assets/Annual_Salary_Range_for_Data_Engineers_.png)
 
 ## **Why are they high-paying?**
 
