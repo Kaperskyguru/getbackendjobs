@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-const query = { path: "/blog", sort: [{ date: -1 }] };
+const query = { path: "/blog", sort: [{ date: "desc" }] };
 </script>
 
 <style>
