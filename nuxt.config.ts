@@ -221,6 +221,15 @@ export default defineNuxtConfig({
       },
     },
 
+    "/blog/*": {
+      security: {
+        enabled: false,
+        headers: {
+          contentSecurityPolicy: false,
+        },
+      },
+    },
+
     "/hire-backend": {
       security: {
         enabled: false,
