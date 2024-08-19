@@ -26,6 +26,7 @@
     "@vuelidate/validators": "^2.0.4",
     "appwrite": "^14.0.0",
     "axios": "^1.6.8",
+    "bottleneck": "^2.19.5",
     "cloudinary": "^2.0.3",
     "firebase": "^10.9.0",
     "nuxt": "^3.11.2",
