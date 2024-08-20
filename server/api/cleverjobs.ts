@@ -3,7 +3,9 @@ import IORedis from "ioredis";
 import { Queue, QueueEvents, Worker } from "bullmq";
 
 const connection = new IORedis(
-  `rediss://default:${process.env.REDIS_PASSWORD}@factual-firefly-60182.upstash.io:6379`,
+  process.env.NODE_ENV === "development"
+    ? "redis://127.0.0.1:6379"
+    : `rediss://default:${process.env.REDIS_PASSWORD}@factual-firefly-60182.upstash.io:6379`,
   {
     maxRetriesPerRequest: null,
   }
@@ -37,4 +39,8 @@ export default defineEventHandler(async (event) => {
       console.error("error painting", failedReason);
     }
   );
+
+  return {
+    message: "job scraping",
+  };
 });
