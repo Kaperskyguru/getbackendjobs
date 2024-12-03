@@ -37,4 +37,4 @@ Backend developers can expect a standard 40-hour workweek, with the flexibility 
 
 While certain projects or company cultures may lead to extended hours, many roles are moving toward a balanced and flexible approach that will allow developers to maintain a healthy work-life balance.
 
-For those [entering backend development](https://masteringbackend.com/hubs/backend-engineering#), understanding these factors will help set realistic expectations and aid in choosing a work environment that aligns with personal preferences.
+For those [entering backend development](https://masteringbackend.com/hubs/backend-engineering), understanding these factors will help set realistic expectations and aid in choosing a work environment that aligns with personal preferences.

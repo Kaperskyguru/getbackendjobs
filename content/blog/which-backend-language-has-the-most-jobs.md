@@ -5,7 +5,7 @@ date: 2024-12-03 13:49:53 UTC
 tags: backend,career,hiring,frontend,jobs
 ---
 
-For anyone considering a [career in backend development](https://masteringbackend.com/hubs/backend-engineering#), the demand for backend developers is high, but not all programming languages are equally sought after. So understanding which languages dominate the job market might help you plan your learning path and increase your employability.
+For anyone considering a [career in backend development](https://masteringbackend.com/hubs/backend-engineering), the demand for backend developers is high, but not all programming languages are equally sought after. So understanding which languages dominate the job market might help you plan your learning path and increase your employability.
 
 Let’s have a look at some of the most popular backend languages based on job availability, as well as the factors that influence their demand.
 

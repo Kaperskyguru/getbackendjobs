@@ -21,7 +21,7 @@ They typically work with languages and frameworks like HTML which is more like t
 
 Backend Development on the other hand is responsible for the server-side aspects of an application. Backend developers build and maintain the databases, server logic, and APIs that make frontend elements function properly.
 
-They work with languages like [Python](<[https://masteringbackend.com/courses/become-a-python-backend-engineer](https://masteringbackend.com/courses/become-a-python-backend-engineer)?ref=getbackendjobs>), [Java](<[https://masteringbackend.com/courses/become-a-java-spring-backend-engineer](https://masteringbackend.com/courses/become-a-java-spring-backend-engineer)?ref=getbackendjobs>), and [Ruby](<[https://masteringbackend.com/courses/become-a-ruby-backend-engineer](https://masteringbackend.com/courses/become-a-ruby-backend-engineer)?ref=getbackendjobs>), or frameworks like [Node.js](<[https://masteringbackend.com/courses/become-a-nodejs-backend-engineer](https://masteringbackend.com/courses/become-a-nodejs-backend-engineer)?ref=getbackendjobs>) and Django to ensure that data are managed securely and efficiently.
+They work with languages like [Python](https://masteringbackend.com/courses/become-a-python-backend-engineer?ref=getbackendjobs), [Java](https://masteringbackend.com/courses/become-a-java-spring-backend-engineer?ref=getbackendjobs), and [Ruby](https://masteringbackend.com/courses/become-a-ruby-backend-engineer?ref=getbackendjobs), or frameworks like [Node.js](https://masteringbackend.com/courses/become-a-nodejs-backend-engineer?ref=getbackendjobs) and Django to ensure that data are managed securely and efficiently.
 
 The user-facing interface of a website needs to be visually appealing but without the software that runs in the background, the website's user interface wouldn't even exist in the first place. That’s something that puts backend developer skills to the test.
 
@@ -52,7 +52,7 @@ These figures vary significantly by country, company size, and specific technica
 
 ### **Conclusion**
 
-In the end, both frontend and [backend development](https://masteringbackend.com/hubs/backend-engineering#) provide satisfying employment opportunities with competitive wages. The earning potential for each role depends on a variety of factors, including skill set, experience, and industry demand.
+In the end, both frontend and [backend development](https://masteringbackend.com/hubs/backend-engineering) provide satisfying employment opportunities with competitive wages. The earning potential for each role depends on a variety of factors, including skill set, experience, and industry demand.
 
 For those looking to maximize their earning potential, developing knowledge in both frontend and backend (full-stack) may be the most versatile choice, allowing flexibility across different projects and often leading to higher compensation.
 
