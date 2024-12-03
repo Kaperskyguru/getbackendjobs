@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="pt-10 pb-16 lg:pt-16 lg:pb-24 antialiased">
+    <div class="pt-10 pb-16 lg:pt-16 antialiased">
       <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
         <ContentDoc v-slot="{ doc }">
           <article
@@ -46,6 +46,9 @@
         </ContentDoc>
       </div>
     </div>
+    <div class="pb-16">
+      <PlatformAd />
+    </div>
   </main>
 </template>
 
@@ -59,6 +62,10 @@ article p {
 
 article h2 {
   @apply py-4 text-2xl;
+}
+
+article p a {
+  color: brown;
 }
 
 article h3 {
