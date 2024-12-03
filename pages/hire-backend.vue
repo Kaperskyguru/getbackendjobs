@@ -1637,7 +1637,7 @@
             <div class="w-60">
               <Avatar
                 size="large"
-                src="https://media.licdn.com/dms/image/D4D03AQH_aOkYilHvQg/profile-displayphoto-shrink_800_800/0/1669993235313?e=1716422400&v=beta&t=TaThiLh54TN9ijbAJ97eJkpcXWAahax3zETgQgxvqZI"
+                src="https://pub-63da695b9ece47c5b3b49bd78b86d884.r2.dev/chibueze.jpeg"
               />
             </div>
             <p>
@@ -1660,20 +1660,29 @@
             <div class="w-60">
               <Avatar
                 size="large"
-                src="https://media.licdn.com/dms/image/D4D03AQEiHuoQ9-79qQ/profile-displayphoto-shrink_800_800/0/1672227614408?e=1716422400&v=beta&t=J6KR2X-MTIHs7iy-_lB7oJbVoto9yI7qq6RJiAQcTUM"
+                src="https://masteringbackend.com/_nuxt/img/solomon-eseme.fa12360.jpg"
               />
             </div>
             <p class="text-md leading-relaxed">
               Hi I'm the maker of Get Backend Jobs and other sites related to
               backend engineering such as
-              <a href="https://masteringbackend.com?ref=getbackendjobs"
+              <a
+                target="_black"
+                href="https://masteringbackend.com?ref=getbackendjobs"
                 >Mastering Backend</a
               >,
               <a
-                href="https://playground.masteringbackend.com?ref=getbackendjobs"
+                target="_black"
+                href="https://codeplayground.site?ref=getbackendjobs"
                 >Backend Code Playground</a
-              >, <a href="#">Backend Interview Prep</a>,
-              <a href="#">Backend Joy</a>.
+              >,
+              <a
+                target="_black"
+                href="https://boilerplatesearch.com?ref=getbackendjobs"
+                >BoilerplateSearch</a
+              >
+              // , <a href="#">Backend Joy</a>
+              .
             </p>
 
             <p>

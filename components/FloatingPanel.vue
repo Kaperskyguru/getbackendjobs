@@ -75,7 +75,7 @@
                   <div>
                     <span class="text-2xl font-bold"> Get Backend Jobs</span>
                     <p class="font-light text-lg italic">
-                      Find tailored backend engineerng jobs in the world.
+                      Find tailored backend engineering jobs in the world.
                     </p>
                   </div>
                 </nuxt-link>
