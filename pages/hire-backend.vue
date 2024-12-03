@@ -1680,9 +1680,7 @@
                 target="_black"
                 href="https://boilerplatesearch.com?ref=getbackendjobs"
                 >BoilerplateSearch</a
-              >
-              // , <a href="#">Backend Joy</a>
-              .
+              >.
             </p>
 
             <p>
