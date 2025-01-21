@@ -1,5 +1,5 @@
 ---
-title: "The Backend Engineering Job Market Size (2024): Trends, Statistics, and Opportunities"
+title: "The Backend Engineering Job Market Size (2025): Trends, Statistics, and Opportunities"
 published: true
 date: 2024-08-15 14:49:53 UTC
 tags: backend,career,hiring,webdev
