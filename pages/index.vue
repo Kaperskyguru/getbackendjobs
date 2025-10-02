@@ -238,7 +238,8 @@
         </section>
 
         <section id="vert" class="p-2 md:mt-3">
-<div><img src='https://pub-63da695b9ece47c5b3b49bd78b86d884.r2.dev/1759231969557.png' /></div>
+<div class="flex md:flex-row flex-col group bg-white pl-2 md:justify-between md:rounded-lg rounded justify-start items-center gap-3 container mx-auto lg:w-3/4 w-full px-2 border-t md:border border-dashed border-blue-600 md:pr-20 pr-5">
+  <a href="https://laand.me?ref=getbackendjobs$utm_source=getbackendjobs"><img src='https://pub-63da695b9ece47c5b3b49bd78b86d884.r2.dev/1759231969557.png' /></a></div>
           </section>
 
         <section id="vert" class="p-2 md:mt-3">
