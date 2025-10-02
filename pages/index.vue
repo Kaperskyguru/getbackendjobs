@@ -238,6 +238,10 @@
         </section>
 
         <section id="vert" class="p-2 md:mt-3">
+<div><img src='https://pub-63da695b9ece47c5b3b49bd78b86d884.r2.dev/1759231969557.png' /></div>
+          </section>
+
+        <section id="vert" class="p-2 md:mt-3">
           <PlaceAds />
         </section>
 
